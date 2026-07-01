@@ -1,0 +1,45 @@
+<div class="page-width section-padding">
+  <h1 class="section-title" style="text-align:left">{{ 'cart.general.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <p>{{ 'cart.general.empty' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">{{ 'cart.general.continue_shopping' | t }}</a>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <div class="grid-2col">
+        <div>
+          {%- for item in cart.items -%}
+            <div class="testimonial-card" style="display:flex;gap:16px;align-items:center;margin-bottom:14px">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.image.alt | default: item.title | escape }}" width="80" height="80" style="border-radius:10px;object-fit:cover" loading="lazy">
+              {%- endif -%}
+              <div style="flex:1">
+                <p style="font-weight:700">{{ item.product.title }}</p>
+                <p style="color:var(--color-text-light);font-size:13px">{{ item.variant.title }}</p>
+                {% render 'price', variant: item.variant %}
+              </div>
+              <input type="number" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="0" class="qty-input" style="width:60px">
+            </div>
+          {%- endfor -%}
+          {%- if settings.show_cart_note -%}
+            <textarea name="note" placeholder="{{ 'cart.general.note' | t }}" style="width:100%;border-radius:var(--radius);border:2px solid var(--color-bg-soft);padding:12px;margin-top:12px">{{ cart.note }}</textarea>
+          {%- endif -%}
+        </div>
+        <div>
+          <div class="bundle-section">
+            <div class="bundle-price-row"><span>{{ 'cart.general.subtotal' | t }}</span><span class="price">{{ cart.total_price | money }}</span></div>
+            <p style="font-size:13px;color:var(--color-text-light)">{{ 'cart.general.shipping_note' | t }}</p>
+            <button type="submit" name="update" class="btn btn--outline btn--full" style="margin-bottom:10px">{{ 'cart.general.update' | t }}</button>
+            <button type="submit" name="checkout" class="btn btn--primary btn--full">{{ 'cart.general.checkout' | t }}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Warenkorb"
+}
+{% endschema %}

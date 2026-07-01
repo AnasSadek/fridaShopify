@@ -1,0 +1,42 @@
+<section class="section-padding">
+  <div class="page-width">
+    <div class="video-section">
+      <div class="video-section__media" data-video-section>
+        {%- if section.settings.video -%}
+          {{ section.settings.video | video_tag: image_size: '1400x788', controls: false, muted: true, loop: false, class: 'video-section__video', playsinline: true }}
+        {%- elsif section.settings.poster_image -%}
+          <img src="{{ section.settings.poster_image | image_url: width: 1400 }}" alt="{{ section.settings.poster_image.alt | default: 'Frida EU Lifestyle Video' }}" width="1400" height="788" loading="lazy">
+        {%- else -%}
+          {{ 'lifestyle-3' | placeholder_svg_tag: 'video-section__placeholder' }}
+        {%- endif -%}
+        {%- if section.settings.video -%}
+          <button class="video-section__play" data-video-play aria-label="Video abspielen">
+            {% render 'icon', name: 'chevron-right' %}
+          </button>
+        {%- endif -%}
+        <div class="video-section__overlay">
+          <div class="video-section__caption">
+            <h3>{{ section.settings.title | default: 'So einfach bringst du Frida-Frische in dein Zuhause' }}</h3>
+            <a href="{{ section.settings.cta_link | default: '#bestseller' }}" class="btn btn--aqua">{{ section.settings.cta_text | default: 'Produkte entdecken' }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Frida Video",
+  "settings": [
+    { "type": "image_picker", "id": "poster_image", "label": "Vorschaubild (Poster, falls kein Video hochgeladen ist)" },
+    { "type": "video", "id": "video", "label": "Lifestyle-Video (Upload)" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "So einfach bringst du Frida-Frische in dein Zuhause" },
+    { "type": "text", "id": "cta_text", "label": "Button-Text", "default": "Produkte entdecken" },
+    { "type": "url", "id": "cta_link", "label": "Button-Link" }
+  ],
+  "presets": [
+    { "name": "Frida Video" }
+  ]
+}
+{% endschema %}

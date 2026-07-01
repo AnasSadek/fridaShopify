@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "frida-categories",
+      "settings": {
+        "title": "Alle Kollektionen"
+      }
+    }
+  },
+  "order": ["main"]
+}

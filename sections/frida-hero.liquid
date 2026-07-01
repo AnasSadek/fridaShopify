@@ -1,0 +1,137 @@
+<section class="hero">
+  <div class="page-width">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="hero__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        <h1 class="hero__title">{{ section.settings.title | default: 'Frische, die man sofort spürt.' }}</h1>
+        <p class="hero__subtitle">{{ section.settings.subtitle | default: 'Langanhaltende Luft- und Bodendüfte für ein sauberes, frisches Zuhause.' }}</p>
+        <div class="hero__ctas">
+          {%- if section.settings.cta1_text != blank -%}
+            <a href="{{ section.settings.cta1_link | default: '#bestseller' }}" class="btn btn--primary">{{ section.settings.cta1_text }}</a>
+          {%- endif -%}
+          {%- if section.settings.cta2_text != blank -%}
+            <a href="{{ section.settings.cta2_link | default: '#bestseller' }}" class="btn btn--outline">{{ section.settings.cta2_text }}</a>
+          {%- endif -%}
+        </div>
+
+        <div class="trust-badges">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'trust_badge' -%}
+              <div class="trust-badge" {{ block.shopify_attributes }}>
+                {% render 'icon', name: block.settings.icon %}
+                <span>{{ block.settings.text }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="hero__media">
+        {%- if section.settings.image -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1200 }}"
+            alt="{{ section.settings.image.alt | default: 'Frida EU Duft-Produkte im hellen Zuhause' }}"
+            width="1200" height="1500" loading="eager" fetchpriority="high">
+        {%- else -%}
+          <div class="hero__media-placeholder">
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__media-placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Frida Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Kicker-Text",
+      "default": "Frida EU Home Fragrance"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Überschrift",
+      "default": "Frische, die man sofort spürt."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Untertitel",
+      "default": "Langanhaltende Luft- und Bodendüfte für ein sauberes, frisches Zuhause."
+    },
+    {
+      "type": "text",
+      "id": "cta1_text",
+      "label": "Button 1 Text",
+      "default": "Jetzt entdecken"
+    },
+    {
+      "type": "url",
+      "id": "cta1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "cta2_text",
+      "label": "Button 2 Text",
+      "default": "Bestseller ansehen"
+    },
+    {
+      "type": "url",
+      "id": "cta2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero-Produktbild",
+      "info": "Empfohlen: mehrere Frida Produkte auf hellem Hintergrund, 1200 x 1500px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shipping", "label": "Versand" },
+            { "value": "home-office", "label": "Zuhause & Büro" },
+            { "value": "spray", "label": "Duftwirkung" },
+            { "value": "scents", "label": "Duftsorten" },
+            { "value": "shield-check", "label": "Qualität" }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Schneller Versand"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Frida Hero",
+      "blocks": [
+        { "type": "trust_badge", "settings": { "icon": "shipping", "text": "Schneller Versand" } },
+        { "type": "trust_badge", "settings": { "icon": "home-office", "text": "Für Zuhause & Büro" } },
+        { "type": "trust_badge", "settings": { "icon": "spray", "text": "Intensive Duftwirkung" } },
+        { "type": "trust_badge", "settings": { "icon": "scents", "text": "Viele Duftsorten" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

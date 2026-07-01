@@ -1,0 +1,66 @@
+<section class="section-padding">
+  <div class="page-width">
+    <div class="section-header">
+      {%- if section.settings.eyebrow != blank -%}<p class="section-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-title">{{ section.settings.title | default: 'Warum Frida?' }}</h2>
+    </div>
+
+    <div class="benefits-grid">
+      {%- for block in section.blocks -%}
+        <div class="benefit-item" {{ block.shopify_attributes }}>
+          <div class="benefit-item__icon">{% render 'icon', name: block.settings.icon %}</div>
+          <p class="benefit-item__title">{{ block.settings.title }}</p>
+          <p class="benefit-item__text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Frida Vorteile",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker-Text", "default": "Deine Vorteile" },
+    { "type": "text", "id": "title", "label": "Überschrift", "default": "Warum Frida?" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Vorteil",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "spray", "label": "Duft" },
+            { "value": "scents", "label": "Duftsorten" },
+            { "value": "home-office", "label": "Zuhause & Büro" },
+            { "value": "drop", "label": "Anwendung" },
+            { "value": "sparkle", "label": "Frische" },
+            { "value": "shield-check", "label": "Reinigung" }
+          ],
+          "default": "spray"
+        },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Langanhaltender Duft" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Frische, die stundenlang anhält." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Frida Vorteile",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "spray", "title": "Langanhaltender Duft", "text": "Frische, die stundenlang anhält." } },
+        { "type": "benefit", "settings": { "icon": "scents", "title": "Viele Duftsorten", "text": "Für jeden Geschmack die passende Note." } },
+        { "type": "benefit", "settings": { "icon": "home-office", "title": "Für Zuhause & Büro", "text": "Vielseitig einsetzbar in jedem Raum." } },
+        { "type": "benefit", "settings": { "icon": "drop", "title": "Einfache Anwendung", "text": "Sprühen oder mit Wasser mischen – fertig." } },
+        { "type": "benefit", "settings": { "icon": "sparkle", "title": "Frische Atmosphäre", "text": "Ein Zuhause, das sich sofort frischer anfühlt." } },
+        { "type": "benefit", "settings": { "icon": "shield-check", "title": "Ideal für die tägliche Reinigung", "text": "Raumduft und Sauberkeit in einem Schritt." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

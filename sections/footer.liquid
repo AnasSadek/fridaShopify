@@ -1,0 +1,100 @@
+<footer class="site-footer">
+  <div class="page-width footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand__logo">Frida<span>EU</span></div>
+      <p>{{ section.settings.brand_text | default: 'Langanhaltende Luft- und Bodendüfte für ein frisches, sauberes Zuhause. Entwickelt für Europa.' }}</p>
+      <div class="footer-social">
+        {%- if settings.social_instagram_link != blank -%}
+          <a href="{{ settings.social_instagram_link }}" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>
+        {%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}
+          <a href="{{ settings.social_tiktok_link }}" aria-label="TikTok">{% render 'icon', name: 'tiktok' %}</a>
+        {%- endif -%}
+        {%- if settings.social_facebook_link != blank -%}
+          <a href="{{ settings.social_facebook_link }}" aria-label="Facebook">{% render 'icon', name: 'facebook' %}</a>
+        {%- endif -%}
+        {%- if settings.social_pinterest_link != blank -%}
+          <a href="{{ settings.social_pinterest_link }}" aria-label="Pinterest">{% render 'icon', name: 'pinterest' %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div>
+      <p class="footer-heading">{{ 'sections.footer.legal_title' | t }}</p>
+      <ul class="footer-links">
+        {%- for link in section.settings.legal_menu.links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-heading">{{ 'sections.footer.contact_title' | t }}</p>
+      <ul class="footer-links">
+        {%- if section.settings.contact_email != blank -%}
+          <li><a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a></li>
+        {%- endif -%}
+        {%- if section.settings.contact_phone != blank -%}
+          <li><a href="tel:{{ section.settings.contact_phone }}">{{ section.settings.contact_phone }}</a></li>
+        {%- endif -%}
+        <li><a href="{{ pages.kontakt.url | default: '/pages/kontakt' }}">Kontaktformular</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-heading">{{ 'sections.footer.newsletter_title' | t }}</p>
+      <p>{{ 'sections.footer.newsletter_text' | t }}</p>
+      {% form 'customer', class: 'newsletter-form-wrap' %}
+        {%- if form.posted_successfully? -%}
+          <p class="badge">{{ 'general.newsletter.success' | t }}</p>
+        {%- else -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-form" data-newsletter-form>
+            <input type="email" name="contact[email]" required placeholder="{{ 'general.newsletter.email_placeholder' | t }}" aria-label="{{ 'general.newsletter.email_placeholder' | t }}">
+            <button type="submit" class="btn btn--aqua">{{ 'general.newsletter.submit' | t }}</button>
+          </div>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="page-width footer-bottom">
+    <div>
+      <a href="{{ pages.impressum.url | default: '/pages/impressum' }}">Impressum</a>
+      <a href="{{ pages.datenschutz.url | default: '/pages/datenschutz' }}">Datenschutz</a>
+      <a href="{{ pages.agb.url | default: '/pages/agb' }}">AGB</a>
+      <a href="{{ pages.widerruf.url | default: '/pages/widerruf' }}">Widerruf</a>
+    </div>
+    <span>&copy; {{ 'now' | date: '%Y' }} Frida EU. Alle Rechte vorbehalten.</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_text",
+      "label": "Markenbeschreibung"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Rechtliches-Menü",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Kontakt E-Mail",
+      "default": "hallo@frida-eu.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Kontakt Telefon"
+    }
+  ]
+}
+{% endschema %}

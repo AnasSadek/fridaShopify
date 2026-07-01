@@ -1,0 +1,50 @@
+<header class="site-header">
+  <div class="page-width site-header__inner">
+    <button class="menu-toggle header-icon-btn" data-menu-toggle aria-label="{{ 'sections.header.menu' | t }}">
+      {% render 'icon', name: 'menu' %}
+    </button>
+
+    <a href="{{ routes.root_url }}" class="site-header__logo">Frida<span>EU</span></a>
+
+    <nav class="site-header__nav" aria-label="{{ 'sections.header.menu' | t }}">
+      {%- for link in section.settings.main_menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="site-header__actions">
+      <a href="{{ routes.search_url }}" class="header-icon-btn" aria-label="{{ 'general.search.submit' | t }}">
+        {% render 'icon', name: 'search' %}
+      </a>
+      <a href="{{ routes.cart_url }}" class="header-icon-btn" aria-label="{{ 'sections.header.cart' | t }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="mobile-nav" data-mobile-nav aria-hidden="true">
+    <button class="mobile-nav__close header-icon-btn" data-mobile-nav-close aria-label="{{ 'accessibility.close' | t }}">
+      {% render 'icon', name: 'close' %}
+    </button>
+    <nav>
+      {%- for link in section.settings.main_menu.links -%}
+        <a href="{{ link.url }}" data-mobile-nav-close>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Hauptmenü",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

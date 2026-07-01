@@ -1,0 +1,70 @@
+<section class="section-padding">
+  <div class="page-width">
+    <div class="scent-worlds section-padding">
+      <div class="page-width">
+        <div class="section-header">
+          {%- if section.settings.eyebrow != blank -%}<p class="section-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+          <h2 class="section-title">{{ section.settings.title | default: 'Entdecke deine Duftwelt' }}</h2>
+          <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+        </div>
+
+        <div class="scent-grid">
+          {%- for block in section.blocks -%}
+            <div class="scent-card" {{ block.shopify_attributes }}>
+              <div class="scent-card__icon">{% render 'icon', name: block.settings.icon %}</div>
+              <h3 class="scent-card__title">{{ block.settings.title }}</h3>
+              <p class="scent-card__names">{{ block.settings.scent_names }}</p>
+              <p class="scent-card__text">{{ block.settings.text }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Frida Duftwelten",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker-Text", "default": "Duftwelten" },
+    { "type": "text", "id": "title", "label": "Überschrift", "default": "Entdecke deine Duftwelt" },
+    { "type": "textarea", "id": "subtitle", "label": "Untertitel", "default": "Jede Frida Duftsorte erzählt eine eigene Geschichte – finde die Note, die zu deinem Zuhause passt." }
+  ],
+  "blocks": [
+    {
+      "type": "world",
+      "name": "Duftwelt",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "sparkle", "label": "Orientalisch" },
+            { "value": "drop", "label": "Fruchtig" },
+            { "value": "scents", "label": "Frisch & Clean" },
+            { "value": "gift", "label": "Blumig" }
+          ],
+          "default": "sparkle"
+        },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Orientalisch" },
+        { "type": "text", "id": "scent_names", "label": "Duftsorten", "default": "Oud &middot; Arabesque" },
+        { "type": "textarea", "id": "text", "label": "Beschreibung", "default": "Warm, intensiv und geheimnisvoll – für ein Zuhause mit Charakter." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Frida Duftwelten",
+      "blocks": [
+        { "type": "world", "settings": { "icon": "sparkle", "title": "Orientalisch", "scent_names": "Oud &middot; Arabesque", "text": "Warm, intensiv und geheimnisvoll – für ein Zuhause mit Charakter und Wohlfühl-Atmosphäre." } },
+        { "type": "world", "settings": { "icon": "drop", "title": "Fruchtig", "scent_names": "Peach &middot; Treasure &middot; Limoncello", "text": "Spritzig, saftig und belebend – bringt sonnige Frische in jeden Raum." } },
+        { "type": "world", "settings": { "icon": "scents", "title": "Frisch & Clean", "scent_names": "Clean &middot; Meadows &middot; Beach Dream", "text": "Klar, sauber und leicht – das Gefühl von frisch gelüfteten Räumen." } },
+        { "type": "world", "settings": { "icon": "gift", "title": "Blumig", "scent_names": "Lavender &middot; Arabian Jasmine", "text": "Zart, elegant und beruhigend – für eine wohltuende Duftatmosphäre." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

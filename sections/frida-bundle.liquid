@@ -1,0 +1,74 @@
+<section class="section-padding" id="bundles">
+  <div class="page-width">
+    <div class="bundle-section">
+      <div class="bundle-grid">
+        <div class="bundle-media">
+          <span class="bundle-ribbon">{{ section.settings.ribbon_text | default: 'Spar-Set' }}</span>
+          {%- if section.settings.image -%}
+            <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | default: 'Frida EU Duft-Bundle' }}" width="900" height="675" loading="lazy">
+          {%- else -%}
+            {{ 'product-3' | placeholder_svg_tag: 'bundle-media__placeholder' }}
+          {%- endif -%}
+        </div>
+        <div>
+          {%- if section.settings.eyebrow != blank -%}<p class="section-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+          <h2 class="section-title" style="text-align:left">{{ section.settings.title | default: 'Mehr Duft. Mehr Frische. Mehr sparen.' }}</h2>
+          <p class="section-subtitle" style="text-align:left;margin-bottom:0">{{ section.settings.subtitle }}</p>
+
+          <ul class="bundle-items">
+            {%- for block in section.blocks -%}
+              <li>{% render 'icon', name: 'check-circle' %} {{ block.settings.text }}</li>
+            {%- endfor -%}
+          </ul>
+
+          <div class="bundle-price-row">
+            <span class="price">{{ section.settings.bundle_price | default: '39,90 €' }}</span>
+            <span class="price--compare">{{ section.settings.compare_price | default: '54,90 €' }}</span>
+            <span class="badge">{{ section.settings.discount_text | default: '-25%' }}</span>
+          </div>
+
+          <a href="{{ section.settings.cta_link | default: '#bestseller' }}" class="btn btn--primary">{{ section.settings.cta_text | default: 'Bundle sichern' }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Frida Bundle",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker-Text", "default": "Sparpaket" },
+    { "type": "text", "id": "title", "label": "Überschrift", "default": "Mehr Duft. Mehr Frische. Mehr sparen." },
+    { "type": "textarea", "id": "subtitle", "label": "Untertitel", "default": "Kombiniere Luft- und Bodendüfte im Set und spare gegenüber dem Einzelkauf." },
+    { "type": "image_picker", "id": "image", "label": "Bundle-Bild" },
+    { "type": "text", "id": "ribbon_text", "label": "Ribbon-Text", "default": "Spar-Set" },
+    { "type": "text", "id": "bundle_price", "label": "Bundle-Preis", "default": "39,90 €" },
+    { "type": "text", "id": "compare_price", "label": "Vergleichspreis", "default": "54,90 €" },
+    { "type": "text", "id": "discount_text", "label": "Rabatt-Badge", "default": "-25%" },
+    { "type": "text", "id": "cta_text", "label": "Button-Text", "default": "Bundle sichern" },
+    { "type": "url", "id": "cta_link", "label": "Button-Link" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Bundle-Inhalt",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "2x Frida Lufterfrischer Spray, 460 ml" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Frida Bundle",
+      "blocks": [
+        { "type": "item", "settings": { "text": "2x Frida Lufterfrischer Spray, 460 ml" } },
+        { "type": "item", "settings": { "text": "2x Frida Bodenduft, 480 ml" } },
+        { "type": "item", "settings": { "text": "Freie Duftwahl aus allen Sorten" } },
+        { "type": "item", "settings": { "text": "Gratis Versand innerhalb der EU" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

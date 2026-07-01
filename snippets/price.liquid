@@ -1,0 +1,14 @@
+{%- comment -%} Renders price + optional compare-at price for a variant/product. Param: variant {%- endcomment -%}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+-%}
+<span class="price">
+  {%- if target.price -%}
+    {{ target.price | money }}
+  {%- else -%}
+    {{ 19.90 | times: 100 | money }}
+  {%- endif -%}
+</span>
+{%- if target.compare_at_price and target.compare_at_price > target.price -%}
+  <span class="price--compare">{{ target.compare_at_price | money }}</span>
+{%- endif -%}

@@ -1,0 +1,92 @@
+<section class="section-padding" id="bestseller">
+  <div class="page-width">
+    <div class="section-header">
+      {%- if section.settings.eyebrow != blank -%}<p class="section-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-title">{{ section.settings.title | default: 'Unsere Bestseller' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="product-grid">
+      {%- if section.settings.collection != blank -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product, show_badge: 'Bestseller' %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} No collection selected yet: render placeholders so the layout is visible in the editor {%- endcomment -%}
+        {%- for i in (1..4) -%}
+          <div class="product-card">
+            <div class="product-card__media-wrap">{{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}</div>
+            <p class="product-card__vendor">Frida EU</p>
+            <h3 class="product-card__title">Frida Lufterfrischer Spray</h3>
+            <p class="product-card__scent">Oud &middot; 460 ml</p>
+            {% render 'star-rating' %}
+            <div class="product-card__footer">
+              <span class="price">19,90 &euro;</span>
+              <span class="btn btn--primary btn--sm">In den Warenkorb</span>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.view_all_link != blank -%}
+      <p class="text-center" style="margin-top:32px">
+        <a href="{{ section.settings.view_all_link }}" class="btn btn--outline">{{ section.settings.view_all_text | default: 'Alle Produkte ansehen' }}</a>
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Frida Bestseller",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Kicker-Text",
+      "default": "Meistverkauft"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Überschrift",
+      "default": "Unsere Bestseller"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Untertitel",
+      "default": "Die Frida Favoriten unserer Kund:innen – geliebt für intensive Frische und langanhaltenden Duft."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Kollektion"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Anzahl Produkte",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Link-Text \"Alle ansehen\"",
+      "default": "Alle Produkte ansehen"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Link \"Alle ansehen\""
+    }
+  ],
+  "presets": [
+    { "name": "Frida Bestseller" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,104 @@
+{
+  "sections": {
+    "hero": {
+      "type": "frida-hero",
+      "settings": {
+        "eyebrow": "Frida EU Home Fragrance",
+        "title": "Frische, die man sofort spürt.",
+        "subtitle": "Langanhaltende Luft- und Bodendüfte für ein sauberes, frisches Zuhause.",
+        "cta1_text": "Jetzt entdecken",
+        "cta1_link": "#kategorien",
+        "cta2_text": "Bestseller ansehen",
+        "cta2_link": "#bestseller"
+      },
+      "blocks": {
+        "badge-1": { "type": "trust_badge", "settings": { "icon": "shipping", "text": "Schneller Versand" } },
+        "badge-2": { "type": "trust_badge", "settings": { "icon": "home-office", "text": "Für Zuhause & Büro" } },
+        "badge-3": { "type": "trust_badge", "settings": { "icon": "spray", "text": "Intensive Duftwirkung" } },
+        "badge-4": { "type": "trust_badge", "settings": { "icon": "scents", "text": "Viele Duftsorten" } }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3", "badge-4"]
+    },
+    "categories": {
+      "type": "frida-categories",
+      "blocks": {
+        "cat-1": { "type": "category", "settings": { "title": "Luftdüfte", "text": "Sprühe frische Duftmomente direkt in die Luft – für jeden Raum, jederzeit.", "cta_text": "Luftdüfte entdecken" } },
+        "cat-2": { "type": "category", "settings": { "title": "Bodendüfte", "text": "Mit Wasser mischen und Böden sowie Oberflächen strahlend frisch reinigen.", "cta_text": "Bodendüfte entdecken" } },
+        "cat-3": { "type": "category", "settings": { "title": "Duft-Bundles", "text": "Mehrere Frida Lieblinge im Set – mehr Duft, mehr sparen.", "cta_text": "Bundles ansehen" } }
+      },
+      "block_order": ["cat-1", "cat-2", "cat-3"]
+    },
+    "bestsellers": {
+      "type": "frida-bestsellers"
+    },
+    "scent-worlds": {
+      "type": "frida-scent-worlds",
+      "blocks": {
+        "world-1": { "type": "world", "settings": { "icon": "sparkle", "title": "Orientalisch", "scent_names": "Oud · Arabesque", "text": "Warm, intensiv und geheimnisvoll – für ein Zuhause mit Charakter und Wohlfühl-Atmosphäre." } },
+        "world-2": { "type": "world", "settings": { "icon": "drop", "title": "Fruchtig", "scent_names": "Peach · Treasure · Limoncello", "text": "Spritzig, saftig und belebend – bringt sonnige Frische in jeden Raum." } },
+        "world-3": { "type": "world", "settings": { "icon": "scents", "title": "Frisch & Clean", "scent_names": "Clean · Meadows · Beach Dream", "text": "Klar, sauber und leicht – das Gefühl von frisch gelüfteten Räumen." } },
+        "world-4": { "type": "world", "settings": { "icon": "gift", "title": "Blumig", "scent_names": "Lavender · Arabian Jasmine", "text": "Zart, elegant und beruhigend – für eine wohltuende Duftatmosphäre." } }
+      },
+      "block_order": ["world-1", "world-2", "world-3", "world-4"]
+    },
+    "usage": {
+      "type": "frida-usage",
+      "blocks": {
+        "step-1": { "type": "step", "settings": { "title": "Lufterfrischer", "text": "Einfach direkt in den Raum sprühen – für sofortige, langanhaltende Frische." } },
+        "step-2": { "type": "step", "settings": { "title": "Bodenduft", "text": "Mit Wasser mischen und für Boden sowie Oberflächen verwenden – für ein spürbar sauberes Zuhause." } }
+      },
+      "block_order": ["step-1", "step-2"]
+    },
+    "video": {
+      "type": "frida-video",
+      "settings": {
+        "title": "So einfach bringst du Frida-Frische in dein Zuhause",
+        "cta_text": "Produkte entdecken",
+        "cta_link": "#bestseller"
+      }
+    },
+    "benefits": {
+      "type": "frida-benefits",
+      "blocks": {
+        "b-1": { "type": "benefit", "settings": { "icon": "spray", "title": "Langanhaltender Duft", "text": "Frische, die stundenlang anhält." } },
+        "b-2": { "type": "benefit", "settings": { "icon": "scents", "title": "Viele Duftsorten", "text": "Für jeden Geschmack die passende Note." } },
+        "b-3": { "type": "benefit", "settings": { "icon": "home-office", "title": "Für Zuhause & Büro", "text": "Vielseitig einsetzbar in jedem Raum." } },
+        "b-4": { "type": "benefit", "settings": { "icon": "drop", "title": "Einfache Anwendung", "text": "Sprühen oder mit Wasser mischen – fertig." } },
+        "b-5": { "type": "benefit", "settings": { "icon": "sparkle", "title": "Frische Atmosphäre", "text": "Ein Zuhause, das sich sofort frischer anfühlt." } },
+        "b-6": { "type": "benefit", "settings": { "icon": "shield-check", "title": "Ideal für die tägliche Reinigung", "text": "Raumduft und Sauberkeit in einem Schritt." } }
+      },
+      "block_order": ["b-1", "b-2", "b-3", "b-4", "b-5", "b-6"]
+    },
+    "testimonials": {
+      "type": "frida-testimonials",
+      "blocks": {
+        "t-1": { "type": "testimonial", "settings": { "rating": 5, "quote": "Riecht unglaublich frisch und hält lange.", "name": "Julia M.", "meta": "Verifizierter Kauf" } },
+        "t-2": { "type": "testimonial", "settings": { "rating": 5, "quote": "Mein Zuhause fühlt sich direkt sauberer an.", "name": "Sabine K.", "meta": "Verifizierter Kauf" } },
+        "t-3": { "type": "testimonial", "settings": { "rating": 5, "quote": "Ich liebe die verschiedenen Duftsorten.", "name": "Anna T.", "meta": "Verifizierter Kauf" } }
+      },
+      "block_order": ["t-1", "t-2", "t-3"]
+    },
+    "bundle": {
+      "type": "frida-bundle",
+      "blocks": {
+        "item-1": { "type": "item", "settings": { "text": "2x Frida Lufterfrischer Spray, 460 ml" } },
+        "item-2": { "type": "item", "settings": { "text": "2x Frida Bodenduft, 480 ml" } },
+        "item-3": { "type": "item", "settings": { "text": "Freie Duftwahl aus allen Sorten" } },
+        "item-4": { "type": "item", "settings": { "text": "Gratis Versand innerhalb der EU" } }
+      },
+      "block_order": ["item-1", "item-2", "item-3", "item-4"]
+    },
+    "faq": {
+      "type": "frida-faq",
+      "blocks": {
+        "faq-1": { "type": "faq", "settings": { "question": "Wie verwende ich den Bodenduft?", "answer": "<p>Gib einfach eine kleine Menge des Frida Bodendufts in dein Putzwasser und wische Böden oder Oberflächen wie gewohnt.</p>" } },
+        "faq-2": { "type": "faq", "settings": { "question": "Kann ich die Düfte für verschiedene Räume nutzen?", "answer": "<p>Ja. Frida Lufterfrischer und Bodendüfte eignen sich für Wohnzimmer, Bad, Küche, Büro und Eingangsbereich.</p>" } },
+        "faq-3": { "type": "faq", "settings": { "question": "Wie lange hält der Duft?", "answer": "<p>Je nach Raumgröße und Belüftung hält der Frida Duft spürbar lange an und sorgt für eine dauerhaft frische Atmosphäre.</p>" } },
+        "faq-4": { "type": "faq", "settings": { "question": "Welche Duftsorten gibt es?", "answer": "<p>Unter anderem Oud, Arabesque, Treasure, Peach, Lavender, Limoncello, Clean und Arabian Jasmine – regelmäßig ergänzt um neue Sorten.</p>" } },
+        "faq-5": { "type": "faq", "settings": { "question": "Wie schnell ist der Versand?", "answer": "<p>Bestellungen innerhalb der EU werden schnell und zuverlässig versendet. Die genaue Lieferzeit siehst du im Checkout.</p>" } }
+      },
+      "block_order": ["faq-1", "faq-2", "faq-3", "faq-4", "faq-5"]
+    }
+  },
+  "order": ["hero", "categories", "bestsellers", "scent-worlds", "usage", "video", "benefits", "testimonials", "bundle", "faq"]
+}

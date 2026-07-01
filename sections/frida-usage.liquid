@@ -1,0 +1,77 @@
+<section class="section-padding" id="anwendung">
+  <div class="page-width">
+    <div class="section-header">
+      {%- if section.settings.eyebrow != blank -%}<p class="section-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-title">{{ section.settings.title | default: 'So einfach geht Frida' }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="usage-grid">
+      {%- for block in section.blocks -%}
+        <div class="usage-card" {{ block.shopify_attributes }}>
+          <div class="usage-card__media">
+            {%- if block.settings.image -%}
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.image.alt | default: block.settings.title | escape }}" loading="lazy" width="800" height="500">
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'usage-card__placeholder' }}
+            {%- endif -%}
+          </div>
+          <span class="usage-card__step">{{ forloop.index }}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.room_tags != blank -%}
+      {%- assign room_list = section.settings.room_tags | split: ',' -%}
+      <div class="room-tags text-center" style="justify-content:center">
+        {%- for room in room_list -%}
+          <span class="room-tag">{{ room | strip }}</span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Frida Anwendung",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker-Text", "default": "Anwendung" },
+    { "type": "text", "id": "title", "label": "Überschrift", "default": "So einfach geht Frida" },
+    { "type": "textarea", "id": "subtitle", "label": "Untertitel", "default": "In zwei Schritten zu einem frisch duftenden Zuhause." },
+    {
+      "type": "text",
+      "id": "room_tags",
+      "label": "Räume (kommagetrennt)",
+      "default": "Wohnzimmer, Bad, Küche, Büro, Eingangsbereich"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Schritt",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Lufterfrischer" },
+        { "type": "textarea", "id": "text", "label": "Beschreibung", "default": "Einfach direkt in den Raum sprühen und den Frida Duft sofort genießen." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Frida Anwendung",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Lufterfrischer", "text": "Einfach direkt in den Raum sprühen – für sofortige, langanhaltende Frische." } },
+        { "type": "step", "settings": { "title": "Bodenduft", "text": "Mit Wasser mischen und für Boden sowie Oberflächen verwenden – für ein spürbar sauberes Zuhause." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% comment %}
+  room_tags is stored as a plain text setting; split into an array for rendering.
+{% endcomment %}

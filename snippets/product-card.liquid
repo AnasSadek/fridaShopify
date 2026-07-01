@@ -1,0 +1,61 @@
+{%- comment -%}
+  Frida EU product card. Params: product, show_badge (string, optional), lazy (bool, default true)
+{%- endcomment -%}
+{%- liquid
+  assign card_variant = product.selected_or_first_available_variant
+  assign scent_value = blank
+  assign size_value = blank
+  for option in product.options_with_values
+    assign option_name_down = option.name | downcase
+    if option_name_down contains 'duft' or option_name_down contains 'scent'
+      assign scent_value = option.selected_value
+    elsif option_name_down contains 'größe' or option_name_down contains 'groesse' or option_name_down contains 'size' or option_name_down contains 'ml'
+      assign size_value = option.selected_value
+    endif
+  endfor
+-%}
+<div class="product-card" data-product-card>
+  <a href="{{ product.url }}" class="product-card__media-wrap">
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        loading="{% if lazy == false %}eager{% else %}lazy{% endif %}"
+        width="600" height="600">
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+    {%- endif -%}
+    {%- if show_badge -%}<span class="product-card__badge">{{ show_badge }}</span>{%- endif -%}
+  </a>
+  <button type="button" class="product-card__quick-view" data-quick-view-trigger data-product-handle="{{ product.handle }}">
+    {{ 'products.product.quick_view' | t }}
+  </button>
+
+  <p class="product-card__vendor">{{ product.vendor | default: 'Frida EU' }}</p>
+  <a href="{{ product.url }}">
+    <h3 class="product-card__title">{{ product.title }}</h3>
+  </a>
+  {%- if scent_value or size_value -%}
+    <p class="product-card__scent">
+      {%- if scent_value -%}{{ scent_value }}{%- endif -%}
+      {%- if scent_value and size_value -%} &middot; {%- endif -%}
+      {%- if size_value -%}{{ size_value }}{%- endif -%}
+    </p>
+  {%- endif -%}
+
+  {% render 'star-rating' %}
+
+  <div class="product-card__footer">
+    {% render 'price', variant: card_variant %}
+    <form data-add-to-cart-form action="{{ routes.cart_add_url }}" method="post">
+      <input type="hidden" name="id" value="{{ card_variant.id }}">
+      <button type="submit" class="btn btn--primary btn--sm" {% unless card_variant.available %}disabled{% endunless %}>
+        {%- if card_variant.available -%}
+          {{ 'products.product.add_to_cart' | t }}
+        {%- else -%}
+          {{ 'products.product.sold_out' | t }}
+        {%- endif -%}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<section class="section"><div class="wrap" style="max-width:760px">
+  <div class="section-head reveal"><h2>{{ article.title }}</h2><p>{{ article.published_at | date: '%d.%m.%Y' }}</p></div>
+  {%- if article.image -%}<img src="{{ article.image | image_url: width: 1200 }}" alt="{{ article.title }}" style="border-radius:var(--r-lg);margin-bottom:24px">{%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+</div></section>
+{% schema %}{ "name": "Artikel" }{% endschema %}

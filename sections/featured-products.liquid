@@ -1,0 +1,55 @@
+<section class="section" id="bestseller">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="grid-prod">
+      {%- assign coll = collections[section.settings.collection] -%}
+      {%- if coll != blank and coll.products_count > 0 -%}
+        {%- for product in coll.products limit: section.settings.count -%}
+          {%- render 'product-card', card: product -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Fallback-Demo bis eine Collection verknüpft ist {%- endcomment -%}
+        {%- assign demo_names = 'Peach|Sahara / Oud|Lavender|Arabian Jasmine|Clean|Lilac Bloom' | split: '|' -%}
+        {%- assign demo_imgs = 'prod-peach.webp|prod-sahara.webp|prod-lavender.webp|prod-jasmine.webp|prod-clean.webp|prod-lilac.webp' | split: '|' -%}
+        {%- for name in demo_names limit: section.settings.count -%}
+          {%- assign idx = forloop.index0 -%}
+          <article class="card reveal">
+            <div class="card-media">
+              <span class="badge">Beispiel</span>
+              <img src="{{ demo_imgs[idx] | asset_url }}" alt="Frida Home {{ name }}" loading="lazy">
+            </div>
+            <div class="card-body">
+              <div class="card-cat">Bodenduft</div>
+              <div class="card-name">Frida Home</div>
+              <div class="card-scent">{{ name }} · 480 ml</div>
+              <div class="stars"><span class="s">★★★★★</span> 4,9 (120)</div>
+              <div class="price-row"><span class="price">9,90 €</span><span class="price-unit">480 ml</span></div>
+              <button class="add-btn" type="button" disabled>Demo · Produkt anlegen</button>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    {%- if section.settings.view_all != blank -%}
+      <div style="text-align:center;margin-top:36px"><a href="{{ section.settings.view_all }}" class="btn btn-ghost">Alle Produkte ansehen</a></div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Bestseller / Produkte",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Am beliebtesten" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Unsere Bestseller" },
+    { "type": "textarea", "id": "subheading", "label": "Untertitel", "default": "Die Düfte, die unsere Kund:innen immer wieder nachbestellen." },
+    { "type": "collection", "id": "collection", "label": "Collection (leer = Demo-Ansicht)" },
+    { "type": "range", "id": "count", "label": "Anzahl", "min": 2, "max": 12, "step": 1, "default": 6 },
+    { "type": "url", "id": "view_all", "label": "Link: Alle Produkte ansehen" }
+  ],
+  "presets": [ { "name": "Bestseller / Produkte" } ]
+}
+{% endschema %}

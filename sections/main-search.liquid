@@ -1,0 +1,17 @@
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal"><h2>Suche</h2></div>
+    <form action="{{ routes.search_url }}" method="get" class="news-form" style="margin-bottom:30px">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Wonach suchst du?" aria-label="Suche">
+      <button type="submit" class="btn btn-primary">Suchen</button>
+    </form>
+    {%- if search.performed -%}
+      <div class="grid-prod">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}{%- render 'product-card', card: item -%}{%- endif -%}
+        {%- else -%}<p>Keine Ergebnisse für „{{ search.terms }}".</p>{%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}{ "name": "Suche" }{% endschema %}

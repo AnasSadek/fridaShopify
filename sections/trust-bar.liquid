@@ -1,0 +1,30 @@
+<div class="trust">
+  <div class="wrap trust-row">
+    {%- for block in section.blocks -%}
+      <div class="trust-item" {{ block.shopify_attributes }}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+        <div><b>{{ block.settings.title }}</b><small>{{ block.settings.text }}</small></div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Trust-Leiste",
+  "blocks": [
+    { "type": "item", "name": "Vorteil", "settings": [
+      { "type": "text", "id": "title", "label": "Titel", "default": "2–4 Tage Lieferung" },
+      { "type": "text", "id": "text", "label": "Text", "default": "Schneller EU-Versand" }
+    ] }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    { "name": "Trust-Leiste", "blocks": [
+      { "type": "item", "settings": { "title": "2–4 Tage Lieferung", "text": "Schneller EU-Versand" } },
+      { "type": "item", "settings": { "title": "Geprüfte Qualität", "text": "Sichere Bezahlung" } },
+      { "type": "item", "settings": { "title": "Bis zu 24h Frische", "text": "Langanhaltender Duft" } },
+      { "type": "item", "settings": { "title": "30 Tage Rückgabe", "text": "Einfach & unkompliziert" } }
+    ] }
+  ]
+}
+{% endschema %}

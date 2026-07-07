@@ -2,29 +2,10 @@
   "sections": {
     "main": {
       "type": "main-product",
-      "settings": {
-        "usage_text": "Lufterfrischer: direkt im Raum aufsprühen. Bodenduft: mit Wasser mischen und für Boden oder Oberflächen verwenden. Ideal für Wohnzimmer, Bad, Küche, Büro und Eingangsbereich.",
-        "benefits_text": "Langanhaltender Duft, einfache Anwendung, angenehme Duftatmosphäre für ein sauberes, frisches Zuhause.",
-        "shipping_text": "Schneller Versand innerhalb Deutschlands und der EU. Die genaue Lieferzeit wird dir im Checkout angezeigt."
-      }
-    },
-    "bundle": {
-      "type": "frida-bundle",
-      "settings": {
-        "eyebrow": "Dazu passend",
-        "title": "Mehr Duft. Mehr sparen.",
-        "subtitle": "Kombiniere dieses Produkt im Set und spare gegenüber dem Einzelkauf."
-      },
-      "blocks": {
-        "item-1": { "type": "item", "settings": { "text": "2x Frida Lufterfrischer Spray, 460 ml" } },
-        "item-2": { "type": "item", "settings": { "text": "2x Frida Bodenduft, 480 ml" } },
-        "item-3": { "type": "item", "settings": { "text": "Freie Duftwahl aus allen Sorten" } }
-      },
-      "block_order": ["item-1", "item-2", "item-3"]
-    },
-    "related": {
-      "type": "related-products"
+      "settings": {}
     }
   },
-  "order": ["main", "bundle", "related"]
+  "order": [
+    "main"
+  ]
 }

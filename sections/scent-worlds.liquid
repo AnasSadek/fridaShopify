@@ -1,0 +1,46 @@
+<section class="section" id="duftwelten" style="background:var(--mist-2)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="worlds">
+      {%- for block in section.blocks -%}
+        <div class="world {{ block.settings.css }} reveal" {{ block.shopify_attributes }}>
+          <div class="w-ic">{{ block.settings.icon }}</div>
+          <div><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div>
+          <div class="w-scents">{{ block.settings.scents }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Duftwelten",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Duftwelten" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Für jede Stimmung ein Duft" },
+    { "type": "textarea", "id": "subheading", "label": "Untertitel", "default": "Von warm-orientalisch bis frisch-clean – finde die Welt, die zu dir passt." }
+  ],
+  "blocks": [
+    { "type": "world", "name": "Duftwelt", "settings": [
+      { "type": "text", "id": "icon", "label": "Icon (Emoji)", "default": "🌙" },
+      { "type": "text", "id": "title", "label": "Titel", "default": "Orientalisch" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Warm, tief und edel – für ein Zuhause mit Charakter." },
+      { "type": "text", "id": "scents", "label": "Duftsorten", "default": "Oud · Arabesque" },
+      { "type": "select", "id": "css", "label": "Farbe", "options": [ {"value":"w1","label":"Braun"},{"value":"w2","label":"Rot/Orange"},{"value":"w3","label":"Aqua"},{"value":"w4","label":"Lila"} ], "default": "w1" }
+    ] }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    { "name": "Duftwelten", "blocks": [
+      { "type": "world", "settings": { "icon": "🌙", "title": "Orientalisch", "text": "Warm, tief und edel – für gemütliche Abende und ein Zuhause mit Charakter.", "scents": "Oud · Arabesque", "css": "w1" } },
+      { "type": "world", "settings": { "icon": "🍑", "title": "Fruchtig", "text": "Süß, spritzig und lebendig – bringt gute Laune in jeden Raum.", "scents": "Peach · Treasure · Limoncello", "css": "w2" } },
+      { "type": "world", "settings": { "icon": "💧", "title": "Frisch & Clean", "text": "Klar und leicht wie ein tiefer Atemzug – das Gefühl von frisch geputzt.", "scents": "Clean · Meadows · Beach Dream", "css": "w3" } },
+      { "type": "world", "settings": { "icon": "🌸", "title": "Blumig", "text": "Sanft und harmonisch – blühende Frische für Wohlfühlmomente.", "scents": "Lavender · Jasmine", "css": "w4" } }
+    ] }
+  ]
+}
+{% endschema %}

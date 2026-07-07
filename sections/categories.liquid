@@ -1,0 +1,51 @@
+<section class="section" id="kategorien">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="cats">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="cat {{ block.settings.css_class }} reveal" {{ block.shopify_attributes }}>
+          <span class="cat-tag">{{ block.settings.tag }}</span>
+          {%- if block.settings.image != blank -%}
+            <img class="cat-img" src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}">
+          {%- endif -%}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+          <span class="cat-link">{{ block.settings.link_label }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Produktkategorien",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sortiment" },
+    { "type": "html", "id": "heading", "label": "Überschrift", "default": "Finde deinen <span class=\"hl\">Frische-Favoriten<svg viewBox=\"0 0 100 10\" preserveAspectRatio=\"none\"><path d=\"M2,7 Q50,1 98,6\"/></svg></span>" },
+    { "type": "textarea", "id": "subheading", "label": "Untertitel", "default": "Zwei Produktlinien, unzählige Duftmomente – für jeden Raum das Richtige." }
+  ],
+  "blocks": [
+    { "type": "category", "name": "Kategorie", "settings": [
+      { "type": "text", "id": "tag", "label": "Badge", "default": "460 ml" },
+      { "type": "image_picker", "id": "image", "label": "Bild" },
+      { "type": "text", "id": "title", "label": "Titel", "default": "Luftdüfte" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Air Freshener Spray – sofortige Frische im ganzen Raum." },
+      { "type": "text", "id": "link_label", "label": "Link-Text", "default": "Entdecken" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "select", "id": "css_class", "label": "Stil", "options": [ { "value": "c-air", "label": "Hell (Luft)" }, { "value": "c-home", "label": "Hell (Boden)" }, { "value": "c-bundle dark", "label": "Dunkel (Bundle)" } ], "default": "c-air" }
+    ] }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    { "name": "Produktkategorien", "blocks": [
+      { "type": "category", "settings": { "tag": "460 ml", "title": "Luftdüfte", "text": "Air Freshener Spray – ein Sprühstoß für sofortige Frische im ganzen Raum.", "link_label": "Entdecken", "css_class": "c-air" } },
+      { "type": "category", "settings": { "tag": "480 ml", "title": "Bodendüfte", "text": "All-Purpose Home Cleaning Fragrance – für strahlend saubere Böden & Oberflächen.", "link_label": "Entdecken", "css_class": "c-home" } },
+      { "type": "category", "settings": { "tag": "Sparpaket", "title": "Duft-Bundles", "text": "Clever kombinieren, mehr sparen – die beliebtesten Düfte im Set.", "link_label": "Bundle sichern", "css_class": "c-bundle dark" } }
+    ] }
+  ]
+}
+{% endschema %}

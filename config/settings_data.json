@@ -1,28 +1,10 @@
 {
   "current": {
-    "color_primary": "#0B5D8C",
-    "color_primary_dark": "#083F60",
-    "color_aqua": "#4FD1CE",
-    "color_aqua_light": "#EAFBFA",
-    "color_background": "#FFFFFF",
-    "color_background_soft": "#F5FAFB",
-    "color_text": "#0F2733",
-    "color_text_light": "#54707C",
-    "font_heading": "assistant_n4",
-    "font_body": "assistant_n4",
-    "page_width": 1300,
-    "corner_radius": 16,
-    "social_instagram_link": "https://instagram.com/frida.eu",
-    "social_tiktok_link": "https://tiktok.com/@frida.eu",
-    "social_facebook_link": "https://facebook.com/frida.eu",
-    "social_pinterest_link": "",
-    "cart_type": "drawer",
-    "show_cart_note": true
+    "color_navy": "#16237a",
+    "color_blue": "#2649cf",
+    "color_aqua": "#0fb3e6"
   },
   "presets": {
-    "Frida EU Standard": {
-      "color_primary": "#0B5D8C",
-      "color_aqua": "#4FD1CE"
-    }
+    "Default": {}
   }
 }

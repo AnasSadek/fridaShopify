@@ -1,0 +1,47 @@
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="faq-list">
+      {%- for block in section.blocks -%}
+        <details class="faq reveal" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="faq-body">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+  {%- for block in section.blocks -%}
+    { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+] }
+</script>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Fragen & Antworten" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Häufige Fragen" }
+  ],
+  "blocks": [
+    { "type": "qa", "name": "Frage", "settings": [
+      { "type": "text", "id": "question", "label": "Frage", "default": "Wie verwende ich den Bodenduft?" },
+      { "type": "richtext", "id": "answer", "label": "Antwort", "default": "<p>Gib einen Verschluss Frida Home in einen Eimer Wasser und wische wie gewohnt.</p>" }
+    ] }
+  ],
+  "presets": [
+    { "name": "FAQ", "blocks": [
+      { "type": "qa", "settings": { "question": "Wie verwende ich den Bodenduft?", "answer": "<p>Gib einen Verschluss Frida Home in einen Eimer Wasser und wische Boden oder Oberflächen wie gewohnt. Der Duft bleibt nach dem Trocknen angenehm im Raum.</p>" } },
+      { "type": "qa", "settings": { "question": "Kann ich die Düfte für verschiedene Räume nutzen?", "answer": "<p>Ja. Der Lufterfrischer eignet sich für jeden Raum, der Bodenduft ideal für Böden und abwischbare Oberflächen.</p>" } },
+      { "type": "qa", "settings": { "question": "Wie lange hält der Duft?", "answer": "<p>Die Frida-Formeln sind auf langanhaltende Frische ausgelegt und bleiben je nach Raum viele Stunden spürbar.</p>" } },
+      { "type": "qa", "settings": { "question": "Welche Duftsorten gibt es?", "answer": "<p>Unter anderem Oud, Arabesque, Treasure, Peach, Lavender, Limoncello, Clean, Jasmine, Meadows und weitere.</p>" } },
+      { "type": "qa", "settings": { "question": "Wie schnell ist der Versand?", "answer": "<p>In der Regel 2–4 Werktage innerhalb DE & EU. Ab 39 € Bestellwert ist der Versand kostenlos.</p>" } }
+    ] }
+  ]
+}
+{% endschema %}

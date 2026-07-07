@@ -1,0 +1,57 @@
+<section class="section" id="bundle">
+  <div class="wrap">
+    <div class="bundle reveal">
+      <div class="bundle-grid">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+          <h2>{{ section.settings.heading }}</h2>
+          {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+          <div class="bundle-feats">
+            {%- for block in section.blocks -%}
+              <span {{ block.shopify_attributes }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>{{ block.settings.text }}</span>
+            {%- endfor -%}
+          </div>
+          {%- if section.settings.button_label != blank -%}<a href="{{ section.settings.button_link | default: '#' }}" class="btn btn-primary">{{ section.settings.button_label }}</a>{%- endif -%}
+        </div>
+        <div class="bundle-card">
+          {%- if section.settings.save_text != blank -%}<span class="save">{{ section.settings.save_text }}</span>{%- endif -%}
+          {%- if section.settings.image != blank -%}
+            <img src="{{ section.settings.image | image_url: width: 700 }}" alt="Frida Bundle">
+          {%- else -%}
+            <img src="{{ 'home-group.webp' | asset_url }}" alt="Frida Home Duft-Bundle">
+          {%- endif -%}
+          <div class="bp">{{ section.settings.price }} <s>{{ section.settings.compare }}</s></div>
+          {%- if section.settings.caption != blank -%}<p style="opacity:.85;font-size:.86rem;margin-top:6px">{{ section.settings.caption }}</p>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Bundle",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sparpaket" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Mehr Duft. Mehr Frische. Mehr sparen." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Stelle dein Lieblings-Set zusammen und sichere dir die beliebtesten Frida-Düfte zum Vorteilspreis." },
+    { "type": "image_picker", "id": "image", "label": "Bild" },
+    { "type": "text", "id": "save_text", "label": "Rabatt-Badge", "default": "– 20 % sparen" },
+    { "type": "text", "id": "price", "label": "Preis", "default": "39,90 €" },
+    { "type": "text", "id": "compare", "label": "Streichpreis", "default": "49,90 €" },
+    { "type": "text", "id": "caption", "label": "Bildunterschrift", "default": "Frische-Set · 3 × 480 ml" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Bundle sichern" },
+    { "type": "url", "id": "button_link", "label": "Button-Link" }
+  ],
+  "blocks": [
+    { "type": "feature", "name": "Vorteil", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "3 Produkte im Set – frei kombinierbar" } ] }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    { "name": "Bundle", "blocks": [
+      { "type": "feature", "settings": { "text": "3 Produkte im Set – frei kombinierbar" } },
+      { "type": "feature", "settings": { "text": "Bis zu 20 % günstiger als einzeln" } },
+      { "type": "feature", "settings": { "text": "Gratis Versand inklusive" } }
+    ] }
+  ]
+}
+{% endschema %}

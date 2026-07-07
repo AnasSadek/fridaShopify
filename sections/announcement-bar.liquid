@@ -1,0 +1,11 @@
+<div class="topbar">
+  {%- if section.settings.text != blank -%}{{ section.settings.text }}{%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Ankündigungsleiste",
+  "settings": [
+    { "type": "html", "id": "text", "label": "Text", "default": "🚚 <strong>Versandkostenfrei ab 39 €</strong> · Lieferung in 2–4 Tagen in DE & EU · Über 12.000 zufriedene Haushalte" }
+  ]
+}
+{% endschema %}

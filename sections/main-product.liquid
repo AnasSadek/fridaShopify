@@ -1,134 +1,150 @@
-{%- liquid
-  assign current_variant = product.selected_or_first_available_variant
-  assign size_value = blank
-  for option in product.options_with_values
-    assign option_name_down = option.name | downcase
-    if option_name_down contains 'größe' or option_name_down contains 'groesse' or option_name_down contains 'size' or option_name_down contains 'ml'
-      assign size_value = option.selected_value
-    endif
-  endfor
--%}
-<div class="product-page page-width">
-  {% render 'meta-tags' %}
-  <div class="product-layout">
-    <div class="product-gallery">
-      <div class="product-gallery__main">
-        {%- if product.featured_image -%}
-          <img id="ProductMainImage" src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="900" height="900" loading="eager" fetchpriority="high">
-        {%- else -%}
-          {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
-        {%- endif -%}
+{%- assign product = product -%}
+<div class="wrap breadcrumb">
+  <a href="{{ routes.root_url }}">Startseite</a> /
+  {%- if product.collections.first -%}<a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a> / {%- endif -%}
+  <span>{{ product.title }}</span>
+</div>
+
+<section class="pdp">
+  <div class="wrap pdp-grid">
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="gal-main">
+        {%- if product.compare_at_price > product.price -%}<span class="gal-flag" style="background:#ff5a6e">Sale</span>
+        {%- elsif product.tags contains 'Bestseller' -%}<span class="gal-flag">Bestseller</span>{%- endif -%}
+        <img id="galImg" src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="900" height="900" fetchpriority="high">
       </div>
       {%- if product.images.size > 1 -%}
-        <div class="product-gallery__thumbs">
-          {%- for image in product.images limit: 5 -%}
-            <button class="product-gallery__thumb {% if forloop.first %}is-active{% endif %}" data-gallery-thumb data-full-src="{{ image | image_url: width: 900 }}">
-              <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt | default: product.title | escape }}" width="200" height="200" loading="lazy">
-            </button>
+        <div class="gal-thumbs">
+          {%- for image in product.images limit: 8 -%}
+            <div class="gal-thumb {% if forloop.first %}active{% endif %}" data-thumb-src="{{ image | image_url: width: 900 }}">
+              <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy">
+            </div>
           {%- endfor -%}
         </div>
       {%- endif -%}
     </div>
 
-    <div class="product-info">
-      <p class="product-info__vendor">{{ product.vendor | default: 'Frida EU' }}</p>
-      <h1 class="product-info__title">{{ product.title }}</h1>
-      {% render 'star-rating' %}
+    <!-- INFO -->
+    <div class="pdp-info">
+      <div class="pdp-cat">{{ product.type | default: 'Home Fragrance' }}</div>
+      <h1 class="pdp-title">{{ product.title }}</h1>
+      {%- if product.metafields.custom.subtitle != blank -%}<p class="pdp-sub">{{ product.metafields.custom.subtitle }}</p>{%- endif -%}
 
-      <div class="product-info__price-row">
-        {% render 'price', variant: current_variant %}
+      <div class="pdp-rate">
+        <span class="s">★★★★★</span>
+        <b style="color:var(--ink)">{{ product.metafields.reviews.rating.value | default: 4.9 }}</b>
+        <a href="#reviews">{{ product.metafields.reviews.rating_count | default: 120 }} Bewertungen</a>
       </div>
 
-      {%- if size_value != blank -%}
-        <span class="product-info__size">{{ size_value }}</span>
-      {%- endif -%}
+      <div class="pdp-price">
+        <span class="now" id="pPrice">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="was" id="pWas">{{ product.compare_at_price | money }}</span>
+          <span class="off" id="pOff">–{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }} %</span>
+        {%- endif -%}
+      </div>
+      <p class="pdp-tax"><b id="pAvail">{% if product.available %}Auf Lager{% else %}Ausverkauft{% endif %}</b> · inkl. MwSt. zzgl. <a href="#versand" style="color:var(--blue);font-weight:600">Versand</a></p>
 
-      <p>{{ product.description | strip_html | truncate: 180 }}</p>
-
-      {%- form 'product', product, data-main-atc-form: '', data-add-to-cart-form: '' -%}
-        {%- for option in product.options_with_values -%}
-          <div class="variant-picker" data-variant-picker>
-            <span class="variant-picker__label">{{ option.name }}</span>
-            <div class="variant-swatches">
+      {%- form 'product', product, id: 'productForm', class: 'frida-add-form' -%}
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="opt-label">{{ option.name }}: <span data-opt-display="{{ forloop.index0 }}">{{ option.selected_value }}</span></div>
+            <div class="scent-opts" data-option-index="{{ forloop.index0 }}">
               {%- for value in option.values -%}
-                {%- comment -%} Maps correctly for single-option products (e.g. Duftsorte only); first matching variant is used as fallback for multi-option products. {%- endcomment -%}
-                {%- assign matched_variant = product.variants | where: 'option1', value | first -%}
-                {%- assign matched_variant = matched_variant | default: current_variant -%}
-                <button type="button" class="variant-swatch {% if value == option.selected_value %}is-selected{% endif %}" data-variant-id="{{ matched_variant.id }}">{{ value }}</button>
+                <button type="button" class="scent-opt {% if option.selected_value == value %}active{% endif %}" data-option-value data-value="{{ value | escape }}">{{ value }}</button>
               {%- endfor -%}
             </div>
-          </div>
-        {%- endfor -%}
+          {%- endfor -%}
+        {%- endunless -%}
 
-        <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id-input>
+        <input type="hidden" name="id" id="variantId" value="{{ product.selected_or_first_available_variant.id }}">
 
-        <div class="qty-atc-row">
-          <div class="qty-input">
-            <button type="button" data-step="-1" aria-label="Menge verringern">&minus;</button>
-            <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'products.product.quantity' | t }}">
-            <button type="button" data-step="1" aria-label="Menge erhöhen">+</button>
+        <div class="buy-row">
+          <div class="qty-box">
+            <button type="button" id="qMinus" aria-label="Weniger">−</button>
+            <input type="text" name="quantity" id="qVal" value="1" inputmode="numeric" style="width:34px;text-align:center;border:none;font-weight:700;font-family:inherit">
+            <button type="button" id="qPlus" aria-label="Mehr">+</button>
           </div>
-          <button type="submit" class="btn btn--primary btn--full" data-main-atc {% unless current_variant.available %}disabled{% endunless %}>
-            {%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }} &middot; {% render 'price', variant: current_variant %}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+          <button type="submit" class="btn btn-primary" id="pAdd" {% unless product.available %}disabled{% endunless %}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span id="pAddLabel">{% if product.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}</span>
           </button>
         </div>
       {%- endform -%}
 
-      <ul class="product-info__benefits">
-        <li>{% render 'icon', name: 'spray' %} Langanhaltender, intensiver Duft</li>
-        <li>{% render 'icon', name: 'home-office' %} Ideal für Zuhause & Büro</li>
-        <li>{% render 'icon', name: 'shipping' %} Schneller Versand innerhalb der EU</li>
-      </ul>
-
-      <div class="product-tabs">
-        <div class="product-tabs__nav">
-          <button class="product-tabs__btn is-active" data-tab-target="tab-description">{{ 'products.product.description_tab' | t }}</button>
-          <button class="product-tabs__btn" data-tab-target="tab-usage">{{ 'products.product.usage_tab' | t }}</button>
-          <button class="product-tabs__btn" data-tab-target="tab-benefits">{{ 'products.product.benefits_tab' | t }}</button>
-          <button class="product-tabs__btn" data-tab-target="tab-shipping">{{ 'products.product.shipping_tab' | t }}</button>
-          <button class="product-tabs__btn" data-tab-target="tab-reviews">{{ 'products.product.reviews_tab' | t }}</button>
-        </div>
-        <div id="tab-description" class="product-tabs__panel is-active">
-          {{ product.description }}
-        </div>
-        <div id="tab-usage" class="product-tabs__panel">
-          <p>{{ section.settings.usage_text | default: 'Lufterfrischer: direkt im Raum aufsprühen. Bodenduft: mit Wasser mischen und für Boden oder Oberflächen verwenden. Ideal für Wohnzimmer, Bad, Küche, Büro und Eingangsbereich.' }}</p>
-        </div>
-        <div id="tab-benefits" class="product-tabs__panel">
-          <p>{{ section.settings.benefits_text | default: 'Langanhaltender Duft, einfache Anwendung, angenehme Duftatmosphäre für ein sauberes, frisches Zuhause.' }}</p>
-        </div>
-        <div id="tab-shipping" class="product-tabs__panel">
-          <p>{{ section.settings.shipping_text | default: 'Schneller Versand innerhalb Deutschlands und der EU. Die genaue Lieferzeit wird dir im Checkout angezeigt.' }}</p>
-        </div>
-        <div id="tab-reviews" class="product-tabs__panel">
-          {% render 'star-rating' %}
-          <p>Kundenbewertungen werden hier nach Verknüpfung mit deiner Bewertungs-App (z. B. Judge.me, Loox) angezeigt.</p>
-        </div>
+      <div class="assure">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><div><b>Schneller Versand</b><small>2–4 Tage · gratis ab 39 €</small></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/></svg><div><b>Sicher bezahlen</b><small>PayPal, Klarna, Kreditkarte</small></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 7v5l3 2"/></svg><div><b>Bis zu 24 h Frische</b><small>Langanhaltende Duftwirkung</small></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7"/><path d="M2 7h20v5H2z"/><path d="M12 22V7M12 7S9 2 6.5 4.5 12 7 12 7z"/></svg><div><b>14 Tage Rückgabe</b><small>Einfach & unkompliziert</small></div></div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="sticky-atc" data-sticky-atc>
-  <div class="page-width sticky-atc__inner">
-    {%- if product.featured_image -%}
-      <img src="{{ product.featured_image | image_url: width: 100 }}" alt="" width="50" height="50" style="border-radius:8px" loading="lazy">
-    {%- endif -%}
-    <div class="sticky-atc__info">
-      <p class="sticky-atc__title">{{ product.title }}</p>
-      <p class="sticky-atc__price">{% render 'price', variant: current_variant %}</p>
+<!-- DETAILS -->
+<section class="wrap pdp-details">
+  <div class="detail-tabs">
+    <button class="detail-tab active" data-tab="desc">Beschreibung</button>
+    <button class="detail-tab" data-tab="use">Anwendung</button>
+    <button class="detail-tab" data-tab="ben">Vorteile</button>
+    <button class="detail-tab" data-tab="ship">Versand</button>
+  </div>
+  <div class="tab-panel active" data-panel="desc">
+    <div class="rte">{{ product.description }}</div>
+  </div>
+  <div class="tab-panel" data-panel="use" id="versand-use">
+    <div class="rte">{{ section.settings.usage_text }}</div>
+  </div>
+  <div class="tab-panel" data-panel="ben">
+    <div class="rte">{{ section.settings.benefits_text }}</div>
+  </div>
+  <div class="tab-panel" data-panel="ship" id="versand">
+    <div class="rte">{{ section.settings.shipping_text }}</div>
+  </div>
+</section>
+
+<!-- RELATED -->
+{%- assign related = product.collections.first.products | default: collections.all.products -%}
+{%- if related.size > 1 -%}
+<section class="section related" id="related" style="background:var(--mist-2)">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">Passt dazu</span><h2>Ähnliche Düfte entdecken</h2></div>
+    <div class="grid-prod">
+      {%- assign shown = 0 -%}
+      {%- for p in related -%}
+        {%- if p.id != product.id and shown < 4 -%}
+          {%- render 'product-card', card: p -%}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
     </div>
-    <button type="button" class="btn btn--primary" data-sticky-atc-submit>{{ 'products.product.add_to_cart' | t }}</button>
+  </div>
+</section>
+{%- endif -%}
+
+<!-- STICKY ADD TO CART -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="wrap sticky-inner">
+    <div class="sticky-prod">
+      <img src="{{ product.featured_image | image_url: width: 120 }}" alt="">
+      <div class="sp-hide"><b>{{ product.title }}</b><small>{{ product.type }}</small></div>
+    </div>
+    <div class="sticky-price" id="sbPrice">{{ product.price | money }}{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</div>
+    <button class="btn btn-primary" id="sbAdd" {% unless product.available %}disabled{% endunless %}>In den Warenkorb</button>
   </div>
 </div>
 
+<script id="ProductJson" type="application/json">{{ product.variants | json }}</script>
+
 {% schema %}
 {
-  "name": "Produkt Informationen",
+  "name": "Produkt",
   "settings": [
-    { "type": "textarea", "id": "usage_text", "label": "Anwendungstext" },
-    { "type": "textarea", "id": "benefits_text", "label": "Vorteile-Text" },
-    { "type": "textarea", "id": "shipping_text", "label": "Versandtext" }
+    { "type": "richtext", "id": "usage_text", "label": "Anwendung", "default": "<p>Gib 1–2 Verschlusskappen auf ca. 5 L warmes Wasser und reinige Böden und abwaschbare Oberflächen wie gewohnt. Vor der ersten Anwendung an unauffälliger Stelle testen.</p>" },
+    { "type": "richtext", "id": "benefits_text", "label": "Vorteile", "default": "<p>Langanhaltender Duft, viele Duftsorten, für Zuhause & Büro, einfache Anwendung und eine frische Atmosphäre – Frida macht dein Zuhause spürbar sauberer.</p>" },
+    { "type": "richtext", "id": "shipping_text", "label": "Versand", "default": "<p>Versand in 2–4 Werktagen (DE) bzw. 3–6 Werktagen (EU). Versandkosten 3,90 € – gratis ab 39 €. 14 Tage Rückgaberecht.</p>" }
   ]
 }
 {% endschema %}

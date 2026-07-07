@@ -1,0 +1,70 @@
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h1>{{ section.settings.heading }}</h1>
+      {%- if section.settings.subheading != blank -%}<p class="hero-sub">{{ section.settings.subheading }}</p>{%- endif -%}
+      <div class="hero-cta">
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: '#' }}" class="btn btn-primary">{{ section.settings.button_label }}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button2_label != blank -%}
+          <a href="{{ section.settings.button2_link | default: '#' }}" class="btn btn-ghost">{{ section.settings.button2_label }}</a>
+        {%- endif -%}
+      </div>
+      {%- if section.blocks.size > 0 -%}
+        <div class="hero-badges">
+          {%- for block in section.blocks -%}
+            <span {{ block.shopify_attributes }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>{{ block.settings.text }}</span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="hero-media">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" width="900" height="900" fetchpriority="high">
+      {%- else -%}
+        <img src="{{ 'air-group.webp' | asset_url }}" alt="Frida Lufterfrischer in vielen Duftsorten" fetchpriority="high">
+      {%- endif -%}
+      {%- if section.settings.chip1_num != blank -%}<div class="hero-chip c1"><span class="n">{{ section.settings.chip1_num }}</span><div>★★★★★<small>{{ section.settings.chip1_text }}</small></div></div>{%- endif -%}
+      {%- if section.settings.chip2_num != blank -%}<div class="hero-chip c2"><span class="n">{{ section.settings.chip2_num }}</span><div>{{ section.settings.chip2_title }}<small>{{ section.settings.chip2_text }}</small></div></div>{%- endif -%}
+    </div>
+  </div>
+  <svg class="wave-sep" viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C240,75 480,10 720,32 C960,54 1200,72 1440,36 L1440,70 L0,70 Z" fill="#ffffff"/></svg>
+</section>
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Home Fragrance · Made for Europe" },
+    { "type": "html", "id": "heading", "label": "Überschrift", "default": "Frische, die man <span class=\"g\">sofort spürt.</span>" },
+    { "type": "textarea", "id": "subheading", "label": "Untertitel", "default": "Langanhaltende Luft- und Bodendüfte für ein sauberes, frisches Zuhause – Tag für Tag." },
+    { "type": "image_picker", "id": "image", "label": "Hero-Bild (leer = Standard)" },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_label", "label": "Button 1", "default": "Jetzt entdecken" },
+    { "type": "url", "id": "button_link", "label": "Link 1" },
+    { "type": "text", "id": "button2_label", "label": "Button 2", "default": "Bestseller ansehen" },
+    { "type": "url", "id": "button2_link", "label": "Link 2" },
+    { "type": "header", "content": "Info-Chips" },
+    { "type": "text", "id": "chip1_num", "label": "Chip 1 Zahl", "default": "4,9" },
+    { "type": "text", "id": "chip1_text", "label": "Chip 1 Text", "default": "1.240 Bewertungen" },
+    { "type": "text", "id": "chip2_num", "label": "Chip 2 Zahl", "default": "24h" },
+    { "type": "text", "id": "chip2_title", "label": "Chip 2 Titel", "default": "Frische" },
+    { "type": "text", "id": "chip2_text", "label": "Chip 2 Text", "default": "langanhaltend" }
+  ],
+  "blocks": [
+    { "type": "badge", "name": "Trust-Badge", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Schneller Versand" } ] }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    { "name": "Hero", "blocks": [
+      { "type": "badge", "settings": { "text": "Schneller Versand" } },
+      { "type": "badge", "settings": { "text": "Für Zuhause & Büro" } },
+      { "type": "badge", "settings": { "text": "Intensive Duftwirkung" } },
+      { "type": "badge", "settings": { "text": "Viele Duftsorten" } }
+    ] }
+  ]
+}
+{% endschema %}

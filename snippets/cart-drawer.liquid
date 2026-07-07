@@ -1,0 +1,13 @@
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Warenkorb">
+  <div class="drawer-head">
+    <h3>Warenkorb</h3>
+    <button class="drawer-close" id="drawerClose" aria-label="Schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot" style="display:none">
+    <div class="sub-row"><span>Zwischensumme</span><span id="subtotal">{{ cart.total_price | money }}</span></div>
+    <p class="ship-note" id="shipNote"></p>
+    <a href="{{ routes.cart_url }}" class="btn btn-primary btn-block">Zur Kasse</a>
+  </div>
+</aside>

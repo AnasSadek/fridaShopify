@@ -1,99 +1,71 @@
-<footer class="site-footer">
-  <div class="page-width footer-grid">
-    <div class="footer-brand">
-      <div class="footer-brand__logo">Frida<span>EU</span></div>
-      <p>{{ section.settings.brand_text | default: 'Langanhaltende Luft- und Bodendüfte für ein frisches, sauberes Zuhause. Entwickelt für Europa.' }}</p>
-      <div class="footer-social">
-        {%- if settings.social_instagram_link != blank -%}
-          <a href="{{ settings.social_instagram_link }}" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>
-        {%- endif -%}
-        {%- if settings.social_tiktok_link != blank -%}
-          <a href="{{ settings.social_tiktok_link }}" aria-label="TikTok">{% render 'icon', name: 'tiktok' %}</a>
-        {%- endif -%}
-        {%- if settings.social_facebook_link != blank -%}
-          <a href="{{ settings.social_facebook_link }}" aria-label="Facebook">{% render 'icon', name: 'facebook' %}</a>
-        {%- endif -%}
-        {%- if settings.social_pinterest_link != blank -%}
-          <a href="{{ settings.social_pinterest_link }}" aria-label="Pinterest">{% render 'icon', name: 'pinterest' %}</a>
-        {%- endif -%}
-      </div>
-    </div>
-
-    <div>
-      <p class="footer-heading">{{ 'sections.footer.legal_title' | t }}</p>
-      <ul class="footer-links">
-        {%- for link in section.settings.legal_menu.links -%}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {%- endfor -%}
-      </ul>
-    </div>
-
-    <div>
-      <p class="footer-heading">{{ 'sections.footer.contact_title' | t }}</p>
-      <ul class="footer-links">
-        {%- if section.settings.contact_email != blank -%}
-          <li><a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a></li>
-        {%- endif -%}
-        {%- if section.settings.contact_phone != blank -%}
-          <li><a href="tel:{{ section.settings.contact_phone }}">{{ section.settings.contact_phone }}</a></li>
-        {%- endif -%}
-        <li><a href="{{ pages.kontakt.url | default: '/pages/kontakt' }}">Kontaktformular</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <p class="footer-heading">{{ 'sections.footer.newsletter_title' | t }}</p>
-      <p>{{ 'sections.footer.newsletter_text' | t }}</p>
-      {% form 'customer', class: 'newsletter-form-wrap' %}
-        {%- if form.posted_successfully? -%}
-          <p class="badge">{{ 'general.newsletter.success' | t }}</p>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" height="32">
         {%- else -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <div class="newsletter-form" data-newsletter-form>
-            <input type="email" name="contact[email]" required placeholder="{{ 'general.newsletter.email_placeholder' | t }}" aria-label="{{ 'general.newsletter.email_placeholder' | t }}">
-            <button type="submit" class="btn btn--aqua">{{ 'general.newsletter.submit' | t }}</button>
-          </div>
+          <img src="{{ 'logo.webp' | asset_url }}" alt="{{ shop.name }}" height="32">
         {%- endif -%}
-      {% endform %}
+        <p>{{ section.settings.tagline }}</p>
+        <div class="socials">
+          {%- if section.settings.instagram != blank -%}<a href="{{ section.settings.instagram }}" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>{%- endif -%}
+          {%- if section.settings.tiktok != blank -%}<a href="{{ section.settings.tiktok }}" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.2 1.8 3.9 4 4.2v3c-1.5 0-2.9-.5-4-1.3v6.6a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v3.1a2.5 2.5 0 1 0 1.6 2.3V3z"/></svg></a>{%- endif -%}
+          {%- if section.settings.facebook != blank -%}<a href="{{ section.settings.facebook }}" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V5h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V8.8c0-.5.3-.8.8-.8z"/></svg></a>{%- endif -%}
+        </div>
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="foot-col" {{ block.shopify_attributes }}>
+          <h4>{{ block.settings.title }}</h4>
+          {%- for i in (1..5) -%}
+            {%- assign lbl = 'link' | append: i | append: '_label' -%}
+            {%- assign url = 'link' | append: i | append: '_url' -%}
+            {%- if block.settings[lbl] != blank -%}
+              <a href="{{ block.settings[url] }}">{{ block.settings[lbl] }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
     </div>
-  </div>
-
-  <div class="page-width footer-bottom">
-    <div>
-      <a href="{{ pages.impressum.url | default: '/pages/impressum' }}">Impressum</a>
-      <a href="{{ pages.datenschutz.url | default: '/pages/datenschutz' }}">Datenschutz</a>
-      <a href="{{ pages.agb.url | default: '/pages/agb' }}">AGB</a>
-      <a href="{{ pages.widerruf.url | default: '/pages/widerruf' }}">Widerruf</a>
+    <div class="foot-bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} · Alle Rechte vorbehalten</span>
+      <div class="pay"><span>VISA</span><span>MASTERCARD</span><span>PAYPAL</span><span>KLARNA</span></div>
     </div>
-    <span>&copy; {{ 'now' | date: '%Y' }} Frida EU. Alle Rechte vorbehalten.</span>
   </div>
 </footer>
-
 {% schema %}
 {
-  "name": "Footer",
+  "name": "Fußzeile",
   "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "textarea", "id": "tagline", "label": "Slogan", "default": "Luft- und Bodendüfte für ein sauberes, frisches Zuhause. Made for Europe." },
+    { "type": "header", "content": "Social Media" },
+    { "type": "url", "id": "instagram", "label": "Instagram" },
+    { "type": "url", "id": "tiktok", "label": "TikTok" },
+    { "type": "url", "id": "facebook", "label": "Facebook" }
+  ],
+  "blocks": [
     {
-      "type": "textarea",
-      "id": "brand_text",
-      "label": "Markenbeschreibung"
-    },
+      "type": "column",
+      "name": "Link-Spalte",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titel", "default": "Shop" },
+        { "type": "text", "id": "link1_label", "label": "Link 1" }, { "type": "url", "id": "link1_url", "label": "URL 1" },
+        { "type": "text", "id": "link2_label", "label": "Link 2" }, { "type": "url", "id": "link2_url", "label": "URL 2" },
+        { "type": "text", "id": "link3_label", "label": "Link 3" }, { "type": "url", "id": "link3_url", "label": "URL 3" },
+        { "type": "text", "id": "link4_label", "label": "Link 4" }, { "type": "url", "id": "link4_url", "label": "URL 4" },
+        { "type": "text", "id": "link5_label", "label": "Link 5" }, { "type": "url", "id": "link5_url", "label": "URL 5" }
+      ]
+    }
+  ],
+  "presets": [
     {
-      "type": "link_list",
-      "id": "legal_menu",
-      "label": "Rechtliches-Menü",
-      "default": "footer"
-    },
-    {
-      "type": "text",
-      "id": "contact_email",
-      "label": "Kontakt E-Mail",
-      "default": "hallo@frida-eu.com"
-    },
-    {
-      "type": "text",
-      "id": "contact_phone",
-      "label": "Kontakt Telefon"
+      "name": "Fußzeile",
+      "blocks": [
+        { "type": "column", "settings": { "title": "Shop", "link1_label": "Bestseller", "link2_label": "Luftdüfte", "link3_label": "Bodendüfte", "link4_label": "Bundles" } },
+        { "type": "column", "settings": { "title": "Service", "link1_label": "FAQ", "link2_label": "Versand", "link3_label": "Kontakt", "link4_label": "Retoure" } },
+        { "type": "column", "settings": { "title": "Rechtliches", "link1_label": "Impressum", "link2_label": "Datenschutz", "link3_label": "AGB", "link4_label": "Widerruf" } }
+      ]
     }
   ]
 }

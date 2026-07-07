@@ -1,0 +1,3 @@
+{%- assign rating = product.metafields.reviews.rating.value | default: 4.9 -%}
+{%- assign count = product.metafields.reviews.rating_count | default: 120 -%}
+<div class="stars"><span class="s">★★★★★</span> {{ rating }} ({{ count }})</div>

@@ -1,0 +1,10 @@
+<section class="section"><div class="wrap">
+  <div class="section-head reveal"><h2>{{ blog.title }}</h2></div>
+  <div class="grid-prod">
+    {%- for article in blog.articles -%}
+      <a href="{{ article.url }}" class="card reveal"><div class="card-media">{%- if article.image -%}<img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title }}">{%- endif -%}</div>
+      <div class="card-body"><div class="card-name">{{ article.title }}</div><p class="card-scent">{{ article.excerpt_or_content | strip_html | truncatewords: 18 }}</p></div></a>
+    {%- endfor -%}
+  </div>
+</div></section>
+{% schema %}{ "name": "Blog" }{% endschema %}

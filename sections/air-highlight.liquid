@@ -1,0 +1,40 @@
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="air-band reveal">
+      <div class="ab-copy">
+        {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+        {%- if section.settings.scents != blank -%}
+          <div class="chips">
+            {%- assign items = section.settings.scents | split: ',' -%}
+            {%- for s in items -%}<span class="chip">{{ s | strip }}</span>{%- endfor -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}<a href="{{ section.settings.button_link | default: '#' }}" class="btn btn-primary">{{ section.settings.button_label }}</a>{%- endif -%}
+      </div>
+      <div class="ab-media">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.heading | escape }}">
+        {%- else -%}
+          <img src="{{ 'air-group.webp' | asset_url }}" alt="Frida Lufterfrischer in verschiedenen Duftsorten">
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Air Highlight",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Frida Air Freshener · 460 ml" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Ein Sprühstoß. Sofort frisch." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Der Frida Lufterfrischer verteilt feinen Duft in Sekunden – ideal für Wohnzimmer, Bad, Flur oder Büro." },
+    { "type": "text", "id": "scents", "label": "Duft-Chips (Komma-getrennt)", "default": "Oud, Framboise, Meadows, Arabesque, Layali, Treasure" },
+    { "type": "image_picker", "id": "image", "label": "Bild" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Lufterfrischer entdecken" },
+    { "type": "url", "id": "button_link", "label": "Button-Link" }
+  ],
+  "presets": [ { "name": "Air Highlight" } ]
+}
+{% endschema %}

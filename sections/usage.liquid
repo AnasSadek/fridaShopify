@@ -1,0 +1,57 @@
+<section class="section" id="anwendung" style="background:var(--mist-2)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="steps">
+      {%- for block in section.blocks -%}
+        <div class="usage-col reveal" {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.title }}</h3>
+          <p class="u-lead">{{ block.settings.lead }}</p>
+          <div class="ustep"><div class="num">1</div><div><b>{{ block.settings.s1_title }}</b><p>{{ block.settings.s1_text }}</p></div></div>
+          <div class="ustep"><div class="num">2</div><div><b>{{ block.settings.s2_title }}</b><p>{{ block.settings.s2_text }}</p></div></div>
+          <div class="ustep"><div class="num">3</div><div><b>{{ block.settings.s3_title }}</b><p>{{ block.settings.s3_text }}</p></div></div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.rooms != blank -%}
+      <div class="rooms reveal" style="justify-content:center">
+        {%- assign rr = section.settings.rooms | split: ',' -%}{%- for r in rr -%}<span>{{ r | strip }}</span>{%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if section.settings.note != blank -%}<p class="note">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Anwendung",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "So geht's" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Frische in Sekunden" },
+    { "type": "textarea", "id": "subheading", "label": "Untertitel", "default": "Zwei Produkte, kinderleichte Anwendung – ganz ohne Aufwand." },
+    { "type": "text", "id": "rooms", "label": "Räume (Komma-getrennt)", "default": "Wohnzimmer, Bad, Küche, Büro, Eingangsbereich" },
+    { "type": "text", "id": "note", "label": "Hinweis", "default": "Hinweis: Produkte gemäß Etikett und bestimmungsgemäß verwenden." }
+  ],
+  "blocks": [
+    { "type": "col", "name": "Anwendungs-Spalte", "settings": [
+      { "type": "text", "id": "title", "label": "Titel", "default": "💨 Lufterfrischer" },
+      { "type": "text", "id": "lead", "label": "Unterzeile", "default": "Frida Air Freshener · 460 ml" },
+      { "type": "text", "id": "s1_title", "label": "Schritt 1 Titel", "default": "Aufrecht halten" },
+      { "type": "text", "id": "s1_text", "label": "Schritt 1 Text", "default": "Flasche senkrecht in den Raum richten." },
+      { "type": "text", "id": "s2_title", "label": "Schritt 2 Titel", "default": "Direkt sprühen" },
+      { "type": "text", "id": "s2_text", "label": "Schritt 2 Text", "default": "1–2 Sprühstöße in die Raummitte geben." },
+      { "type": "text", "id": "s3_title", "label": "Schritt 3 Titel", "default": "Genießen" },
+      { "type": "text", "id": "s3_text", "label": "Schritt 3 Text", "default": "Der Duft entfaltet sich sofort im Raum." }
+    ] }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    { "name": "Anwendung", "blocks": [
+      { "type": "col", "settings": { "title": "💨 Lufterfrischer", "lead": "Frida Air Freshener · 460 ml", "s1_title": "Aufrecht halten", "s1_text": "Flasche senkrecht in den Raum richten.", "s2_title": "Direkt sprühen", "s2_text": "1–2 Sprühstöße in die Raummitte geben.", "s3_title": "Genießen", "s3_text": "Der Duft entfaltet sich sofort im Raum." } },
+      { "type": "col", "settings": { "title": "🧴 Bodenduft", "lead": "Frida Home Cleaning Fragrance · 480 ml", "s1_title": "Dosieren", "s1_text": "Einen Verschluss in einen Eimer Wasser geben.", "s2_title": "Wischen", "s2_text": "Boden oder Oberflächen wie gewohnt reinigen.", "s3_title": "Frische bleibt", "s3_text": "Der Raum wirkt sauber und angenehm beduftet." } }
+    ] }
+  ]
+}
+{% endschema %}

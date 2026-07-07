@@ -1,0 +1,45 @@
+<section class="section why" id="warum">
+  <div class="wrap why-grid">
+    <div class="why-img reveal">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.heading | escape }}">
+      {%- else -%}
+        <img src="{{ 'warum-frida.webp' | asset_url }}" alt="Warum Frida wählen – Vergleich der Vorteile">
+      {%- endif -%}
+    </div>
+    <div class="reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      <ul class="why-list">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span><div><b>{{ block.settings.title }}</b><small>{{ block.settings.text }}</small></div></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Warum Frida",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Bild (leer = Standard-Grafik)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Warum Frida?" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Der Unterschied liegt im Detail" }
+  ],
+  "blocks": [
+    { "type": "point", "name": "Punkt", "settings": [
+      { "type": "text", "id": "title", "label": "Titel", "default": "Sanfte, wirksame Formel" },
+      { "type": "text", "id": "text", "label": "Text", "default": "Angenehm im Raum, effektiv auf Oberflächen." }
+    ] }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    { "name": "Warum Frida", "blocks": [
+      { "type": "point", "settings": { "title": "Sanfte, wirksame Formel", "text": "Angenehm im Raum, effektiv auf Oberflächen." } },
+      { "type": "point", "settings": { "title": "Viele herrliche Aromadüfte", "text": "Von orientalisch über fruchtig bis blumig." } },
+      { "type": "point", "settings": { "title": "Multiflächen-Allzweckduft", "text": "Ein Produkt für Boden, Fliesen & mehr." } },
+      { "type": "point", "settings": { "title": "Langanhaltende Frische", "text": "Der Duft bleibt spürbar – bis zu 24 Stunden." } }
+    ] }
+  ]
+}
+{% endschema %}

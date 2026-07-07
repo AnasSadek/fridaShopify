@@ -1,0 +1,53 @@
+<section class="section" id="bewertungen">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="proof-bar reveal">
+      {%- for block in section.blocks -%}{%- if block.type == 'stat' -%}
+        <div {{ block.shopify_attributes }}><b>{{ block.settings.value }}</b><small>{{ block.settings.label }}</small></div>
+      {%- endif -%}{%- endfor -%}
+    </div>
+    <div class="reviews">
+      {%- for block in section.blocks -%}{%- if block.type == 'review' -%}
+        <div class="review reveal" {{ block.shopify_attributes }}>
+          <div class="r-stars">★★★★★</div>
+          <p>{{ block.settings.text }}</p>
+          <div class="who"><div class="av">{{ block.settings.name | slice: 0 }}</div><div><b>{{ block.settings.name }}</b><small>{{ block.settings.meta }}</small></div></div>
+        </div>
+      {%- endif -%}{%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Kundenstimmen",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Kundenstimmen" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Über 12.000 frische Zuhause" }
+  ],
+  "blocks": [
+    { "type": "stat", "name": "Kennzahl", "settings": [
+      { "type": "text", "id": "value", "label": "Wert", "default": "4,9/5" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Ø Bewertung" }
+    ] },
+    { "type": "review", "name": "Bewertung", "settings": [
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Riecht unglaublich frisch und haelt lange." },
+      { "type": "text", "id": "name", "label": "Name", "default": "Sarah M." },
+      { "type": "text", "id": "meta", "label": "Zusatz", "default": "Verifizierter Kauf" }
+    ] }
+  ],
+  "presets": [
+    { "name": "Kundenstimmen", "blocks": [
+      { "type": "stat", "settings": { "value": "4,9/5", "label": "Ø Bewertung" } },
+      { "type": "stat", "settings": { "value": "12.400+", "label": "Zufriedene Kund:innen" } },
+      { "type": "stat", "settings": { "value": "18", "label": "Duftsorten" } },
+      { "type": "stat", "settings": { "value": "96%", "label": "Weiterempfehlung" } },
+      { "type": "review", "settings": { "text": "Riecht unglaublich frisch und haelt lange. Der Duft ist morgens noch da – top!", "name": "Sarah M.", "meta": "Verifizierter Kauf" } },
+      { "type": "review", "settings": { "text": "Mein Zuhause fuehlt sich direkt sauberer an. Nutze den Bodenduft jetzt jeden Tag.", "name": "Leon K.", "meta": "Verifizierter Kauf" } },
+      { "type": "review", "settings": { "text": "Ich liebe die verschiedenen Duftsorten. Oud ist mein Favorit – so hochwertig!", "name": "Aylin T.", "meta": "Verifizierter Kauf" } }
+    ] }
+  ]
+}
+{% endschema %}

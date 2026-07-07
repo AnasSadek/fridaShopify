@@ -1,50 +1,40 @@
-<header class="site-header">
-  <div class="page-width site-header__inner">
-    <button class="menu-toggle header-icon-btn" data-menu-toggle aria-label="{{ 'sections.header.menu' | t }}">
-      {% render 'icon', name: 'menu' %}
-    </button>
-
-    <a href="{{ routes.root_url }}" class="site-header__logo">Frida<span>EU</span></a>
-
-    <nav class="site-header__nav" aria-label="{{ 'sections.header.menu' | t }}">
-      {%- for link in section.settings.main_menu.links -%}
+<header id="header">
+  <div class="wrap nav">
+    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }} Startseite">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" height="30" width="120">
+      {%- else -%}
+        <img src="{{ 'logo.webp' | asset_url }}" alt="{{ shop.name }}" height="30">
+      {%- endif -%}
+    </a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      {%- for link in linklists[section.settings.menu].links -%}
         <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}">Produkte</a>
+        <a href="{{ routes.all_products_collection_url }}">Bestseller</a>
       {%- endfor -%}
     </nav>
-
-    <div class="site-header__actions">
-      <a href="{{ routes.search_url }}" class="header-icon-btn" aria-label="{{ 'general.search.submit' | t }}">
-        {% render 'icon', name: 'search' %}
+    <div class="nav-actions">
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Suche">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </a>
-      <a href="{{ routes.cart_url }}" class="header-icon-btn" aria-label="{{ 'sections.header.cart' | t }}">
-        {% render 'icon', name: 'cart' %}
-        <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
-      </a>
+      <button class="icon-btn" id="cartBtn" aria-label="Warenkorb öffnen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-count" id="cartCount">{{ cart.item_count }}</span>
+      </button>
+      <button class="icon-btn burger" id="burger" aria-label="Menü">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
   </div>
-
-  <div class="mobile-nav" data-mobile-nav aria-hidden="true">
-    <button class="mobile-nav__close header-icon-btn" data-mobile-nav-close aria-label="{{ 'accessibility.close' | t }}">
-      {% render 'icon', name: 'close' %}
-    </button>
-    <nav>
-      {%- for link in section.settings.main_menu.links -%}
-        <a href="{{ link.url }}" data-mobile-nav-close>{{ link.title }}</a>
-      {%- endfor -%}
-    </nav>
-  </div>
 </header>
-
 {% schema %}
 {
-  "name": "Header",
+  "name": "Kopfzeile",
   "settings": [
-    {
-      "type": "link_list",
-      "id": "main_menu",
-      "label": "Hauptmenü",
-      "default": "main-menu"
-    }
+    { "type": "image_picker", "id": "logo", "label": "Logo (leer = Frida-Standardlogo)" },
+    { "type": "link_list", "id": "menu", "label": "Navigationsmenü", "default": "main-menu" }
   ]
 }
 {% endschema %}

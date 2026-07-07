@@ -5,16 +5,18 @@
       <h2>{{ collection.title }}</h2>
       {%- if collection.description != blank -%}<p>{{ collection.description | strip_html | truncatewords: 40 }}</p>{%- endif -%}
     </div>
-    <div class="grid-prod">
-      {%- for product in collection.products -%}
-        {%- render 'product-card', card: product -%}
-      {%- else -%}
-        <p>Keine Produkte in dieser Kollektion.</p>
-      {%- endfor -%}
-    </div>
-    {%- if paginate.pages > 1 -%}
-      <div style="text-align:center;margin-top:40px" class="frida-pagination">{{ paginate | default_pagination }}</div>
-    {%- endif -%}
+    {%- paginate collection.products by section.settings.per_page -%}
+      <div class="grid-prod">
+        {%- for product in collection.products -%}
+          {%- render 'product-card', card: product -%}
+        {%- else -%}
+          <p>Keine Produkte in dieser Kollektion.</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <div style="text-align:center;margin-top:40px" class="frida-pagination">{{ paginate | default_pagination }}</div>
+      {%- endif -%}
+    {%- endpaginate -%}
   </div>
 </section>
 {% schema %}

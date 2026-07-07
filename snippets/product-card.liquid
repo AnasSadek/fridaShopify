@@ -1,37 +1,52 @@
 {%- comment -%} Erwartet: card (product) {%- endcomment -%}
+{%- assign has_variants = false -%}
+{%- if card.variants.size > 1 -%}{%- assign has_variants = true -%}{%- endif -%}
 <article class="card reveal" data-product-card>
   <div class="card-media">
     {%- if card.compare_at_price > card.price -%}
       <span class="badge sale">Sale</span>
-    {%- elsif card.tags contains 'Neu' or card.tags contains 'Bestseller' -%}
-      <span class="badge">{% if card.tags contains 'Bestseller' %}Bestseller{% else %}Neu{% endif %}</span>
+    {%- elsif card.tags contains 'Neu' -%}
+      <span class="badge">Neu</span>
+    {%- elsif card.tags contains 'Bestseller' -%}
+      <span class="badge">Bestseller</span>
+    {%- elsif has_variants -%}
+      <span class="badge">Beliebt</span>
     {%- endif -%}
-    <a href="{{ card.url }}">
+    <a href="{{ card.url }}" aria-label="{{ card.title | escape }}">
       {%- if card.featured_image -%}
         <img src="{{ card.featured_image | image_url: width: 600 }}" alt="{{ card.featured_image.alt | default: card.title | escape }}" width="600" height="600" loading="lazy">
       {%- else -%}
         {{ 'product-1' | placeholder_svg_tag }}
       {%- endif -%}
     </a>
-    <a class="quick" href="{{ card.url }}">Ansehen</a>
+    <button type="button" class="quick" data-quick-view="{{ card.handle }}">Schnellansicht</button>
   </div>
   <div class="card-body">
-    <div class="card-cat">{{ card.type | default: 'Bodenduft' }}</div>
+    <div class="card-cat">{{ card.type | default: 'Home Fragrance' }}</div>
     <a href="{{ card.url }}" class="card-name">{{ card.title }}</a>
     <div class="card-scent">
-      {%- if card.metafields.custom.scent != blank -%}{{ card.metafields.custom.scent }}{%- else -%}{{ card.variants.first.title | remove: 'Default Title' }}{%- endif -%}
+      {%- if card.metafields.custom.scent != blank -%}{{ card.metafields.custom.scent }}
+      {%- elsif has_variants -%}{{ card.variants.size }} Duftsorten zur Auswahl
+      {%- else -%}{{ card.variants.first.title | remove: 'Default Title' }}{%- endif -%}
     </div>
     {%- render 'frida-rating', product: card -%}
     <div class="price-row">
-      <span class="price">{{ card.price | money }}</span>
+      <span class="price">{% if has_variants and card.price_varies %}ab {% endif %}{{ card.price | money }}</span>
       {%- if card.compare_at_price > card.price -%}<span class="price-old">{{ card.compare_at_price | money }}</span>{%- endif -%}
     </div>
-    {%- form 'product', card, class: 'frida-add-form' -%}
-      <input type="hidden" name="id" value="{{ card.selected_or_first_available_variant.id }}">
-      <button type="submit" class="add-btn" {% unless card.available %}disabled{% endunless %}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        {% if card.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}
+    {%- if has_variants -%}
+      <button type="button" class="add-btn" data-quick-view="{{ card.handle }}" {% unless card.available %}disabled{% endunless %}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3c2.7 3.3 5 6.4 5 9.5a5 5 0 0 1-10 0C7 9.4 9.3 6.3 12 3Z"/></svg>
+        {% if card.available %}Duft auswählen{% else %}Ausverkauft{% endif %}
       </button>
-    {%- endform -%}
+    {%- else -%}
+      {%- form 'product', card, class: 'frida-add-form' -%}
+        <input type="hidden" name="id" value="{{ card.selected_or_first_available_variant.id }}">
+        <button type="submit" class="add-btn" {% unless card.available %}disabled{% endunless %}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          {% if card.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}
+        </button>
+      {%- endform -%}
+    {%- endif -%}
   </div>
 </article>

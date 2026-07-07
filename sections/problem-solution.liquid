@@ -1,0 +1,44 @@
+<section class="section probsol" id="frische-gefuehl">
+  <div class="wrap probsol-grid">
+    <div class="reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <blockquote>{{ section.settings.statement }}</blockquote>
+      {%- if section.settings.text != blank -%}<p class="ps-sub">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="ps-points">
+      {%- for block in section.blocks -%}
+        <div class="ps-point reveal" {{ block.shopify_attributes }}>
+          <div class="ic">{{ block.settings.icon }}</div>
+          <b>{{ block.settings.title }}</b>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Problem & Lösung",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Der Unterschied" },
+    { "type": "textarea", "id": "statement", "label": "Kernaussage", "default": "Ein Zuhause kann sauber aussehen – aber erst der richtige Duft macht es wirklich angenehm." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Genau dafür gibt es Frida: Düfte, die aus einem sauberen Raum ein Zuhause machen, in dem man gerne ankommt." }
+  ],
+  "blocks": [
+    { "type": "point", "name": "Lösung", "settings": [
+      { "type": "text", "id": "icon", "label": "Icon (Emoji)", "default": "✨" },
+      { "type": "text", "id": "title", "label": "Titel", "default": "Frische Atmosphäre" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Der Raum fühlt sich sofort leichter und sauberer an." }
+    ] }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    { "name": "Problem & Lösung", "blocks": [
+      { "type": "point", "settings": { "icon": "✨", "title": "Frische Atmosphäre", "text": "Der Raum fühlt sich sofort leichter und sauberer an." } },
+      { "type": "point", "settings": { "icon": "🌸", "title": "Angenehmer Duft", "text": "Feine Duftnoten statt neutraler Reinigungsluft." } },
+      { "type": "point", "settings": { "icon": "⚡", "title": "Einfach im Alltag", "text": "Sprühen oder wischen – ohne Zusatzaufwand." } },
+      { "type": "point", "settings": { "icon": "🎨", "title": "Viele Duftwelten", "text": "Orientalisch, fruchtig, frisch oder blumig – du entscheidest." } }
+    ] }
+  ]
+}
+{% endschema %}

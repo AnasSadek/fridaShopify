@@ -1,0 +1,60 @@
+<section class="section" id="ugc">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="ugc-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.video_url != blank -%}
+          <a class="ugc-tile reveal" href="{{ block.settings.video_url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+        {%- else -%}
+          <div class="ugc-tile reveal" {{ block.shopify_attributes }}>
+        {%- endif -%}
+          <span class="ugc-tag">{{ block.settings.tag }}</span>
+          {%- if block.settings.video != blank -%}
+            {{ block.settings.video | video_tag: autoplay: true, muted: true, loop: true, playsinline: true, controls: false }}
+          {%- elsif block.settings.poster != blank -%}
+            <img src="{{ block.settings.poster | image_url: width: 600 }}" alt="{{ block.settings.caption | escape }}" width="600" height="1067" loading="lazy">
+          {%- endif -%}
+          <span class="ugc-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <b>{{ block.settings.caption }}</b>
+        {%- if block.settings.video_url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.button_label != blank -%}
+      <div style="text-align:center;margin-top:36px"><a href="{{ section.settings.button_link | default: '#bestseller' }}" class="btn btn-primary">{{ section.settings.button_label }}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "UGC / TikTok Videos",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "@frida.eu" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "So fühlt sich Frida-Frische im Alltag an" },
+    { "type": "textarea", "id": "subheading", "label": "Untertitel", "default": "Echte Momente aus echten Wohnungen – direkt aus der Community." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Produkte entdecken" },
+    { "type": "url", "id": "button_link", "label": "Button-Link" }
+  ],
+  "blocks": [
+    { "type": "tile", "name": "Video-Kachel", "settings": [
+      { "type": "text", "id": "tag", "label": "Badge", "default": "TikTok" },
+      { "type": "video", "id": "video", "label": "Video (Upload, autoplay stumm)" },
+      { "type": "image_picker", "id": "poster", "label": "Vorschaubild (falls kein Video)" },
+      { "type": "url", "id": "video_url", "label": "Externer Video-Link (öffnet TikTok/Instagram)" },
+      { "type": "text", "id": "caption", "label": "Bildunterschrift", "default": "Boden wischen mit Frida" }
+    ] }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    { "name": "UGC / TikTok Videos", "blocks": [
+      { "type": "tile", "settings": { "tag": "TikTok", "caption": "Boden wischen – und der ganze Raum duftet" } },
+      { "type": "tile", "settings": { "tag": "Tutorial", "caption": "Ein Sprühstoß Frida Air Freshener" } },
+      { "type": "tile", "settings": { "tag": "Close-up", "caption": "Unsere Duftsorten im Detail" } },
+      { "type": "tile", "settings": { "tag": "Vorher / Nachher", "caption": "Das Frische-Gefühl nach dem Putzen" } }
+    ] }
+  ]
+}
+{% endschema %}

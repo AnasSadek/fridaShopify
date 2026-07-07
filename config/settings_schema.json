@@ -44,5 +44,28 @@
         "default": "#0fb3e6"
       }
     ]
+  },
+  {
+    "name": "Conversion",
+    "settings": [
+      {
+        "type": "range",
+        "id": "free_shipping_threshold",
+        "label": "Gratis-Versand ab (€)",
+        "info": "0 = Fortschrittsbalken im Warenkorb ausblenden",
+        "min": 0,
+        "max": 150,
+        "step": 1,
+        "unit": "€",
+        "default": 39
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_animations",
+        "label": "Animationen aktivieren",
+        "info": "Scroll-Reveal, Hover- und Hero-Animationen. prefers-reduced-motion wird immer respektiert.",
+        "default": true
+      }
+    ]
   }
 ]

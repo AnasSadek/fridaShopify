@@ -4,7 +4,7 @@
       {%- if section.settings.logo != blank -%}
         <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" height="30" width="120">
       {%- else -%}
-        <img src="{{ 'logo.webp' | asset_url }}" alt="{{ shop.name }}" height="30">
+        <img src="{{ 'logo.webp' | asset_url }}" alt="{{ shop.name }}" width="60" height="30">
       {%- endif -%}
     </a>
     <nav class="nav-links" aria-label="Hauptnavigation">

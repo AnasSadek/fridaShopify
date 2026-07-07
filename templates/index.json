@@ -26,13 +26,20 @@
           "settings": {
             "text": "Viele Duftsorten"
           }
+        },
+        "badge4": {
+          "type": "badge",
+          "settings": {
+            "text": "Einfach anzuwenden"
+          }
         }
       },
       "block_order": [
         "badge0",
         "badge1",
         "badge2",
-        "badge3"
+        "badge3",
+        "badge4"
       ],
       "settings": {}
     },
@@ -468,6 +475,94 @@
         "qa4"
       ],
       "settings": {}
+    },
+    "probsol": {
+      "type": "problem-solution",
+      "blocks": {
+        "p0": {
+          "type": "point",
+          "settings": {
+            "icon": "✨",
+            "title": "Frische Atmosphäre",
+            "text": "Der Raum fühlt sich sofort leichter und sauberer an."
+          }
+        },
+        "p1": {
+          "type": "point",
+          "settings": {
+            "icon": "🌸",
+            "title": "Angenehmer Duft",
+            "text": "Feine Duftnoten statt neutraler Reinigungsluft."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "icon": "⚡",
+            "title": "Einfach im Alltag",
+            "text": "Sprühen oder wischen – ohne Zusatzaufwand."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "icon": "🎨",
+            "title": "Viele Duftwelten",
+            "text": "Orientalisch, fruchtig, frisch oder blumig – du entscheidest."
+          }
+        }
+      },
+      "block_order": [
+        "p0",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {}
+    },
+    "ugc": {
+      "type": "ugc-videos",
+      "blocks": {
+        "u0": {
+          "type": "tile",
+          "settings": {
+            "tag": "TikTok",
+            "caption": "Boden wischen – und der ganze Raum duftet"
+          }
+        },
+        "u1": {
+          "type": "tile",
+          "settings": {
+            "tag": "Tutorial",
+            "caption": "Ein Sprühstoß Frida Air Freshener"
+          }
+        },
+        "u2": {
+          "type": "tile",
+          "settings": {
+            "tag": "Close-up",
+            "caption": "Unsere Duftsorten im Detail"
+          }
+        },
+        "u3": {
+          "type": "tile",
+          "settings": {
+            "tag": "Vorher / Nachher",
+            "caption": "Das Frische-Gefühl nach dem Putzen"
+          }
+        }
+      },
+      "block_order": [
+        "u0",
+        "u1",
+        "u2",
+        "u3"
+      ],
+      "settings": {}
+    },
+    "finale": {
+      "type": "final-cta",
+      "settings": {}
     }
   },
   "order": [
@@ -475,15 +570,18 @@
     "trust",
     "categories",
     "featured",
+    "probsol",
     "air",
     "worlds",
     "why",
     "usage",
     "video",
+    "ugc",
     "benefits",
     "reviews",
     "bundle",
     "newsletter",
-    "faq"
+    "faq",
+    "finale"
   ]
 }

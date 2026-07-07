@@ -540,3 +540,124 @@ footer{background:var(--navy);color:#c3cfff;padding:60px 0 26px}
   .sticky-bar .sp-hide{display:none}
   .detail-tab{padding:12px 14px;font-size:.9rem}
 }
+
+/* ================================================================
+   FRIDA CRO UPGRADE v2
+   ================================================================ */
+
+/* ---- Reveal stagger (grids reveal one after another) ---- */
+.grid-prod .reveal:nth-child(2),.worlds .reveal:nth-child(2),.ben-grid .reveal:nth-child(2),.reviews .reveal:nth-child(2),.cats .reveal:nth-child(2){transition-delay:.08s}
+.grid-prod .reveal:nth-child(3),.worlds .reveal:nth-child(3),.ben-grid .reveal:nth-child(3),.reviews .reveal:nth-child(3),.cats .reveal:nth-child(3){transition-delay:.16s}
+.grid-prod .reveal:nth-child(4),.worlds .reveal:nth-child(4),.ben-grid .reveal:nth-child(4){transition-delay:.24s}
+.grid-prod .reveal:nth-child(5),.ben-grid .reveal:nth-child(5){transition-delay:.3s}
+.grid-prod .reveal:nth-child(6),.ben-grid .reveal:nth-child(6){transition-delay:.36s}
+
+/* ---- Hero trust badges: animated pop-in ---- */
+.hero-badges span{opacity:0;transform:translateY(10px);animation:badgeIn .5s ease forwards}
+.hero-badges span:nth-child(1){animation-delay:.25s}
+.hero-badges span:nth-child(2){animation-delay:.4s}
+.hero-badges span:nth-child(3){animation-delay:.55s}
+.hero-badges span:nth-child(4){animation-delay:.7s}
+.hero-badges span:nth-child(5){animation-delay:.85s}
+@keyframes badgeIn{to{opacity:1;transform:none}}
+
+/* ---- Cart count pop ---- */
+@keyframes countPop{0%{transform:scale(1)}45%{transform:scale(1.45)}100%{transform:scale(1)}}
+.cart-count.pop{animation:countPop .35s ease}
+
+/* ---- FAQ body slide/fade when opened ---- */
+.faq[open] .faq-body{animation:faqIn .3s ease}
+@keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ---- Cart drawer: free-shipping progress bar ---- */
+.ship-progress{height:8px;border-radius:100px;background:var(--mist);overflow:hidden;margin:4px 0 8px}
+.ship-progress span{display:block;height:100%;width:0;border-radius:100px;background:var(--grad);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.ship-progress.done span{background:linear-gradient(90deg,#12a05f,#8ff0d0)}
+
+/* ---- Cart drawer: trust row ---- */
+.drawer-trust{display:flex;justify-content:space-between;gap:8px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.drawer-trust span{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--muted)}
+.drawer-trust svg{width:15px;height:15px;color:var(--blue);flex-shrink:0}
+
+/* ---- Cart drawer: upsell ---- */
+.drawer-upsell{margin-top:18px}
+.drawer-upsell h4{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.up-item{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:14px;margin-bottom:8px;background:var(--mist-2)}
+.up-item img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:10px;padding:4px;flex-shrink:0}
+.up-item .up-info{flex:1;min-width:0}
+.up-item b{font-size:.84rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Bricolage Grotesque'}
+.up-item small{color:var(--muted);font-size:.78rem}
+.up-add{background:var(--navy);color:#fff;font-size:.76rem;font-weight:600;padding:8px 14px;border-radius:100px;white-space:nowrap;transition:background .16s}
+.up-add:hover{background:var(--blue)}
+
+/* ---- Quick view: variant picker inside modal ---- */
+.qv-body .scent-opts{margin-bottom:16px;max-height:150px;overflow-y:auto}
+.qv-body .opt-label{margin-bottom:8px}
+.qv-body .add-btn{margin-top:4px}
+.qv-link{display:inline-block;margin-top:14px;font-size:.86rem;font-weight:600;color:var(--blue);text-decoration:underline}
+
+/* ---- Problem / Solution section ---- */
+.probsol{background:var(--mist-2)}
+.probsol-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.probsol blockquote{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:700;line-height:1.2;color:var(--navy);border-left:5px solid var(--aqua);padding-left:22px;margin-bottom:20px}
+.probsol .ps-sub{color:var(--muted);font-size:1.02rem;max-width:46ch}
+.ps-points{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ps-point{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:22px;transition:transform .2s,box-shadow .2s}
+.ps-point:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.ps-point .ic{font-size:1.5rem;margin-bottom:10px}
+.ps-point b{display:block;font-size:1rem;margin-bottom:4px;font-family:'Bricolage Grotesque',sans-serif}
+.ps-point p{font-size:.86rem;color:var(--muted)}
+
+/* ---- UGC / TikTok video grid ---- */
+.ugc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ugc-tile{position:relative;aspect-ratio:9/16;border-radius:var(--r-md);overflow:hidden;background:var(--grad);isolation:isolate;display:flex;align-items:flex-end;padding:18px;color:#fff;box-shadow:var(--shadow-sm);transition:transform .22s,box-shadow .22s;cursor:pointer}
+.ugc-tile:hover{transform:translateY(-6px) scale(1.01);box-shadow:var(--shadow)}
+.ugc-tile img,.ugc-tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .4s}
+.ugc-tile:hover img{transform:scale(1.06)}
+.ugc-tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,20,50,0) 40%,rgba(11,20,50,.72))}
+.ugc-tile .ugc-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.65);display:grid;place-items:center;backdrop-filter:blur(4px);transition:transform .2s,background .2s}
+.ugc-tile:hover .ugc-play{transform:translate(-50%,-50%) scale(1.1);background:rgba(255,255,255,.32)}
+.ugc-tile .ugc-play svg{width:20px;height:20px;color:#fff;margin-left:3px}
+.ugc-tile b{position:relative;font-size:.9rem;font-weight:600;line-height:1.35}
+.ugc-tag{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:.68rem;font-weight:700;padding:4px 11px;border-radius:100px;backdrop-filter:blur(4px)}
+
+/* ---- Final CTA section ---- */
+.final-cta{position:relative;overflow:hidden;background:var(--grad);border-radius:var(--r-lg);padding:64px 40px;text-align:center;color:#fff}
+.final-cta::before{content:"";position:absolute;width:560px;height:560px;left:-180px;top:-260px;border-radius:50%;background:radial-gradient(circle,rgba(58,210,246,.35),transparent 68%)}
+.final-cta::after{content:"";position:absolute;width:460px;height:460px;right:-160px;bottom:-240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
+.final-cta>*{position:relative;z-index:2}
+.final-cta h2{font-size:clamp(1.9rem,4vw,3rem);margin-bottom:14px;color:#fff}
+.final-cta p{opacity:.92;max-width:46ch;margin:0 auto 28px}
+.final-cta .btn-primary{background:#fff;color:var(--blue);box-shadow:0 14px 34px rgba(0,0,0,.22)}
+.final-cta .fc-note{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-top:24px;font-size:.84rem;font-weight:600;opacity:.9}
+.final-cta .fc-note span{display:inline-flex;align-items:center;gap:7px}
+.final-cta .fc-note svg{width:16px;height:16px;color:#8ff0d0}
+
+/* ---- Mobile sticky CTA (homepage) ---- */
+.home-sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:70;display:none;
+  transform:translateY(140%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.home-sticky.show{transform:translateY(0)}
+.home-sticky a{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--grad);color:#fff;
+  font-weight:700;font-size:1rem;padding:16px;border-radius:100px;box-shadow:0 14px 34px rgba(16,35,90,.35)}
+@media(max-width:860px){.home-sticky{display:block}}
+
+/* ---- PDP: social proof pill ---- */
+.pdp-social{display:inline-flex;align-items:center;gap:8px;background:var(--mist);color:var(--navy);font-size:.82rem;
+  font-weight:600;padding:7px 14px;border-radius:100px;margin-bottom:20px}
+.pdp-social svg{width:15px;height:15px;color:var(--blue)}
+
+/* ---- UGC / responsive ---- */
+@media(max-width:860px){
+  .probsol-grid{grid-template-columns:1fr;gap:28px}
+  .ugc-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .ps-points{grid-template-columns:1fr}
+  .ugc-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .final-cta{padding:44px 22px}
+}
+
+/* ---- Global animation off (theme setting) ---- */
+body.anim-off *,body.anim-off *::before,body.anim-off *::after{animation:none!important;transition:none!important}
+body.anim-off .reveal{opacity:1;transform:none}
+body.anim-off .hero-badges span{opacity:1;transform:none}

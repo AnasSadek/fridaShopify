@@ -18,7 +18,7 @@
         <div class="gal-thumbs">
           {%- for image in product.images limit: 8 -%}
             <div class="gal-thumb {% if forloop.first %}active{% endif %}" data-thumb-src="{{ image | image_url: width: 900 }}">
-              <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy">
+              <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt | default: product.title | escape }}" width="200" height="200" loading="lazy">
             </div>
           {%- endfor -%}
         </div>
@@ -45,6 +45,10 @@
         {%- endif -%}
       </div>
       <p class="pdp-tax"><b id="pAvail">{% if product.available %}Auf Lager{% else %}Ausverkauft{% endif %}</b> · inkl. MwSt. zzgl. <a href="#versand" style="color:var(--blue);font-weight:600">Versand</a></p>
+
+      {%- if section.settings.social_note != blank -%}
+        <span class="pdp-social"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.6 1.7 7-6.3-3.9L5.7 21l1.7-7-5.4-4.6 7.1-.6L12 2Z"/></svg>{{ section.settings.social_note }}</span>
+      {%- endif -%}
 
       {%- form 'product', product, id: 'productForm', class: 'frida-add-form' -%}
         {%- unless product.has_only_default_variant -%}
@@ -87,12 +91,22 @@
 <section class="wrap pdp-details">
   <div class="detail-tabs">
     <button class="detail-tab active" data-tab="desc">Beschreibung</button>
+    <button class="detail-tab" data-tab="scent">Duftprofil</button>
     <button class="detail-tab" data-tab="use">Anwendung</button>
     <button class="detail-tab" data-tab="ben">Vorteile</button>
-    <button class="detail-tab" data-tab="ship">Versand</button>
+    <button class="detail-tab" data-tab="ship">Versand & Zahlung</button>
   </div>
   <div class="tab-panel active" data-panel="desc">
     <div class="rte">{{ product.description }}</div>
+  </div>
+  <div class="tab-panel" data-panel="scent">
+    <div class="rte">
+      {%- if product.metafields.custom.scent_profile != blank -%}
+        {{ product.metafields.custom.scent_profile }}
+      {%- else -%}
+        {{ section.settings.scent_text }}
+      {%- endif -%}
+    </div>
   </div>
   <div class="tab-panel" data-panel="use" id="versand-use">
     <div class="rte">{{ section.settings.usage_text }}</div>
@@ -128,7 +142,7 @@
 <div class="sticky-bar" id="stickyBar">
   <div class="wrap sticky-inner">
     <div class="sticky-prod">
-      <img src="{{ product.featured_image | image_url: width: 120 }}" alt="">
+      <img src="{{ product.featured_image | image_url: width: 120 }}" alt="" width="120" height="120" loading="lazy">
       <div class="sp-hide"><b>{{ product.title }}</b><small>{{ product.type }}</small></div>
     </div>
     <div class="sticky-price" id="sbPrice">{{ product.price | money }}{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</div>
@@ -142,6 +156,8 @@
 {
   "name": "Produkt",
   "settings": [
+    { "type": "text", "id": "social_note", "label": "Social-Proof-Hinweis", "default": "Beliebt bei Frida-Kunden – perfekt zum Kombinieren" },
+    { "type": "richtext", "id": "scent_text", "label": "Duftprofil (Fallback, wenn kein Metafeld custom.scent_profile gesetzt ist)", "default": "<p>Ein Duft, der deinem Zuhause sofort ein frisches Gefühl gibt. Wähle aus vielen Duftwelten – von warm-orientalisch (Oud, Arabesque) über fruchtig (Peach, Limoncello) bis frisch-clean (Clean, Cotton) und blumig (Lavender, Jasmine).</p>" },
     { "type": "richtext", "id": "usage_text", "label": "Anwendung", "default": "<p>Gib 1–2 Verschlusskappen auf ca. 5 L warmes Wasser und reinige Böden und abwaschbare Oberflächen wie gewohnt. Vor der ersten Anwendung an unauffälliger Stelle testen.</p>" },
     { "type": "richtext", "id": "benefits_text", "label": "Vorteile", "default": "<p>Langanhaltender Duft, viele Duftsorten, für Zuhause & Büro, einfache Anwendung und eine frische Atmosphäre – Frida macht dein Zuhause spürbar sauberer.</p>" },
     { "type": "richtext", "id": "shipping_text", "label": "Versand", "default": "<p>Versand in 2–4 Werktagen (DE) bzw. 3–6 Werktagen (EU). Versandkosten 3,90 € – gratis ab 39 €. 14 Tage Rückgaberecht.</p>" }

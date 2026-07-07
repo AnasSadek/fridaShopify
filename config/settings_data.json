@@ -2,7 +2,9 @@
   "current": {
     "color_navy": "#16237a",
     "color_blue": "#2649cf",
-    "color_aqua": "#0fb3e6"
+    "color_aqua": "#0fb3e6",
+    "free_shipping_threshold": 39,
+    "enable_animations": true
   },
   "presets": {
     "Default": {}

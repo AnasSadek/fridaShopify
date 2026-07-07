@@ -7,7 +7,7 @@
       {%- form 'cart', cart -%}
         {%- for item in cart.items -%}
           <div class="ci" style="padding:18px 0">
-            <div class="ci-img"><img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.product.title }}"></div>
+            <div class="ci-img"><img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.image.alt | default: item.product.title | escape }}" width="140" height="140" loading="lazy"></div>
             <div class="ci-info">
               <b>{{ item.product.title }}</b><small>{{ item.variant.title | remove: 'Default Title' }}</small>
               <div class="ci-bottom">

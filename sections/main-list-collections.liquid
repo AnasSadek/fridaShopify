@@ -4,7 +4,7 @@
     <div class="cats">
       {%- for collection in collections -%}
         <a href="{{ collection.url }}" class="cat c-air reveal">
-          {%- if collection.featured_image -%}<img class="cat-img" src="{{ collection.featured_image | image_url: width: 500 }}" alt="{{ collection.title }}">{%- endif -%}
+          {%- if collection.featured_image -%}<img class="cat-img" src="{{ collection.featured_image | image_url: width: 500 }}" alt="{{ collection.featured_image.alt | default: collection.title | escape }}" width="500" height="{{ 500 | divided_by: collection.featured_image.aspect_ratio | round }}" loading="lazy">{%- endif -%}
           <h3>{{ collection.title }}</h3>
           <span class="cat-link">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </a>

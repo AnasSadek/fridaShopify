@@ -26,7 +26,7 @@
       {%- if section.settings.image != blank -%}
         <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" width="900" height="900" fetchpriority="high">
       {%- else -%}
-        <img src="{{ 'air-group.webp' | asset_url }}" alt="Frida Lufterfrischer in vielen Duftsorten" fetchpriority="high">
+        <img src="{{ 'air-group.webp' | asset_url }}" alt="Frida Lufterfrischer in vielen Duftsorten" width="1690" height="1583" fetchpriority="high">
       {%- endif -%}
       {%- if section.settings.chip1_num != blank -%}<div class="hero-chip c1"><span class="n">{{ section.settings.chip1_num }}</span><div>★★★★★<small>{{ section.settings.chip1_text }}</small></div></div>{%- endif -%}
       {%- if section.settings.chip2_num != blank -%}<div class="hero-chip c2"><span class="n">{{ section.settings.chip2_num }}</span><div>{{ section.settings.chip2_title }}<small>{{ section.settings.chip2_text }}</small></div></div>{%- endif -%}
@@ -57,7 +57,7 @@
   "blocks": [
     { "type": "badge", "name": "Trust-Badge", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Schneller Versand" } ] }
   ],
-  "max_blocks": 4,
+  "max_blocks": 5,
   "presets": [
     { "name": "Hero", "blocks": [
       { "type": "badge", "settings": { "text": "Schneller Versand" } },

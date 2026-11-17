@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Frida",
+    "theme_version": "3.2.0",
+    "theme_author": "Frida EU",
+    "theme_documentation_url": "https://fridaeu.com",
+    "theme_support_url": "https://fridaeu.com/pages/kontakt"
+  },
+  {
+    "name": "Saisonales Design",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Schaltet das komplette Weihnachts-/Winterdesign (Farben, Sektionen-Styling, Dekoration) für den gesamten Shop ein oder aus. Nach der Saison einfach den Haken entfernen – das Original-Design ist sofort wieder aktiv."
+      },
+      {
+        "type": "checkbox",
+        "id": "holiday_mode",
+        "label": "Saisonales Design aktivieren",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "holiday_decor",
+        "label": "Dekoration anzeigen (Schnee, Schneeflocken-Ornamente)",
+        "default": true,
+        "info": "Nur wirksam, wenn das saisonale Design aktiv ist. Animationen respektieren automatisch „Bewegung reduzieren“."
+      }
+    ]
+  }
+]

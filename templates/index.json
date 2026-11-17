@@ -183,8 +183,8 @@
       ],
       "settings": {
         "eyebrow": "Am beliebtesten",
-        "heading": "Unsere Bestseller",
-        "subheading": "Die Düfte, die unsere Kund:innen immer wieder nachbestellen.",
+        "heading": "Bestseller für festliche Tage",
+        "subheading": "Die Düfte, die unsere Kund:innen immer wieder nachbestellen – jetzt winterlich in Szene gesetzt.",
         "collection": "frontpage",
         "count": 12,
         "view_all": ""
@@ -234,7 +234,7 @@
       ],
       "settings": {
         "eyebrow": "Der Unterschied",
-        "statement": "Ein Zuhause kann sauber aussehen – aber erst der richtige Duft macht es wirklich angenehm.",
+        "statement": "Ein Zuhause kann festlich geschmückt sein – aber erst der richtige Duft macht es wirklich gemütlich.",
         "text": "Genau dafür gibt es Frida: Düfte, die aus einem sauberen Raum ein Zuhause machen, in dem man gerne ankommt."
       }
     },
@@ -620,9 +620,9 @@
         "feature2"
       ],
       "settings": {
-        "eyebrow": "Sparpaket",
-        "heading": "Mehr Duft. Mehr Frische. Mehr sparen.",
-        "text": "Stelle dein Lieblings-Set zusammen und sichere dir die beliebtesten Frida-Düfte zum Vorteilspreis.",
+        "eyebrow": "Geschenk-Tipp",
+        "heading": "Das Duft-Set für die Feiertage.",
+        "text": "Stelle dein Lieblings-Set zusammen und sichere dir die beliebtesten Frida-Düfte zum Vorteilspreis – auch perfekt zum Verschenken.",
         "image": "shopify://shop_images/1_7bf177d0-b2e0-4590-b719-f5545af7bd71.png",
         "save_text": "– 7 % sparen",
         "price": "26,99 €",
@@ -635,7 +635,7 @@
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "eyebrow": "Newsletter",
+        "eyebrow": "Winter-Newsletter",
         "heading": "10 % auf deine erste Bestellung",
         "text": "Melde dich an und erhalte deinen Gutschein, neue Duft-Drops und exklusive Angebote.",
         "button_label": "Sichern",
@@ -697,8 +697,8 @@
       "type": "final-cta",
       "settings": {
         "eyebrow": "Bereit?",
-        "heading": "Bereit für ein Zuhause, das frischer riecht?",
-        "text": "Über 12.000 Haushalte vertrauen auf Frida. Finde jetzt den Duft, der zu dir passt.",
+        "heading": "Bereit für ein Zuhause, das nach Feiertagen duftet?",
+        "text": "Über 12.000 Haushalte vertrauen auf Frida. Finde jetzt den Duft, der deine Festtage begleitet.",
         "button_label": "Jetzt Lieblingsduft finden",
         "button_link": "",
         "notes": "Schneller Versand, Sichere Bezahlung, Viele Duftsorten",
@@ -760,6 +760,78 @@
         "show_limited_badge": true
       }
     },
+    "showcase_xmas": {
+      "type": "holiday-showcase",
+      "blocks": {
+        "pt0": {
+          "type": "point",
+          "settings": { "text": "Warme Vanille & Zimt" }
+        },
+        "pt1": {
+          "type": "point",
+          "settings": { "text": "Bis zu 48h Duft" }
+        },
+        "pt2": {
+          "type": "point",
+          "settings": { "text": "Ideal als Geschenk" }
+        }
+      },
+      "block_order": ["pt0", "pt1", "pt2"],
+      "settings": {
+        "tone": "night",
+        "flip": false,
+        "show_snow": true,
+        "anchor": "geschenkidee",
+        "eyebrow": "Die Geschenkidee der Saison",
+        "heading": "Ein Sprühstoß, und es ist <span class=\"hg\">Weihnachten.</span>",
+        "text": "Vanilla & Cinnamon verwandelt jeden Raum in Sekunden in eine festliche Stube – warm, süß und gemütlich. Perfekt unterm Baum oder als Mitbringsel.",
+        "badge_text": "🎄 Nur im Winter",
+        "product": "frida-air-freshener-460ml",
+        "variant_id": "58172908601724",
+        "show_price": true,
+        "price_prefix": "Nur",
+        "show_stock": true,
+        "cta_label": "Jetzt verschenken",
+        "cta2_label": "Alle Düfte ansehen",
+        "cta2_link": "/products/frida-air-freshener-460ml"
+      }
+    },
+    "showcase_new": {
+      "type": "holiday-showcase",
+      "blocks": {
+        "pn0": {
+          "type": "point",
+          "settings": { "text": "Frisch wie Meeresbrise" }
+        },
+        "pn1": {
+          "type": "point",
+          "settings": { "text": "Für Boden & Oberflächen" }
+        },
+        "pn2": {
+          "type": "point",
+          "settings": { "text": "Neu im Sortiment" }
+        }
+      },
+      "block_order": ["pn0", "pn1", "pn2"],
+      "settings": {
+        "tone": "ice",
+        "flip": true,
+        "show_snow": false,
+        "anchor": "neuheiten",
+        "eyebrow": "Neu eingetroffen",
+        "heading": "Beach Dream – <span class=\"hg\">Urlaub</span> im Putzeimer.",
+        "text": "Unser neuester Bodenduft bringt sonnige Frische in den Winter: ein Hauch Strand, während draußen Schnee liegt. Jetzt als neue Sorte der Home Cleaning Fragrance.",
+        "badge_text": "✨ Neu",
+        "product": "frida-allzweckreiniger-konzentrat",
+        "variant_id": "58171965112700",
+        "show_price": true,
+        "price_prefix": "Nur",
+        "show_stock": true,
+        "cta_label": "Beach Dream entdecken",
+        "cta2_label": "Alle Neuheiten",
+        "cta2_link": "/collections/neu"
+      }
+    },
     "newarrivals": {
       "type": "new-arrivals",
       "settings": {
@@ -776,13 +848,15 @@
     "hero",
     "trust",
     "newarrivals",
-    "categories",
+    "showcase_xmas",
     "featured",
+    "categories",
+    "showcase_new",
     "probsol",
-    "air",
     "worlds",
     "why",
     "usage",
+    "air",
     "video",
     "ugc",
     "benefits",

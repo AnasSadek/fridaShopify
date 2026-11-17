@@ -23,12 +23,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   {{ 'frida-theme.css' | asset_url | stylesheet_tag }}
+  {%- if settings.holiday_mode -%}
+    {{ 'holiday.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
 
   <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
   {{ content_for_header }}
 </head>
 
-<body class="template-{{ request.page_type | handle }} lang-{{ lang_root }} dir-{{ text_direction }}{% unless settings.enable_animations %} anim-off{% endunless %}">
+<body class="template-{{ request.page_type | handle }} lang-{{ lang_root }} dir-{{ text_direction }}{% unless settings.enable_animations %} anim-off{% endunless %}{% if settings.holiday_mode %} holiday-mode{% if settings.holiday_decor %} holiday-decor{% endif %}{% endif %}">
   {% section 'announcement-bar' %}
   {% section 'header' %}
 

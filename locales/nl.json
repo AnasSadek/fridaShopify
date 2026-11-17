@@ -33,7 +33,9 @@
       "view": "Bekijken",
       "all_collections": "Alle collecties",
       "collection": "Collectie",
-      "assortment": "Assortiment"
+      "assortment": "Assortiment",
+      "new": "Nieuw",
+      "holiday": "Kerstwereld"
     },
     "forms": {
       "email": "E-mail",
@@ -206,6 +208,18 @@
       "info_heading": "We zijn er voor je",
       "info_text_html": "Onze klantenservice helpt je graag met vragen over Frida-producten, je bestelling of een retourzending.",
       "hours": "Ma–vr, 9:00–17:00 uur"
+    },
+    "general": {
+      "empty_page": "Deze pagina wordt bijgewerkt. Kom snel terug."
+    }
+  },
+  "holiday": {
+    "limited_badge": "Gelimiteerde editie",
+    "new_badge": "Nieuw"
+  },
+  "customer": {
+    "account": {
+      "title": "Account"
     }
   }
 }

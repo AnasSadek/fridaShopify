@@ -26,7 +26,9 @@
       "view": "View",
       "all_collections": "All collections",
       "collection": "Collection",
-      "assortment": "Range"
+      "assortment": "Range",
+      "new": "New",
+      "holiday": "Christmas World"
     },
     "search": {
       "search": "Search",
@@ -161,6 +163,9 @@
       "info_heading": "We are here for you",
       "info_text_html": "<p>Our customer service team is happy to help with questions about Frida products, your order, or a return.</p>",
       "hours": "Mon–Fri, 9:00–17:00"
+    },
+    "general": {
+      "empty_page": "This page is being updated. Please check back soon."
     }
   },
   "pagefly": {
@@ -206,6 +211,15 @@
       "signup_form_email_label": "Email",
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
+    }
+  },
+  "holiday": {
+    "limited_badge": "Limited Edition",
+    "new_badge": "New"
+  },
+  "customer": {
+    "account": {
+      "title": "Account"
     }
   }
 }

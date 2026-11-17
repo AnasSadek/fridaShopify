@@ -26,7 +26,9 @@
       "view": "عرض",
       "all_collections": "كل المجموعات",
       "collection": "المجموعة",
-      "assortment": "التشكيلة"
+      "assortment": "التشكيلة",
+      "new": "جديد",
+      "holiday": "عالم عيد الميلاد"
     },
     "search": {
       "search": "بحث",
@@ -161,6 +163,9 @@
       "info_heading": "نحن هنا لمساعدتك",
       "info_text_html": "<p>يسعد فريق خدمة العملاء لدينا مساعدتك في أي استفسار بخصوص منتجات Frida أو طلبك أو عملية الإرجاع.</p>",
       "hours": "الاثنين – الجمعة، 9:00 – 17:00"
+    },
+    "general": {
+      "empty_page": "يتم تحديث هذه الصفحة حاليًا. يرجى العودة قريبًا."
     }
   },
   "pagefly": {
@@ -206,6 +211,15 @@
       "signup_form_email_label": "Email",
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
+    }
+  },
+  "holiday": {
+    "limited_badge": "إصدار محدود",
+    "new_badge": "جديد"
+  },
+  "customer": {
+    "account": {
+      "title": "الحساب"
     }
   }
 }

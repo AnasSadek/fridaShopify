@@ -33,7 +33,9 @@
       "view": "Ansehen",
       "all_collections": "Alle Kollektionen",
       "collection": "Kollektion",
-      "assortment": "Sortiment"
+      "assortment": "Sortiment",
+      "new": "Neu",
+      "holiday": "Weihnachtswelt"
     },
     "forms": {
       "email": "E-Mail",
@@ -206,6 +208,18 @@
       "info_heading": "Wir sind für dich da",
       "info_text_html": "<p>Unser Kundenservice hilft dir gern bei Fragen zu Frida Produkten, deiner Bestellung oder einer Rücksendung.</p>",
       "hours": "Mo–Fr, 9:00–17:00 Uhr"
+    },
+    "general": {
+      "empty_page": "Diese Seite wird gerade überarbeitet. Schau bald wieder vorbei."
+    }
+  },
+  "holiday": {
+    "limited_badge": "Limitierte Edition",
+    "new_badge": "Neu"
+  },
+  "customer": {
+    "account": {
+      "title": "Konto"
     }
   }
 }

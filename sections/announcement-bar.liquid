@@ -1,11 +1,45 @@
-<div class="topbar">
-  {%- if section.settings.text != blank -%}{{ section.settings.text }}{%- endif -%}
+{%- liquid
+  assign seasonal_active = false
+  if section.settings.show_seasonal and section.blocks.size > 0
+    assign seasonal_active = true
+  endif
+-%}
+<div class="topbar{% if seasonal_active %} topbar-rot{% endif %}"{% if seasonal_active %} data-rotate="{{ section.settings.rotate_seconds | default: 5 }}"{% endif %}>
+  {%- if seasonal_active -%}
+    <span class="topbar-msg active">{{ section.settings.text }}</span>
+    {%- for block in section.blocks -%}
+      <span class="topbar-msg" {{ block.shopify_attributes }}>
+        {%- if block.settings.link != blank -%}
+          <a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
+        {%- else -%}
+          {{ block.settings.text }}
+        {%- endif -%}
+      </span>
+    {%- endfor -%}
+  {%- else -%}
+    {%- if section.settings.text != blank -%}{{ section.settings.text }}{%- endif -%}
+  {%- endif -%}
 </div>
 {% schema %}
 {
   "name": "Ankündigungsleiste",
   "settings": [
-    { "type": "html", "id": "text", "label": "Text", "default": "🚚 <strong>Versandkostenfrei ab 39 €</strong> · Lieferung in 2–4 Tagen in DE & EU · Über 12.000 zufriedene Haushalte" }
-  ]
+    { "type": "html", "id": "text", "label": "Text", "default": "🚚 <strong>Versandkostenfrei ab 39 €</strong> · Lieferung in 2–4 Tagen in DE & EU · Über 12.000 zufriedene Haushalte" },
+    { "type": "header", "content": "Saisonale Botschaften" },
+    { "type": "paragraph", "content": "Optionale zusätzliche Botschaften (z. B. „Weihnachtsduft jetzt entdecken“), die im Wechsel mit dem Haupttext angezeigt werden. Der Versand-Haupttext oben bleibt immer erhalten. Nach der Saison: Haken entfernen oder Blöcke löschen." },
+    { "type": "checkbox", "id": "show_seasonal", "label": "Saisonale Botschaften rotieren", "default": false },
+    { "type": "range", "id": "rotate_seconds", "label": "Wechsel alle … Sekunden", "min": 3, "max": 10, "step": 1, "default": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Saisonale Botschaft",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "🎄 Weihnachtsduft jetzt entdecken" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "max_blocks": 4
 }
 {% endschema %}

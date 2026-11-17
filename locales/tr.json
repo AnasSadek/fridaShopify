@@ -26,7 +26,9 @@
       "view": "Görüntüle",
       "all_collections": "Tüm koleksiyonlar",
       "collection": "Koleksiyon",
-      "assortment": "Ürün yelpazesi"
+      "assortment": "Ürün yelpazesi",
+      "new": "Yeni",
+      "holiday": "Yılbaşı Dünyası"
     },
     "search": {
       "search": "Ara",
@@ -161,6 +163,9 @@
       "info_heading": "Size yardımcı olmak için buradayız",
       "info_text_html": "<p>Müşteri hizmetleri ekibimiz Frida ürünleri, siparişiniz veya iade işlemleriyle ilgili sorularınızda memnuniyetle yardımcı olur.</p>",
       "hours": "Pzt–Cum, 09:00–17:00"
+    },
+    "general": {
+      "empty_page": "Bu sayfa güncelleniyor. Lütfen daha sonra tekrar bakın."
     }
   },
   "pagefly": {
@@ -206,6 +211,15 @@
       "signup_form_email_label": "Email",
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
+    }
+  },
+  "holiday": {
+    "limited_badge": "Sınırlı Üretim",
+    "new_badge": "Yeni"
+  },
+  "customer": {
+    "account": {
+      "title": "Hesap"
     }
   }
 }

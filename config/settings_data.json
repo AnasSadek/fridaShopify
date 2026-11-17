@@ -18,13 +18,45 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "text": "🚚 <strong>Versandkostenfrei ab 55 €</strong> · Lieferung in 2–4 Tagen in DE &amp; EU · Über 12.000 zufriedene Haushalte"
-        }
+          "text": "🚚 <strong>Versandkostenfrei ab 55 €</strong> · Lieferung in 2–4 Tagen in DE &amp; EU · Über 12.000 zufriedene Haushalte",
+          "show_seasonal": true,
+          "rotate_seconds": 5
+        },
+        "blocks": {
+          "seasonal1": {
+            "type": "message",
+            "settings": {
+              "text": "🎄 Weihnachtsduft jetzt entdecken – Vanilla & Cinnamon",
+              "link": "/products/frida-air-freshener-460ml?variant=58172908601724"
+            }
+          },
+          "seasonal2": {
+            "type": "message",
+            "settings": {
+              "text": "❄ Winterliche Frische für dein Zuhause",
+              "link": ""
+            }
+          },
+          "seasonal3": {
+            "type": "message",
+            "settings": {
+              "text": "✨ Neu bei Frida – jetzt entdecken",
+              "link": "/collections/neu"
+            }
+          }
+        },
+        "block_order": [
+          "seasonal1",
+          "seasonal2",
+          "seasonal3"
+        ]
       },
       "header": {
         "type": "header",
         "settings": {
-          "menu": ""
+          "menu": "",
+          "show_new_link": true,
+          "show_holiday_link": true
         }
       },
       "footer": {

@@ -1,0 +1,66 @@
+{%- comment -%}
+  Neu bei Frida – dynamische Neuheiten-Sektion (Collection-gesteuert)
+  - Produkte kommen automatisch aus der gewählten Collection (Standard: "neu")
+  - Preise/Verfügbarkeit marktabhängig über das bestehende product-card-Snippet
+  - Ganzjährig nutzbar, unabhängig vom Weihnachtsmodus
+{%- endcomment -%}
+
+{%- liquid
+  assign na_coll = collections[section.settings.collection]
+  if na_coll == blank
+    assign na_coll = collections['neu']
+  endif
+
+  assign na_view_all = section.settings.view_all
+  if na_view_all == blank and na_coll != blank
+    assign na_view_all = na_coll.url
+  endif
+-%}
+
+<section class="section new-arrivals" id="neu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow na-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+
+    {%- if na_coll != blank and na_coll.products_count > 0 -%}
+      <div class="grid-prod na-grid">
+        {%- for product in na_coll.products limit: section.settings.count -%}
+          {%- render 'product-card', card: product -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if na_view_all != blank and section.settings.view_all_label != blank -%}
+        <div class="na-viewall">
+          <a href="{{ na_view_all }}" class="btn btn-ghost">
+            {{ section.settings.view_all_label }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      {%- endif -%}
+    {%- elsif request.design_mode -%}
+      <div class="na-empty">
+        <p><strong>Hinweis (nur im Editor sichtbar):</strong> Keine Collection gefunden oder Collection ist leer. Lege die Collection „neu“ an bzw. wähle oben eine Collection mit Produkten aus. Tipp: Produkte mit dem Tag „Neu“ erhalten automatisch ein Neu-Badge.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Neu bei Frida",
+  "settings": [
+    { "type": "paragraph", "content": "Zeigt automatisch Produkte aus einer Collection (Standard: „neu“). Neue Produkte erscheinen ohne Code-Änderung – einfach der Collection hinzufügen. Produkte mit Tag „Neu“ bekommen ein Neu-Badge." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "❄ Frisch eingetroffen" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Neu bei Frida" },
+    { "type": "textarea", "id": "subheading", "label": "Untertitel", "default": "Entdecke unsere neuesten Düfte – von festlich-warm bis winterfrisch." },
+    { "type": "collection", "id": "collection", "label": "Collection (leer = „neu“)" },
+    { "type": "range", "id": "count", "label": "Anzahl Produkte", "min": 2, "max": 12, "step": 1, "default": 4 },
+    { "type": "text", "id": "view_all_label", "label": "Button „Alle ansehen“ (leer = ausblenden)", "default": "Alle Neuheiten ansehen" },
+    { "type": "url", "id": "view_all", "label": "Button-Link (leer = Collection)" }
+  ],
+  "presets": [ { "name": "Neu bei Frida" } ]
+}
+{% endschema %}

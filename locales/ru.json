@@ -26,7 +26,9 @@
       "view": "Смотреть",
       "all_collections": "Все коллекции",
       "collection": "Коллекция",
-      "assortment": "Ассортимент"
+      "assortment": "Ассортимент",
+      "new": "Новинки",
+      "holiday": "Мир Рождества"
     },
     "search": {
       "search": "Поиск",
@@ -161,6 +163,9 @@
       "info_heading": "Мы всегда готовы помочь",
       "info_text_html": "<p>Наша служба поддержки с радостью поможет вам с вопросами о продуктах Frida, вашем заказе или возврате.</p>",
       "hours": "Пн–Пт, 9:00–17:00"
+    },
+    "general": {
+      "empty_page": "Эта страница обновляется. Загляните позже."
     }
   },
   "pagefly": {
@@ -206,6 +211,15 @@
       "signup_form_email_label": "Email",
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
+    }
+  },
+  "holiday": {
+    "limited_badge": "Лимитированная серия",
+    "new_badge": "Новинка"
+  },
+  "customer": {
+    "account": {
+      "title": "Аккаунт"
     }
   }
 }

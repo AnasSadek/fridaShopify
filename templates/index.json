@@ -82,7 +82,8 @@
         "rating_text": "4,9/5 Bewertung",
         "households_text": "12.000+ zufriedene Haushalte",
         "delivery_text": "2–4 Tage Lieferung"
-      }
+      },
+      "disabled": true
     },
     "trust": {
       "type": "trust-bar",
@@ -704,11 +705,77 @@
         "mobile_bar": true,
         "mobile_bar_label": "Jetzt Düfte entdecken"
       }
+    },
+    "holiday": {
+      "type": "holiday-spotlight",
+      "blocks": {
+        "hb0": {
+          "type": "badge",
+          "settings": {
+            "icon": "snow",
+            "text": "Festlicher Winterduft"
+          }
+        },
+        "hb1": {
+          "type": "badge",
+          "settings": {
+            "icon": "clock",
+            "text": "Bis zu 48h Duft"
+          }
+        },
+        "hb2": {
+          "type": "badge",
+          "settings": {
+            "icon": "gift",
+            "text": "Ideal als Geschenk"
+          }
+        },
+        "hb3": {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "text": "Schneller Versand"
+          }
+        }
+      },
+      "block_order": [
+        "hb0",
+        "hb1",
+        "hb2",
+        "hb3"
+      ],
+      "settings": {
+        "eyebrow": "❄ Frida Weihnachtsedition",
+        "heading": "Dein Zuhause duftet<br>nach <span class=\"hg\">Weihnachten.</span>",
+        "deal_line": "Vanilla & Cinnamon – der Winterduft für festliche Momente",
+        "subheading": "Warmer Vanille-Zimt-Duft für Wohnzimmer, Flur & Co. – langanhaltend, festlich und sofort gemütlich.",
+        "product": "frida-air-freshener-460ml",
+        "variant_id": "58172908601724",
+        "price_prefix": "Nur",
+        "shipping_text": "Lieferung in 2–4 Tagen",
+        "button_label": "Weihnachtsduft entdecken",
+        "button2_label": "Alle Neuheiten ansehen",
+        "button2_link": "#neu",
+        "show_snow": true,
+        "show_limited_badge": true
+      }
+    },
+    "newarrivals": {
+      "type": "new-arrivals",
+      "settings": {
+        "eyebrow": "❄ Frisch eingetroffen",
+        "heading": "Neu bei Frida",
+        "subheading": "Entdecke unsere neuesten Düfte – von festlich-warm bis winterfrisch.",
+        "count": 4,
+        "view_all_label": "Alle Neuheiten ansehen"
+      }
     }
   },
   "order": [
+    "holiday",
     "hero",
     "trust",
+    "newarrivals",
     "categories",
     "featured",
     "probsol",

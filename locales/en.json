@@ -1,0 +1,211 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "meta": {
+      "tagged": "tagged",
+      "page": "Page"
+    },
+    "accessibility": {
+      "close": "Close",
+      "menu": "Menu",
+      "cart_open": "Open cart",
+      "search": "Search"
+    },
+    "navigation": {
+      "home": "Home",
+      "products": "Products",
+      "bestseller": "Bestsellers",
+      "view": "View",
+      "all_collections": "All collections",
+      "collection": "Collection",
+      "assortment": "Range"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search",
+      "title": "Search",
+      "input_placeholder": "What are you looking for?",
+      "no_results_html": "No results for “{{ terms }}”."
+    },
+    "forms": {
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "hours": "Service hours",
+      "name": "Full name",
+      "phone_optional": "Phone optional",
+      "order_optional": "Order number optional",
+      "subject": "Subject",
+      "subject_placeholder": "What is it about?",
+      "message": "Message",
+      "message_placeholder": "Write your message…",
+      "send": "Send message",
+      "success": "Thank you! Your message has been sent. We will get back to you as soon as possible.",
+      "error": "Please check the highlighted fields and try again."
+    },
+    "language": {
+      "label": "Language",
+      "change": "Change language"
+    },
+    "errors": {
+      "not_found_title": "404",
+      "not_found_text": "This page no longer exists.",
+      "back_home": "Back to home"
+    },
+    "newsletter": {
+      "email_placeholder": "Your email address",
+      "success": "Thank you! Please confirm the email in your inbox.",
+      "default_button": "Sign up"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "in_stock": "In stock",
+      "sale": "Sale",
+      "bestseller": "Bestseller",
+      "new": "New",
+      "popular": "Popular",
+      "quick_view": "Quick view",
+      "choose_scent": "Choose scent",
+      "scents_count": "{{ count }} scents to choose from",
+      "from": "from",
+      "home_fragrance": "Home Fragrance",
+      "reviews": "reviews",
+      "tax_shipping_html": "incl. VAT plus <a href=\"#versand\" style=\"color:var(--blue);font-weight:600\">shipping</a>",
+      "quantity_minus": "Less",
+      "quantity_plus": "More",
+      "description": "Description",
+      "usage": "How to use",
+      "benefits": "Benefits",
+      "shipping": "Shipping",
+      "related_eyebrow": "Pairs well",
+      "related_title": "Discover similar scents",
+      "all_details": "View all details →",
+      "option": "Option",
+      "view_all": "View all products",
+      "tax_shipping_included_html": "incl. VAT & shipping",
+      "tax_shipping_extra_html": "incl. VAT, plus shipping",
+      "shipping_included_short": "2–4 days · shipping included",
+      "shipping_extra_short": "2–4 days · free over €55",
+      "payment_methods": "PayPal, Klarna, credit card",
+      "freshness_title": "Up to 24 hours of freshness",
+      "freshness_text": "Long-lasting fragrance",
+      "returns_title": "14-day returns",
+      "returns_text": "Simple & hassle-free",
+      "package": "Package",
+      "mix_match_air_heading": "1. Choose 3 air fresheners",
+      "mix_match_floor_heading": "2. Choose 3 floor fresheners",
+      "mix_match_choose_exact": "Choose exactly 3 items in total. The same fragrance can be selected more than once.",
+      "mix_match_selected_short": "selected",
+      "mix_match_minus": "Decrease {{ scent }}",
+      "mix_match_plus": "Increase {{ scent }}",
+      "mix_match_free": "FREE",
+      "mix_match_gift_heading": "3. Your gift",
+      "mix_match_gift_text": "1x floor freshener free – Frida chooses the fragrance for you.",
+      "mix_match_summary_heading": "Your package",
+      "mix_match_air_label": "Air fresheners:",
+      "mix_match_floor_label": "Floor fresheners:",
+      "mix_match_gift_label": "Gift:",
+      "mix_match_total": "7 products in total",
+      "mix_match_empty": "Nothing selected yet",
+      "mix_match_incomplete": "Please choose 3 air fresheners and 3 floor fresheners.",
+      "mix_match_complete": "Your selection is complete.",
+      "mix_match_add": "Add package to cart",
+      "mix_match_configure": "Complete your selection",
+      "mix_match_sku": "SKU",
+      "free_shipping_badge": "Free shipping"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "empty": "Your cart is still empty.",
+      "checkout": "Checkout",
+      "subtotal": "Subtotal",
+      "remove": "Remove",
+      "shop_now": "Shop now",
+      "secure_payment": "Secure payment",
+      "fast_shipping": "Fast shipping",
+      "support": "Support for questions",
+      "added": "Added to cart",
+      "add_error": "The product could not be added.",
+      "free_shipping_done_html": "🎉 You get <b>free shipping</b>!",
+      "free_shipping_remaining_html": "Only <b>{{ amount }}</b> away from free shipping.",
+      "upsell_title": "Perfect match",
+      "upsell_add": "+ Add"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  },
+  "video": {
+    "coming_soon": "Video coming soon ✨"
+  },
+  "pages": {
+    "need_help": "Need help?",
+    "contact_us": "Contact us",
+    "contact": {
+      "eyebrow": "Contact",
+      "heading": "Contact",
+      "intro": "We look forward to your message. Our team will get back to you as soon as possible.",
+      "info_heading": "We are here for you",
+      "info_text_html": "<p>Our customer service team is happy to help with questions about Frida products, your order, or a return.</p>",
+      "hours": "Mon–Fri, 9:00–17:00"
+    }
+  },
+  "pagefly": {
+    "products": {
+      "product": {
+        "regular_price": "Regular price",
+        "sold_out": "Sold out",
+        "unavailable": "Unavailable",
+        "on_sale": "Sale",
+        "quantity": "Quantity",
+        "add_to_cart": "Add to cart",
+        "back_to_collection": "Back to {{ title }}",
+        "view_details": "View details"
+      }
+    },
+    "article": {
+      "tags": "Tags:",
+      "all_topics": "All topics",
+      "by_author": "by {{ author }}",
+      "posted_in": "Posted in",
+      "read_more": "Read more",
+      "back_to_blog": "Back to {{ title }}"
+    },
+    "comments": {
+      "title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment",
+      "moderated": "Please note, comments must be approved before they are published",
+      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
+      "success": "Your comment was posted successfully! Thank you!",
+      "comments_with_count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    },
+    "password_page": {
+      "login_form_message": "Enter store using password:",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Your password",
+      "login_form_submit": "Enter",
+      "signup_form_email_label": "Email",
+      "signup_form_success": "We will send you an email right before we open!",
+      "password_link": "Enter using password"
+    }
+  }
+}

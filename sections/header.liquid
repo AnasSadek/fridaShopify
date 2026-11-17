@@ -1,29 +1,43 @@
 <header id="header">
   <div class="wrap nav">
-    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }} Startseite">
+    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }} {{ 'general.navigation.home' | t }}">
       {%- if section.settings.logo != blank -%}
-        <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" height="30" width="120">
+        <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" height="60" width="120">
       {%- else -%}
         <img src="{{ 'logo.webp' | asset_url }}" alt="{{ shop.name }}" width="60" height="30">
       {%- endif -%}
     </a>
-    <nav class="nav-links" aria-label="Hauptnavigation">
+    <nav class="nav-links" aria-label="{{ 'general.accessibility.menu' | t }}">
       {%- for link in linklists[section.settings.menu].links -%}
         <a href="{{ link.url }}">{{ link.title }}</a>
       {%- else -%}
-        <a href="{{ routes.all_products_collection_url }}">Produkte</a>
-        <a href="{{ routes.all_products_collection_url }}">Bestseller</a>
+        <a href="{{ routes.all_products_collection_url }}">{{ 'general.navigation.products' | t }}</a>
+        <a href="{{ routes.all_products_collection_url }}">{{ 'general.navigation.bestseller' | t }}</a>
       {%- endfor -%}
     </nav>
     <div class="nav-actions">
-      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Suche">
+      {%- render 'language-switcher', form_id: 'HeaderLanguageForm' -%}
+      {% comment %} <a class="icon-btn" href="{{ routes.search_url }}" aria-label="{{ 'general.accessibility.search' | t }}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      </a>
-      <button class="icon-btn" id="cartBtn" aria-label="Warenkorb öffnen">
+      </a> {% endcomment %}
+      {%- if shop.customer_accounts_enabled -%}
+        <a
+          href="{{ routes.account_url }}"
+          class="header-account icon-btn"
+          rel="nofollow"
+          aria-label="{{ 'customer.account.title' | t }}"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+      {%- endif -%}
+      <button class="icon-btn" id="cartBtn" aria-label="{{ 'general.accessibility.cart_open' | t }}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         <span class="cart-count" id="cartCount">{{ cart.item_count }}</span>
       </button>
-      <button class="icon-btn burger" id="burger" aria-label="Menü">
+      <button class="icon-btn burger" id="burger" aria-label="{{ 'general.accessibility.menu' | t }}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>

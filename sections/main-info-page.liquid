@@ -1,0 +1,97 @@
+<section class="page-hero">
+  <div class="wrap page-hero-inner reveal">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+
+    <h1>{{ page.title }}</h1>
+
+    {%- if section.settings.intro != blank -%}
+      <p>{{ section.settings.intro }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="section page-section info-page">
+  <div class="wrap {% if section.settings.show_sidebar %}info-grid{% endif %}">
+    <div class="info-content reveal">
+      {%- if page.content != blank -%}
+        <div class="rte">
+          {{ page.content }}
+        </div>
+      {%- else -%}
+        <div class="rte">
+          <p>{{ 'pages.general.empty_page' | t }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_sidebar -%}
+      <aside class="info-sidebar reveal">
+        {%- if section.settings.sidebar_title != blank -%}
+          <h3>{{ section.settings.sidebar_title }}</h3>
+        {%- endif -%}
+
+        {%- if section.settings.sidebar_text != blank -%}
+          <div class="rte">
+            {{ section.settings.sidebar_text }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+          <a href="{{ section.settings.cta_link }}" class="btn btn-primary">
+            {{ section.settings.cta_label }}
+          </a>
+        {%- endif -%}
+      </aside>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Info-Seite",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Info"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sidebar",
+      "label": "Sidebar anzeigen",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "sidebar_title",
+      "label": "Sidebar Titel",
+      "default": "Brauchst du Hilfe?"
+    },
+    {
+      "type": "richtext",
+      "id": "sidebar_text",
+      "label": "Sidebar Text",
+      "default": "<p>Unser Support hilft dir gern bei Fragen zu Bestellung, Versand oder Rückgabe.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Text",
+      "default": "Kontakt aufnehmen"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link"
+    }
+  ]
+}
+{% endschema %}

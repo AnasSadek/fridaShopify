@@ -3,58 +3,205 @@
     <div class="foot-grid">
       <div class="foot-brand">
         {%- if section.settings.logo != blank -%}
-          <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" width="{{ 32 | times: section.settings.logo.aspect_ratio | round }}" height="32" loading="lazy">
-        {%- else -%}
-          <img src="{{ 'logo.webp' | asset_url }}" alt="{{ shop.name }}" width="64" height="32" loading="lazy">
+          <img
+            src="{{ section.settings.logo | image_url }}"
+            alt="{{ shop.name }}"
+            width="150"
+            height="auto"
+            loading="lazy"
+          >
         {%- endif -%}
+
         <p>{{ section.settings.tagline }}</p>
+
         <div class="socials">
-          {%- if section.settings.instagram != blank -%}<a href="{{ section.settings.instagram }}" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>{%- endif -%}
-          {%- if section.settings.tiktok != blank -%}<a href="{{ section.settings.tiktok }}" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.2 1.8 3.9 4 4.2v3c-1.5 0-2.9-.5-4-1.3v6.6a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v3.1a2.5 2.5 0 1 0 1.6 2.3V3z"/></svg></a>{%- endif -%}
-          {%- if section.settings.facebook != blank -%}<a href="{{ section.settings.facebook }}" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V5h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V8.8c0-.5.3-.8.8-.8z"/></svg></a>{%- endif -%}
+          {%- if section.settings.instagram != blank -%}
+            <a href="{{ section.settings.instagram }}" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.tiktok != blank -%}
+            <a href="{{ section.settings.tiktok }}" aria-label="TikTok" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 3c.3 2.2 1.8 3.9 4 4.2v3c-1.5 0-2.9-.5-4-1.3v6.6a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v3.1a2.5 2.5 0 1 0 1.6 2.3V3z"/>
+              </svg>
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.facebook != blank -%}
+            <a href="{{ section.settings.facebook }}" aria-label="Facebook" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 8h3V5h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V8.8c0-.5.3-.8.8-.8z"/>
+              </svg>
+            </a>
+          {%- endif -%}
         </div>
       </div>
+
       {%- for block in section.blocks -%}
         <div class="foot-col" {{ block.shopify_attributes }}>
-          <h4>{{ block.settings.title }}</h4>
-          {%- for i in (1..5) -%}
-            {%- assign lbl = 'link' | append: i | append: '_label' -%}
-            {%- assign url = 'link' | append: i | append: '_url' -%}
-            {%- if block.settings[lbl] != blank -%}
-              <a href="{{ block.settings[url] }}">{{ block.settings[lbl] }}</a>
-            {%- endif -%}
-          {%- endfor -%}
+          {%- assign menu_title = block.settings.title -%}
+          {%- if menu_title == blank and block.settings.menu != blank -%}
+            {%- assign menu_title = block.settings.menu.title -%}
+          {%- endif -%}
+
+          {%- if menu_title != blank -%}
+            <h4>{{ menu_title }}</h4>
+          {%- endif -%}
+
+          {%- if block.settings.menu != blank and block.settings.menu.links.size > 0 -%}
+            {%- for link in block.settings.menu.links -%}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..5) -%}
+              {%- assign lbl = 'link' | append: i | append: '_label' -%}
+              {%- assign url = 'link' | append: i | append: '_url' -%}
+
+              {%- if block.settings[lbl] != blank -%}
+                <a href="{{ block.settings[url] | default: '#' }}">
+                  {{ block.settings[lbl] }}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
         </div>
       {%- endfor -%}
     </div>
+
     <div class="foot-bottom">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} · Alle Rechte vorbehalten</span>
-      <div class="pay"><span>VISA</span><span>MASTERCARD</span><span>PAYPAL</span><span>KLARNA</span></div>
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ 'footer.rights' | t }}</span>
+
+      <div class="pay">
+        <span>VISA</span>
+        <span>MASTERCARD</span>
+        <span>PAYPAL</span>
+        <span>KLARNA</span>
+      </div>
     </div>
   </div>
 </footer>
+
 {% schema %}
 {
   "name": "Fußzeile",
   "settings": [
-    { "type": "image_picker", "id": "logo", "label": "Logo" },
-    { "type": "textarea", "id": "tagline", "label": "Slogan", "default": "Luft- und Bodendüfte für ein sauberes, frisches Zuhause. Made for Europe." },
-    { "type": "header", "content": "Social Media" },
-    { "type": "url", "id": "instagram", "label": "Instagram" },
-    { "type": "url", "id": "tiktok", "label": "TikTok" },
-    { "type": "url", "id": "facebook", "label": "Facebook" }
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Slogan",
+      "default": "Luft- und Bodendüfte für ein sauberes, frisches Zuhause. Made for Europe."
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "tiktok",
+      "label": "TikTok"
+    },
+    {
+      "type": "url",
+      "id": "facebook",
+      "label": "Facebook"
+    }
   ],
   "blocks": [
     {
       "type": "column",
       "name": "Link-Spalte",
       "settings": [
-        { "type": "text", "id": "title", "label": "Titel", "default": "Shop" },
-        { "type": "text", "id": "link1_label", "label": "Link 1" }, { "type": "url", "id": "link1_url", "label": "URL 1" },
-        { "type": "text", "id": "link2_label", "label": "Link 2" }, { "type": "url", "id": "link2_url", "label": "URL 2" },
-        { "type": "text", "id": "link3_label", "label": "Link 3" }, { "type": "url", "id": "link3_url", "label": "URL 3" },
-        { "type": "text", "id": "link4_label", "label": "Link 4" }, { "type": "url", "id": "link4_url", "label": "URL 4" },
-        { "type": "text", "id": "link5_label", "label": "Link 5" }, { "type": "url", "id": "link5_url", "label": "URL 5" }
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menü auswählen"
+        },
+        {
+          "type": "header",
+          "content": "Oder Links manuell eingeben"
+        },
+        {
+          "type": "text",
+          "id": "link1_label",
+          "label": "Link 1"
+        },
+        {
+          "type": "url",
+          "id": "link1_url",
+          "label": "URL 1"
+        },
+        {
+          "type": "text",
+          "id": "link2_label",
+          "label": "Link 2"
+        },
+        {
+          "type": "url",
+          "id": "link2_url",
+          "label": "URL 2"
+        },
+        {
+          "type": "text",
+          "id": "link3_label",
+          "label": "Link 3"
+        },
+        {
+          "type": "url",
+          "id": "link3_url",
+          "label": "URL 3"
+        },
+        {
+          "type": "text",
+          "id": "link4_label",
+          "label": "Link 4"
+        },
+        {
+          "type": "url",
+          "id": "link4_url",
+          "label": "URL 4"
+        },
+        {
+          "type": "text",
+          "id": "link5_label",
+          "label": "Link 5"
+        },
+        {
+          "type": "url",
+          "id": "link5_url",
+          "label": "URL 5"
+        },
+        {
+          "type": "text",
+          "id": "link6_label",
+          "label": "Link 6"
+        },
+        {
+          "type": "url",
+          "id": "link6_url",
+          "label": "URL 6"
+        }
       ]
     }
   ],
@@ -62,9 +209,36 @@
     {
       "name": "Fußzeile",
       "blocks": [
-        { "type": "column", "settings": { "title": "Shop", "link1_label": "Bestseller", "link2_label": "Luftdüfte", "link3_label": "Bodendüfte", "link4_label": "Bundles" } },
-        { "type": "column", "settings": { "title": "Service", "link1_label": "FAQ", "link2_label": "Versand", "link3_label": "Kontakt", "link4_label": "Retoure" } },
-        { "type": "column", "settings": { "title": "Rechtliches", "link1_label": "Impressum", "link2_label": "Datenschutz", "link3_label": "AGB", "link4_label": "Widerruf" } }
+        {
+          "type": "column",
+          "settings": {
+            "title": "Shop",
+            "link1_label": "Bestseller",
+            "link2_label": "Luftdüfte",
+            "link3_label": "Bodendüfte",
+            "link4_label": "Bundles"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "title": "Service",
+            "link1_label": "FAQ",
+            "link2_label": "Versand",
+            "link3_label": "Kontakt",
+            "link4_label": "Retoure"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "title": "Rechtliches",
+            "link1_label": "Impressum",
+            "link2_label": "Datenschutz",
+            "link3_label": "AGB",
+            "link4_label": "Widerruf"
+          }
+        }
       ]
     }
   ]

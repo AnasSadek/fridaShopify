@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-info-page",
+      "settings": {
+        "eyebrow": "Rechtliches",
+        "intro": "",
+        "show_sidebar": false,
+        "sidebar_title": "Brauchst du Hilfe?",
+        "sidebar_text": "<p>Unser Support hilft dir gern bei Fragen zu Bestellung, Versand oder Rückgabe.</p>",
+        "cta_label": "Kontakt aufnehmen",
+        "cta_link": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

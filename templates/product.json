@@ -1,8 +1,21 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
-      "settings": {}
+      "settings": {
+        "usage_text": "<p>Gib 1–2 Verschlusskappen auf ca. 5 L warmes Wasser und reinige Böden und abwaschbare Oberflächen wie gewohnt. Vor der ersten Anwendung an unauffälliger Stelle testen.</p>",
+        "benefits_text": "<p>Langanhaltender Duft, viele Duftsorten, für Zuhause & Büro, einfache Anwendung und eine frische Atmosphäre – Frida macht dein Zuhause spürbar sauberer.</p>",
+        "shipping_text": "<p>Versand in 2–4 Werktagen (DE) bzw. 3–6 Werktagen (EU). Versandkosten 12,99 € – gratis ab 55 €. 14 Tage Rückgaberecht.</p>"
+      }
     }
   },
   "order": [

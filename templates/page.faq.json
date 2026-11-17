@@ -1,0 +1,67 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "Hilfe",
+        "heading": "Häufige Fragen"
+      },
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "Wie verwende ich den Bodenduft?",
+            "answer": "<p>Gib 1–2 Verschlusskappen auf ca. 5 L warmes Wasser und reinige Böden oder abwaschbare Oberflächen wie gewohnt. Vor der ersten Anwendung an unauffälliger Stelle testen.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "Wie lange hält der Duft?",
+            "answer": "<p>Die Duftwirkung hängt von Raumgröße, Lüftung und Dosierung ab. Unsere Formeln sind auf langanhaltende Frische ausgelegt.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "Wann wird meine Bestellung versendet?",
+            "answer": "<p>Bestellungen werden in der Regel schnell bearbeitet. Die genaue Lieferzeit findest du auf der Versandseite.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "Kann ich meine Bestellung zurückgeben?",
+            "answer": "<p>Ja, du kannst Artikel im Rahmen der Rückgabebedingungen zurückgeben. Details findest du auf der Retoure-Seite.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "Wie erreiche ich den Kundenservice?",
+            "answer": "<p>Nutze unser Kontaktformular oder schreibe uns direkt per E-Mail. Wir melden uns schnellstmöglich bei dir.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

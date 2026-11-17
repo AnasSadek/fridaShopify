@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -5,32 +14,42 @@
       "blocks": {
         "badge0": {
           "type": "badge",
+          "disabled": true,
           "settings": {
-            "text": "Schneller Versand"
+            "icon": "clock",
+            "text": "3 Luftdüfte"
           }
         },
         "badge1": {
           "type": "badge",
+          "disabled": true,
           "settings": {
-            "text": "Für Zuhause & Büro"
+            "icon": "clock",
+            "text": "3 Bodendüfte"
           }
         },
         "badge2": {
           "type": "badge",
+          "disabled": true,
           "settings": {
-            "text": "Intensive Duftwirkung"
+            "icon": "clock",
+            "text": "1 Geschenk inklusive"
           }
         },
         "badge3": {
           "type": "badge",
+          "disabled": true,
           "settings": {
-            "text": "Viele Duftsorten"
+            "icon": "clock",
+            "text": "Versand inklusive"
           }
         },
         "badge4": {
           "type": "badge",
+          "disabled": true,
           "settings": {
-            "text": "Einfach anzuwenden"
+            "icon": "clock",
+            "text": "Ideal zum Kennenlernen"
           }
         }
       },
@@ -41,7 +60,29 @@
         "badge3",
         "badge4"
       ],
-      "settings": {}
+      "custom_css": [
+        ".hero h1 {line-height: 1.5;}"
+      ],
+      "settings": {
+        "eyebrow": "Sonderangebot · Nur für kurze Zeit",
+        "heading": "Dein Zuhause duftet <br>bis zu <span class=\"g\"> 48 Stunden.</span>",
+        "deal_line": "3 Lufterfrischer + 3 Bodenfrischer + 1 Geschenk gratis",
+        "subheading": "Stelle dein Frida Duftpaket selbst zusammen und wähle deine Lieblingsdüfte für Raum und Boden.",
+        "image": "shopify://shop_images/Hero-img.png",
+        "offer_product": "frida-mix-match-duftpaket-7-dufte-selbst-wahlen",
+        "price_prefix": "",
+        "price_label": "Ab 27,99€",
+        "shipping_text": "Versandkostenfrei",
+        "offer_badge_title": "+1",
+        "offer_badge_text": "Geschenkgratis",
+        "button_label": "Jetzt Düfte auswählen",
+        "button_link": "shopify://products/frida-mix-match-duftpaket-7-dufte-selbst-wahlen",
+        "button2_label": "Mehr erfahren",
+        "button2_link": "#bestseller",
+        "rating_text": "4,9/5 Bewertung",
+        "households_text": "12.000+ zufriedene Haushalte",
+        "delivery_text": "2–4 Tage Lieferung"
+      }
     },
     "trust": {
       "type": "trust-bar",
@@ -49,29 +90,29 @@
         "item0": {
           "type": "item",
           "settings": {
-            "title": "2–4 Tage Lieferung",
-            "text": "Schneller EU-Versand"
+            "title": "Bis zu 48h Duft",
+            "text": ""
           }
         },
         "item1": {
           "type": "item",
           "settings": {
-            "title": "Geprüfte Qualität",
-            "text": "Sichere Bezahlung"
+            "title": "Hochkonzentriert",
+            "text": ""
           }
         },
         "item2": {
           "type": "item",
           "settings": {
-            "title": "Bis zu 24h Frische",
-            "text": "Langanhaltender Duft"
+            "title": "7+ Düfte",
+            "text": ""
           }
         },
         "item3": {
           "type": "item",
           "settings": {
-            "title": "30 Tage Rückgabe",
-            "text": "Einfach & unkompliziert"
+            "title": "Schneller Versand",
+            "text": ""
           }
         }
       },
@@ -90,29 +131,35 @@
           "type": "category",
           "settings": {
             "tag": "460 ml",
+            "image": "shopify://shop_images/5.png",
             "title": "Luftdüfte",
             "text": "Air Freshener Spray – ein Sprühstoß für sofortige Frische im ganzen Raum.",
             "link_label": "Entdecken",
-            "css_class": "c-air"
+            "link": "shopify://products/frida-air-freshener-460ml",
+            "css_class": "c-bundle dark"
           }
         },
         "category1": {
           "type": "category",
           "settings": {
             "tag": "480 ml",
+            "image": "shopify://shop_images/600_x_600_px_1600_x_916_px_1000_x_1000_px_4.png",
             "title": "Bodendüfte",
             "text": "All-Purpose Home Cleaning Fragrance – für strahlend saubere Böden & Oberflächen.",
             "link_label": "Entdecken",
-            "css_class": "c-home"
+            "link": "shopify://products/frida-allzweckreiniger-konzentrat",
+            "css_class": "c-bundle dark"
           }
         },
         "category2": {
           "type": "category",
           "settings": {
             "tag": "Sparpaket",
+            "image": "shopify://shop_images/3.png",
             "title": "Duft-Bundles",
             "text": "Clever kombinieren, mehr sparen – die beliebtesten Düfte im Set.",
             "link_label": "Bundle sichern",
+            "link": "shopify://collections/paket",
             "css_class": "c-bundle dark"
           }
         }
@@ -122,17 +169,85 @@
         "category1",
         "category2"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Sortiment",
+        "heading": "Finde deinen <span class=\"hl\">Frische-Favoriten<svg viewbox=\"0 0 100 10\" preserveaspectratio=\"none\"><path d=\"M2,7 Q50,1 98,6\"></path></svg></span>",
+        "subheading": "Zwei Produktlinien, unzählige Duftmomente – für jeden Raum das Richtige."
+      }
     },
     "featured": {
       "type": "featured-products",
+      "custom_css": [
+        "@media (max-width: 560px) {.grid-prod {grid-template-columns: repeat(1, 1fr); }}"
+      ],
       "settings": {
-        "count": 6
+        "eyebrow": "Am beliebtesten",
+        "heading": "Unsere Bestseller",
+        "subheading": "Die Düfte, die unsere Kund:innen immer wieder nachbestellen.",
+        "collection": "frontpage",
+        "count": 12,
+        "view_all": ""
+      }
+    },
+    "probsol": {
+      "type": "problem-solution",
+      "blocks": {
+        "p0": {
+          "type": "point",
+          "settings": {
+            "icon": "✨",
+            "title": "Frische Atmosphäre",
+            "text": "Der Raum fühlt sich sofort leichter und sauberer an."
+          }
+        },
+        "p1": {
+          "type": "point",
+          "settings": {
+            "icon": "🌸",
+            "title": "Angenehmer Duft",
+            "text": "Feine Duftnoten statt neutraler Reinigungsluft."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "icon": "⚡",
+            "title": "Einfach im Alltag",
+            "text": "Sprühen oder wischen – ohne Zusatzaufwand."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "icon": "🎨",
+            "title": "Viele Duftwelten",
+            "text": "Orientalisch, fruchtig, frisch oder blumig – du entscheidest."
+          }
+        }
+      },
+      "block_order": [
+        "p0",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "eyebrow": "Der Unterschied",
+        "statement": "Ein Zuhause kann sauber aussehen – aber erst der richtige Duft macht es wirklich angenehm.",
+        "text": "Genau dafür gibt es Frida: Düfte, die aus einem sauberen Raum ein Zuhause machen, in dem man gerne ankommt."
       }
     },
     "air": {
       "type": "air-highlight",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Frida Air Freshener · 460 ml",
+        "heading": "Ein Sprühstoß. Sofort frisch.",
+        "text": "Der Frida Lufterfrischer verteilt feinen Duft in Sekunden – ideal für Wohnzimmer, Bad, Flur oder Büro.",
+        "scents": "Oud, Framboise, Meadows, Arabesque, Layali, Treasure",
+        "image": "shopify://shop_images/2_d7d2628e-0932-47b9-b0a4-93d38b163703.png",
+        "button_label": "Lufterfrischer entdecken",
+        "button_link": "shopify://products/frida-air-freshener-460ml"
+      }
     },
     "worlds": {
       "type": "scent-worlds",
@@ -184,7 +299,11 @@
         "world2",
         "world3"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Duftwelten",
+        "heading": "Für jede Stimmung ein Duft",
+        "subheading": "Von warm-orientalisch bis frisch-clean – finde die Welt, die zu dir passt."
+      }
     },
     "why": {
       "type": "why-frida",
@@ -224,7 +343,11 @@
         "point2",
         "point3"
       ],
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/4.png",
+        "eyebrow": "Warum Frida?",
+        "heading": "Der Unterschied liegt im Detail"
+      }
     },
     "usage": {
       "type": "usage",
@@ -260,11 +383,78 @@
         "col0",
         "col1"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "So geht's",
+        "heading": "Frische in Sekunden",
+        "subheading": "Zwei Produkte, kinderleichte Anwendung – ganz ohne Aufwand.",
+        "rooms": "Wohnzimmer, Bad, Küche, Büro, Eingangsbereich",
+        "note": "Hinweis: Produkte gemäß Etikett und bestimmungsgemäß verwenden."
+      }
     },
     "video": {
       "type": "video",
-      "settings": {}
+      "settings": {
+        "tag": "Lifestyle-Video",
+        "heading": "So einfach bringst du Frida-Frische in dein Zuhause",
+        "text": "Ein Sprühstoß, ein Wisch – und der ganze Raum fühlt sich neu an.",
+        "video_url": "https://www.tiktok.com/@frida.eu/video/7596799288089398550?is_from_webapp=1",
+        "button_label": "Produkte entdecken",
+        "button_link": "https://www.youtube.com/watch?v=K4TOrB7at0Y"
+      }
+    },
+    "ugc": {
+      "type": "ugc-videos",
+      "blocks": {
+        "u0": {
+          "type": "tile",
+          "settings": {
+            "tag": "TikTok",
+            "video": "shopify://files/videos/demo.mp4",
+            "video_url": "https://www.tiktok.com/@frida.eu/video/7607913814138342678?is_from_webapp=1&sender_device=pc",
+            "caption": "Weil jede Ecke in deinem Zuhause ihr eigenes Gefühl verdient"
+          }
+        },
+        "u1": {
+          "type": "tile",
+          "settings": {
+            "tag": "TikTok",
+            "video": "shopify://files/videos/Download.mp4",
+            "video_url": "https://www.tiktok.com/@frida.eu/video/7649806393767169312?is_from_webapp=1",
+            "caption": "#Frida #معطرات_فريدا #Angebot #germany🇩🇪_tik_tok"
+          }
+        },
+        "u2": {
+          "type": "tile",
+          "settings": {
+            "tag": "TikTok",
+            "video": "shopify://files/videos/Download (3).mp4",
+            "video_url": "https://www.tiktok.com/@frida.eu/video/7548520517582507286?is_from_webapp=1",
+            "caption": "#فرنسا🇨🇵_بلجيكا🇧🇪_المانيا🇩🇪_اسبانيا🇪🇸 #معطرات_فريدا @M.L Fashion @اقوى العروضات في المانيا @المستشار @المركز العربي برلين  #برمين #هامبورغ_المانيا_اكسبلورررر"
+          }
+        },
+        "u3": {
+          "type": "tile",
+          "settings": {
+            "tag": "TikTok",
+            "video": "shopify://files/videos/Download (1).mp4",
+            "video_url": "https://www.tiktok.com/@frida.eu/video/7632794390150368545?is_from_webapp=1",
+            "caption": "#معطرات_فريدا #معطرات_فريده #frida #معطرات_المفارش @𝓐𝓯𝓴𝓪𝓻𝓱𝓸𝓶𝓮 🇩🇪افكار"
+          }
+        }
+      },
+      "block_order": [
+        "u0",
+        "u1",
+        "u2",
+        "u3"
+      ],
+      "settings": {
+        "eyebrow": "@frida.eu",
+        "heading": "So fühlt sich Frida-Frische im Alltag an",
+        "subheading": "Echte Momente aus echten Wohnungen – direkt aus der Community.",
+        "button_label": "Produkte entdecken",
+        "button_link": ""
+      }
     },
     "benefits": {
       "type": "benefits",
@@ -326,7 +516,10 @@
         "benefit4",
         "benefit5"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Deine Vorteile",
+        "heading": "Warum Frida in jedes Zuhause gehört"
+      }
     },
     "reviews": {
       "type": "reviews",
@@ -393,7 +586,10 @@
         "b5",
         "b6"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Kundenstimmen",
+        "heading": "Über 12.000 frische Zuhause"
+      }
     },
     "bundle": {
       "type": "bundle",
@@ -401,13 +597,13 @@
         "feature0": {
           "type": "feature",
           "settings": {
-            "text": "3 Produkte im Set – frei kombinierbar"
+            "text": "8 Produkte im Set – frei kombinierbar"
           }
         },
         "feature1": {
           "type": "feature",
           "settings": {
-            "text": "Bis zu 20 % günstiger als einzeln"
+            "text": "Bis zu 7 % günstiger als einzeln"
           }
         },
         "feature2": {
@@ -422,11 +618,28 @@
         "feature1",
         "feature2"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Sparpaket",
+        "heading": "Mehr Duft. Mehr Frische. Mehr sparen.",
+        "text": "Stelle dein Lieblings-Set zusammen und sichere dir die beliebtesten Frida-Düfte zum Vorteilspreis.",
+        "image": "shopify://shop_images/1_7bf177d0-b2e0-4590-b719-f5545af7bd71.png",
+        "save_text": "– 7 % sparen",
+        "price": "26,99 €",
+        "compare": "28,99 €",
+        "caption": "Frische-Set · 8 × 480 ml",
+        "button_label": "Bundle sichern",
+        "button_link": "shopify://products/frida-luft-bodenerfrischer-8-duftpakete-lang-anhaltender-duft-fur-zuhause-arom"
+      }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Newsletter",
+        "heading": "10 % auf deine erste Bestellung",
+        "text": "Melde dich an und erhalte deinen Gutschein, neue Duft-Drops und exklusive Angebote.",
+        "button_label": "Sichern",
+        "disclaimer": "Kein Spam. Abmeldung jederzeit möglich."
+      }
     },
     "faq": {
       "type": "faq",
@@ -474,95 +687,23 @@
         "qa3",
         "qa4"
       ],
-      "settings": {}
-    },
-    "probsol": {
-      "type": "problem-solution",
-      "blocks": {
-        "p0": {
-          "type": "point",
-          "settings": {
-            "icon": "✨",
-            "title": "Frische Atmosphäre",
-            "text": "Der Raum fühlt sich sofort leichter und sauberer an."
-          }
-        },
-        "p1": {
-          "type": "point",
-          "settings": {
-            "icon": "🌸",
-            "title": "Angenehmer Duft",
-            "text": "Feine Duftnoten statt neutraler Reinigungsluft."
-          }
-        },
-        "p2": {
-          "type": "point",
-          "settings": {
-            "icon": "⚡",
-            "title": "Einfach im Alltag",
-            "text": "Sprühen oder wischen – ohne Zusatzaufwand."
-          }
-        },
-        "p3": {
-          "type": "point",
-          "settings": {
-            "icon": "🎨",
-            "title": "Viele Duftwelten",
-            "text": "Orientalisch, fruchtig, frisch oder blumig – du entscheidest."
-          }
-        }
-      },
-      "block_order": [
-        "p0",
-        "p1",
-        "p2",
-        "p3"
-      ],
-      "settings": {}
-    },
-    "ugc": {
-      "type": "ugc-videos",
-      "blocks": {
-        "u0": {
-          "type": "tile",
-          "settings": {
-            "tag": "TikTok",
-            "caption": "Boden wischen – und der ganze Raum duftet"
-          }
-        },
-        "u1": {
-          "type": "tile",
-          "settings": {
-            "tag": "Tutorial",
-            "caption": "Ein Sprühstoß Frida Air Freshener"
-          }
-        },
-        "u2": {
-          "type": "tile",
-          "settings": {
-            "tag": "Close-up",
-            "caption": "Unsere Duftsorten im Detail"
-          }
-        },
-        "u3": {
-          "type": "tile",
-          "settings": {
-            "tag": "Vorher / Nachher",
-            "caption": "Das Frische-Gefühl nach dem Putzen"
-          }
-        }
-      },
-      "block_order": [
-        "u0",
-        "u1",
-        "u2",
-        "u3"
-      ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Fragen & Antworten",
+        "heading": "Häufige Fragen"
+      }
     },
     "finale": {
       "type": "final-cta",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Bereit?",
+        "heading": "Bereit für ein Zuhause, das frischer riecht?",
+        "text": "Über 12.000 Haushalte vertrauen auf Frida. Finde jetzt den Duft, der zu dir passt.",
+        "button_label": "Jetzt Lieblingsduft finden",
+        "button_link": "",
+        "notes": "Schneller Versand, Sichere Bezahlung, Viele Duftsorten",
+        "mobile_bar": true,
+        "mobile_bar_label": "Jetzt Düfte entdecken"
+      }
     }
   },
   "order": [

@@ -1,8 +1,8 @@
 <div class="overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-label="Warenkorb">
+<aside class="drawer" id="drawer" aria-label="{{ 'cart.general.title' | t }}">
   <div class="drawer-head">
-    <h3>Warenkorb</h3>
-    <button class="drawer-close" id="drawerClose" aria-label="Schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h3>{{ 'cart.general.title' | t }}</h3>
+    <button class="drawer-close" id="drawerClose" aria-label="{{ 'general.accessibility.close' | t }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="drawer-body">
     <div id="drawerBody"></div>
@@ -11,12 +11,12 @@
   <div class="drawer-foot" id="drawerFoot" style="display:none">
     <div class="ship-progress" id="shipProgress"><span id="shipBar"></span></div>
     <p class="ship-note" id="shipNote"></p>
-    <div class="sub-row"><span>Zwischensumme</span><span id="subtotal">{{ cart.total_price | money }}</span></div>
-    <a href="{{ routes.cart_url }}" class="btn btn-primary btn-block">Zur Kasse</a>
+    <div class="sub-row"><span>{{ 'cart.general.subtotal' | t }}</span><span id="subtotal">{{ cart.total_price | money }}</span></div>
+    <a href="{{ routes.cart_url }}" class="btn btn-primary btn-block">{{ 'cart.general.checkout' | t }}</a>
     <div class="drawer-trust">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/></svg>Sicher bezahlen</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Schneller Versand</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.4 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.8a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.4-8.4 8.38 8.38 0 0 1 8.5 8.5z"/></svg>Support bei Fragen</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/></svg>{{ 'cart.general.secure_payment' | t }}</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>{{ 'cart.general.fast_shipping' | t }}</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.4 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.8a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.4-8.4 8.38 8.38 0 0 1 8.5 8.5z"/></svg>{{ 'cart.general.support' | t }}</span>
     </div>
   </div>
 </aside>

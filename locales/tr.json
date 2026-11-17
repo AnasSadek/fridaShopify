@@ -1,0 +1,211 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "meta": {
+      "tagged": "etiketlendi",
+      "page": "Sayfa"
+    },
+    "accessibility": {
+      "close": "Kapat",
+      "menu": "Menü",
+      "cart_open": "Sepeti aç",
+      "search": "Ara"
+    },
+    "navigation": {
+      "home": "Ana sayfa",
+      "products": "Ürünler",
+      "bestseller": "Çok satanlar",
+      "view": "Görüntüle",
+      "all_collections": "Tüm koleksiyonlar",
+      "collection": "Koleksiyon",
+      "assortment": "Ürün yelpazesi"
+    },
+    "search": {
+      "search": "Ara",
+      "placeholder": "Ara",
+      "title": "Ara",
+      "input_placeholder": "Ne arıyorsunuz?",
+      "no_results_html": "“{{ terms }}” için sonuç bulunamadı."
+    },
+    "forms": {
+      "email": "E-posta",
+      "phone": "Telefon",
+      "address": "Adres",
+      "hours": "Destek saatleri",
+      "name": "Ad soyad",
+      "phone_optional": "Telefon isteğe bağlı",
+      "order_optional": "Sipariş numarası isteğe bağlı",
+      "subject": "Konu",
+      "subject_placeholder": "Konu nedir?",
+      "message": "Mesaj",
+      "message_placeholder": "Mesajınızı yazın…",
+      "send": "Mesaj gönder",
+      "success": "Teşekkürler! Mesajınız gönderildi. En kısa sürede size dönüş yapacağız.",
+      "error": "Lütfen işaretli alanları kontrol edip tekrar deneyin."
+    },
+    "language": {
+      "label": "Dil",
+      "change": "Dili değiştir"
+    },
+    "errors": {
+      "not_found_title": "404",
+      "not_found_text": "Bu sayfa artık mevcut değil.",
+      "back_home": "Ana sayfaya dön"
+    },
+    "newsletter": {
+      "email_placeholder": "E-posta adresiniz",
+      "success": "Teşekkürler! Lütfen e-postanızı gelen kutunuzdan onaylayın.",
+      "default_button": "Kaydol"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Sepete ekle",
+      "sold_out": "Tükendi",
+      "in_stock": "Stokta var",
+      "sale": "İndirim",
+      "bestseller": "Çok satan",
+      "new": "Yeni",
+      "popular": "Popüler",
+      "quick_view": "Hızlı görüntüle",
+      "choose_scent": "Paket seç",
+      "scents_count": "{{ count }} paket seçeneği",
+      "from": "başlangıç",
+      "home_fragrance": "Ev kokusu",
+      "reviews": "yorum",
+      "tax_shipping_html": "KDV dahil, <a href=\"#versand\" style=\"color:var(--blue);font-weight:600\">kargo</a> hariç",
+      "quantity_minus": "Azalt",
+      "quantity_plus": "Artır",
+      "description": "Açıklama",
+      "usage": "Nasıl kullanılır",
+      "benefits": "Avantajlar",
+      "shipping": "Kargo",
+      "related_eyebrow": "Bununla iyi gider",
+      "related_title": "Benzer ürünleri keşfet",
+      "all_details": "Tüm detayları görüntüle →",
+      "option": "Seçenek",
+      "view_all": "Tüm ürünleri görüntüle",
+      "tax_shipping_included_html": "KDV ve kargo dahil",
+      "tax_shipping_extra_html": "KDV dahil, kargo ayrıca hesaplanır",
+      "shipping_included_short": "2–4 gün · kargo dahil",
+      "shipping_extra_short": "2–4 gün · 55 € üzeri ücretsiz",
+      "payment_methods": "PayPal, Klarna, kredi kartı",
+      "freshness_title": "24 saate kadar ferahlık",
+      "freshness_text": "Uzun süre kalıcı koku",
+      "returns_title": "14 gün iade",
+      "returns_text": "Kolay ve zahmetsiz",
+      "package": "Pack",
+      "mix_match_air_heading": "1. 3 Oda Kokusu Seçin",
+      "mix_match_floor_heading": "2. 3 Zemin Kokusu Seçin",
+      "mix_match_choose_exact": "Toplam tam 3 adet seçin. Aynı koku birden fazla kez seçilebilir.",
+      "mix_match_selected_short": "seçildi",
+      "mix_match_minus": "Azalt: {{ scent }}",
+      "mix_match_plus": "Artır: {{ scent }}",
+      "mix_match_free": "ÜCRETSİZ",
+      "mix_match_gift_heading": "3. Hediyeniz",
+      "mix_match_gift_text": "1x zemin kokusu ücretsiz – kokuyu sizin için Frida seçer.",
+      "mix_match_summary_heading": "Paketiniz",
+      "mix_match_air_label": "Oda kokuları:",
+      "mix_match_floor_label": "Zemin kokuları:",
+      "mix_match_gift_label": "Hediye:",
+      "mix_match_total": "Toplam 7 ürün",
+      "mix_match_empty": "Henüz seçim yapılmadı",
+      "mix_match_incomplete": "Lütfen 3 oda kokusu ve 3 zemin kokusu seçin.",
+      "mix_match_complete": "Seçiminiz tamamlandı.",
+      "mix_match_add": "Paketi sepete ekle",
+      "mix_match_configure": "Seçiminizi tamamlayın",
+      "mix_match_sku": "SKU",
+      "free_shipping_badge": "Ücretsiz kargo"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Sepet",
+      "empty": "Sepetiniz henüz boş.",
+      "checkout": "Ödemeye geç",
+      "subtotal": "Ara toplam",
+      "remove": "Kaldır",
+      "shop_now": "Şimdi alışveriş yap",
+      "secure_payment": "Güvenli ödeme",
+      "fast_shipping": "Hızlı kargo",
+      "support": "Sorular için destek",
+      "added": "Sepete eklendi",
+      "add_error": "Ürün eklenemedi.",
+      "free_shipping_done_html": "🎉 <b>Ücretsiz kargo</b> kazandınız!",
+      "free_shipping_remaining_html": "Ücretsiz kargo için sadece <b>{{ amount }}</b> kaldı.",
+      "upsell_title": "Mükemmel tamamlayıcı",
+      "upsell_add": "+ Ekle"
+    }
+  },
+  "footer": {
+    "rights": "Tüm hakları saklıdır"
+  },
+  "video": {
+    "coming_soon": "Video yakında ✨"
+  },
+  "pages": {
+    "need_help": "Yardıma mı ihtiyacınız var?",
+    "contact_us": "Bize ulaşın",
+    "contact": {
+      "eyebrow": "İletişim",
+      "heading": "İletişim",
+      "intro": "Mesajınızı bekliyoruz. Ekibimiz en kısa sürede size geri dönüş yapacaktır.",
+      "info_heading": "Size yardımcı olmak için buradayız",
+      "info_text_html": "<p>Müşteri hizmetleri ekibimiz Frida ürünleri, siparişiniz veya iade işlemleriyle ilgili sorularınızda memnuniyetle yardımcı olur.</p>",
+      "hours": "Pzt–Cum, 09:00–17:00"
+    }
+  },
+  "pagefly": {
+    "products": {
+      "product": {
+        "regular_price": "Regular price",
+        "sold_out": "Sold out",
+        "unavailable": "Unavailable",
+        "on_sale": "Sale",
+        "quantity": "Quantity",
+        "add_to_cart": "Add to cart",
+        "back_to_collection": "Back to {{ title }}",
+        "view_details": "View details"
+      }
+    },
+    "article": {
+      "tags": "Tags:",
+      "all_topics": "All topics",
+      "by_author": "by {{ author }}",
+      "posted_in": "Posted in",
+      "read_more": "Read more",
+      "back_to_blog": "Back to {{ title }}"
+    },
+    "comments": {
+      "title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment",
+      "moderated": "Please note, comments must be approved before they are published",
+      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
+      "success": "Your comment was posted successfully! Thank you!",
+      "comments_with_count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    },
+    "password_page": {
+      "login_form_message": "Enter store using password:",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Your password",
+      "login_form_submit": "Enter",
+      "signup_form_email_label": "Email",
+      "signup_form_success": "We will send you an email right before we open!",
+      "password_link": "Enter using password"
+    }
+  }
+}

@@ -1,8 +1,8 @@
 <section class="section" style="text-align:center">
   <div class="wrap">
-    <h2 style="font-size:clamp(2rem,5vw,3.4rem)">404</h2>
-    <p style="color:var(--muted);margin:12px 0 24px">Diese Seite gibt es nicht (mehr).</p>
-    <a href="{{ routes.root_url }}" class="btn btn-primary">Zur Startseite</a>
+    <h2 style="font-size:clamp(2rem,5vw,3.4rem)">{{ 'general.errors.not_found_title' | t }}</h2>
+    <p style="color:var(--muted);margin:12px 0 24px">{{ 'general.errors.not_found_text' | t }}</p>
+    <a href="{{ routes.root_url }}" class="btn btn-primary">{{ 'general.errors.back_home' | t }}</a>
   </div>
 </section>
 {% schema %}{ "name": "404" }{% endschema %}

@@ -1,0 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-about",
+      "settings": {
+        "heading": "Über Frida",
+        "intro": "Frische Duftwelten für ein Zuhause, das sich sauber, warm und besonders anfühlt."
+      },
+      "blocks": {
+        "value_1": {
+          "type": "value",
+          "settings": {
+            "icon": "✨",
+            "title": "Duft mit Gefühl",
+            "text": "Ausgewählte Duftwelten für eine Atmosphäre, die sofort Zuhausegefühl schafft."
+          }
+        },
+        "value_2": {
+          "type": "value",
+          "settings": {
+            "icon": "🧼",
+            "title": "Einfach im Alltag",
+            "text": "Produkte, die unkompliziert funktionieren und deine Routine schöner machen."
+          }
+        },
+        "value_3": {
+          "type": "value",
+          "settings": {
+            "icon": "💙",
+            "title": "Kundenservice",
+            "text": "Wir helfen dir gern bei Fragen zu Produkt, Bestellung und Rückgabe."
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

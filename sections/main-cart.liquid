@@ -1,31 +1,137 @@
 <section class="section">
   <div class="wrap" style="max-width:820px">
-    <div class="section-head reveal" style="margin-bottom:28px"><h2>Warenkorb</h2></div>
+
+    <div class="section-head reveal" style="margin-bottom:28px">
+      <h2>{{ 'cart.general.title' | t }}</h2>
+    </div>
+
     {%- if cart.item_count == 0 -%}
-      <div class="cart-empty" style="text-align:center"><p>Dein Warenkorb ist noch leer.</p><a href="{{ routes.all_products_collection_url }}" class="btn btn-primary" style="margin-top:16px">Jetzt shoppen</a></div>
+
+      <div class="cart-empty" style="text-align:center">
+        <p>{{ 'cart.general.empty' | t }}</p>
+
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="btn btn-primary"
+          style="margin-top:16px"
+        >
+          {{ 'cart.general.shop_now' | t }}
+        </a>
+      </div>
+
     {%- else -%}
+
       {%- form 'cart', cart -%}
+
         {%- for item in cart.items -%}
+
           <div class="ci" style="padding:18px 0">
-            <div class="ci-img"><img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.image.alt | default: item.product.title | escape }}" width="140" height="140" loading="lazy"></div>
+
+            <div class="ci-img">
+              <img
+                src="{{ item.image | image_url: width: 140 }}"
+                alt="{{ item.image.alt | default: item.product.title | escape }}"
+                width="140"
+                height="140"
+                loading="lazy"
+              >
+            </div>
+
             <div class="ci-info">
-              <b>{{ item.product.title }}</b><small>{{ item.variant.title | remove: 'Default Title' }}</small>
-              <div class="ci-bottom">
-                <div class="qty">
-                  <a href="{{ item.url_to_remove }}" class="ci-remove" style="margin:0 8px 0 0">−</a>
-                  <span>{{ item.quantity }}</span>
-                  <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" style="margin-left:8px">+</a>
+
+              <b>{{ item.product.title }}</b>
+
+              <small>
+                {{ item.variant.title | remove: 'Default Title' }}
+              </small>
+
+              {%- if item.properties.size > 0 -%}
+
+                <div class="ci-props">
+
+                  {%- for property in item.properties -%}
+
+                    {%- assign property_first_char = property.first | slice: 0 -%}
+
+                    {%- unless property.last == blank or property_first_char == '_' -%}
+
+                      <div class="ci-prop">
+                        <b>{{ property.first }}:</b>
+                        <span>{{ property.last }}</span>
+                      </div>
+
+                    {%- endunless -%}
+
+                  {%- endfor -%}
+
                 </div>
-                <span class="ci-price">{{ item.final_line_price | money }}</span>
+
+              {%- endif -%}
+
+              <div class="ci-bottom">
+
+                <div class="qty">
+
+                  <a
+                    href="{{ item.url_to_remove }}"
+                    class="ci-remove"
+                    style="margin:0 8px 0 0"
+                  >
+                    −
+                  </a>
+
+                  <span>{{ item.quantity }}</span>
+
+                  <a
+                    href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}"
+                    style="margin-left:8px"
+                  >
+                    +
+                  </a>
+
+                </div>
+
+                <span class="ci-price">
+                  {{ item.final_line_price | money }}
+                </span>
+
               </div>
-              <a class="ci-remove" href="{{ item.url_to_remove }}">Entfernen</a>
+
+              <a
+                class="ci-remove"
+                href="{{ item.url_to_remove }}"
+              >
+                {{ 'cart.general.remove' | t }}
+              </a>
+
             </div>
           </div>
+
         {%- endfor -%}
-        <div class="sub-row" style="margin-top:24px"><span>Zwischensumme</span><span>{{ cart.total_price | money }}</span></div>
-        <button type="submit" name="checkout" class="btn btn-primary btn-block" style="margin-top:18px">Zur Kasse</button>
+
+        <div class="sub-row" style="margin-top:24px">
+          <span>{{ 'cart.general.subtotal' | t }}</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+
+        <button
+          type="submit"
+          name="checkout"
+          class="btn btn-primary btn-block"
+          style="margin-top:18px"
+        >
+          {{ 'cart.general.checkout' | t }}
+        </button>
+
       {%- endform -%}
+
     {%- endif -%}
+
   </div>
 </section>
-{% schema %}{ "name": "Warenkorb" }{% endschema %}
+
+{% schema %}
+{
+  "name": "Warenkorb"
+}
+{% endschema %}

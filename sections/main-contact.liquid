@@ -1,0 +1,132 @@
+<section class="page-hero">
+  <div class="wrap page-hero-inner reveal">
+    <span class="eyebrow">{{ 'pages.contact.eyebrow' | t }}</span>
+    <h1>{{ 'pages.contact.heading' | t }}</h1>
+    <p>{{ 'pages.contact.intro' | t }}</p>
+  </div>
+</section>
+
+<section class="section page-section page-contact">
+  <div class="wrap contact-grid">
+    <div class="contact-info reveal">
+      <h2>{{ 'pages.contact.info_heading' | t }}</h2>
+      <div class="rte muted-rte">
+        {{ 'pages.contact.info_text_html' | t }}
+      </div>
+
+      <div class="contact-cards">
+        {%- if section.settings.email != blank -%}
+          <a class="contact-card" href="mailto:{{ section.settings.email }}">
+            <span class="contact-icon">✉️</span>
+            <div>
+              <b>{{ 'general.forms.email' | t }}</b>
+              <small>{{ section.settings.email }}</small>
+            </div>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.phone != blank -%}
+          <a class="contact-card" href="tel:{{ section.settings.phone | remove: ' ' }}">
+            <span class="contact-icon">☎️</span>
+            <div>
+              <b>{{ 'general.forms.phone' | t }}</b>
+              <small>{{ section.settings.phone }}</small>
+            </div>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.address != blank -%}
+          <div class="contact-card">
+            <span class="contact-icon">📍</span>
+            <div>
+              <b>{{ 'general.forms.address' | t }}</b>
+              <small>{{ section.settings.address }}</small>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="contact-card">
+          <span class="contact-icon">🕒</span>
+          <div>
+            <b>{{ 'general.forms.hours' | t }}</b>
+            <small>{{ 'pages.contact.hours' | t }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-card reveal">
+      {%- form 'contact', id: 'ContactForm' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="form-success">{{ 'general.forms.success' | t }}</div>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="form-error">{{ 'general.forms.error' | t }}</div>
+        {%- endif -%}
+
+        <div class="form-row two">
+          <label>
+            {{ 'general.forms.name' | t }}
+            <input type="text" name="contact[name]" value="{{ form.name | escape }}" autocomplete="name" required>
+          </label>
+
+          <label>
+            {{ 'general.forms.email' | t }}
+            <input type="email" name="contact[email]" value="{{ form.email | escape }}" autocomplete="email" required>
+          </label>
+        </div>
+
+        <div class="form-row two">
+          <label>
+            {{ 'general.forms.phone_optional' | t }}
+            <input type="tel" name="contact[phone]" value="{{ form.phone | escape }}" autocomplete="tel">
+          </label>
+
+          <label>
+            {{ 'general.forms.order_optional' | t }}
+            <input type="text" name="contact[order_number]" placeholder="#1001">
+          </label>
+        </div>
+
+        <label>
+          {{ 'general.forms.subject' | t }}
+          <input type="text" name="contact[subject]" placeholder="{{ 'general.forms.subject_placeholder' | t }}" required>
+        </label>
+
+        <label>
+          {{ 'general.forms.message' | t }}
+          <textarea name="contact[body]" rows="6" placeholder="{{ 'general.forms.message_placeholder' | t }}" required>{{ form.body }}</textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary">
+          {{ 'general.forms.send' | t }}
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kontaktseite",
+  "settings": [
+    {
+      "type": "text",
+      "id": "email",
+      "label": "E-Mail",
+      "default": "info@netwitcher.com"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Telefon"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Adresse"
+    }
+  ]
+}
+{% endschema %}

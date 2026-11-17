@@ -1,0 +1,211 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "meta": {
+      "tagged": "étiqueté",
+      "page": "Page"
+    },
+    "accessibility": {
+      "close": "Fermer",
+      "menu": "Menu",
+      "cart_open": "Ouvrir le panier",
+      "search": "Recherche"
+    },
+    "navigation": {
+      "home": "Accueil",
+      "products": "Produits",
+      "bestseller": "Meilleures ventes",
+      "view": "Voir",
+      "all_collections": "Toutes les collections",
+      "collection": "Collection",
+      "assortment": "Gamme"
+    },
+    "search": {
+      "search": "Recherche",
+      "placeholder": "Recherche",
+      "title": "Recherche",
+      "input_placeholder": "Que recherchez-vous ?",
+      "no_results_html": "Aucun résultat pour « {{ terms }} »."
+    },
+    "forms": {
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "address": "Adresse",
+      "hours": "Horaires du service",
+      "name": "Nom complet",
+      "phone_optional": "Téléphone facultatif",
+      "order_optional": "Numéro de commande facultatif",
+      "subject": "Sujet",
+      "subject_placeholder": "De quoi s’agit-il ?",
+      "message": "Message",
+      "message_placeholder": "Écrivez votre message…",
+      "send": "Envoyer le message",
+      "success": "Merci ! Votre message a été envoyé. Nous vous répondrons dès que possible.",
+      "error": "Veuillez vérifier les champs indiqués et réessayer."
+    },
+    "language": {
+      "label": "Langue",
+      "change": "Changer de langue"
+    },
+    "errors": {
+      "not_found_title": "404",
+      "not_found_text": "Cette page n’existe plus.",
+      "back_home": "Retour à l’accueil"
+    },
+    "newsletter": {
+      "email_placeholder": "Votre adresse e-mail",
+      "success": "Merci ! Veuillez confirmer l’e-mail dans votre boîte de réception.",
+      "default_button": "S’inscrire"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "sold_out": "Épuisé",
+      "in_stock": "En stock",
+      "sale": "Promo",
+      "bestseller": "Meilleure vente",
+      "new": "Nouveau",
+      "popular": "Populaire",
+      "quick_view": "Aperçu rapide",
+      "choose_scent": "Choisir un pack",
+      "scents_count": "{{ count }} parfums au choix",
+      "from": "à partir de",
+      "home_fragrance": "PARFUMS POUR L’INTÉRIEUR ET LES SOLS",
+      "reviews": "avis",
+      "tax_shipping_html": "TVA incluse, hors <a href=\"#versand\" style=\"color:var(--blue);font-weight:600\">livraison</a>",
+      "quantity_minus": "Moins",
+      "quantity_plus": "Plus",
+      "description": "Description",
+      "usage": "Utilisation",
+      "benefits": "Avantages",
+      "shipping": "Livraison",
+      "related_eyebrow": "À ASSOCIER AVEC",
+      "related_title": "Découvrez des parfums similaires",
+      "all_details": "Voir tous les détails →",
+      "option": "Option",
+      "view_all": "Voir tous les produits",
+      "tax_shipping_included_html": "TVA et livraison incluses",
+      "tax_shipping_extra_html": "TVA incluse, livraison calculée séparément",
+      "shipping_included_short": "2–4 jours · livraison incluse",
+      "shipping_extra_short": "2–4 jours · offerte dès 55 €",
+      "payment_methods": "PayPal, Klarna, carte bancaire",
+      "freshness_title": "Fraîcheur jusqu’à 24 h",
+      "freshness_text": "Parfum longue durée",
+      "returns_title": "Retours sous 14 jours",
+      "returns_text": "Simple et sans souci",
+      "package": "Paket",
+      "mix_match_air_heading": "1. Choisissez 3 parfums d’ambiance",
+      "mix_match_floor_heading": "2. Choisissez 3 parfums pour sols",
+      "mix_match_choose_exact": "Choisissez exactement 3 articles au total. Le même parfum peut être sélectionné plusieurs fois.",
+      "mix_match_selected_short": "sélectionnés",
+      "mix_match_minus": "Réduire {{ scent }}",
+      "mix_match_plus": "Ajouter {{ scent }}",
+      "mix_match_free": "GRATUIT",
+      "mix_match_gift_heading": "3. Votre cadeau",
+      "mix_match_gift_text": "1x parfum pour sols offert – Frida choisit le parfum pour vous.",
+      "mix_match_summary_heading": "Votre coffret",
+      "mix_match_air_label": "Parfums d’ambiance :",
+      "mix_match_floor_label": "Parfums pour sols :",
+      "mix_match_gift_label": "Cadeau :",
+      "mix_match_total": "7 produits au total",
+      "mix_match_empty": "Aucune sélection pour le moment",
+      "mix_match_incomplete": "Veuillez choisir 3 parfums d’ambiance et 3 parfums pour sols.",
+      "mix_match_complete": "Votre sélection est complète.",
+      "mix_match_add": "Ajouter le coffret au panier",
+      "mix_match_configure": "Compléter votre sélection",
+      "mix_match_sku": "SKU",
+      "free_shipping_badge": "Livraison gratuite"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Panier",
+      "empty": "Votre panier est encore vide.",
+      "checkout": "Passer à la caisse",
+      "subtotal": "Sous-total",
+      "remove": "Retirer",
+      "shop_now": "Acheter maintenant",
+      "secure_payment": "Paiement sécurisé",
+      "fast_shipping": "Livraison rapide",
+      "support": "Assistance pour vos questions",
+      "added": "Ajouté au panier",
+      "add_error": "Le produit n’a pas pu être ajouté.",
+      "free_shipping_done_html": "🎉 Vous bénéficiez de la <b>livraison gratuite</b> !",
+      "free_shipping_remaining_html": "Encore <b>{{ amount }}</b> pour bénéficier de la livraison gratuite.",
+      "upsell_title": "À ASSOCIER AVEC",
+      "upsell_add": "+ Ajouter"
+    }
+  },
+  "footer": {
+    "rights": "Tous droits réservés"
+  },
+  "video": {
+    "coming_soon": "Vidéo bientôt disponible ✨"
+  },
+  "pages": {
+    "need_help": "Besoin d’aide ?",
+    "contact_us": "Nous contacter",
+    "contact": {
+      "eyebrow": "Contact",
+      "heading": "Contact",
+      "intro": "Nous attendons votre message avec plaisir. Notre équipe vous répondra dans les plus brefs délais.",
+      "info_heading": "Nous sommes là pour vous",
+      "info_text_html": "<p>Notre service client vous aide volontiers pour toute question concernant les produits Frida, votre commande ou un retour.</p>",
+      "hours": "Lun–Ven, 9h00–17h00"
+    }
+  },
+  "pagefly": {
+    "products": {
+      "product": {
+        "regular_price": "Regular price",
+        "sold_out": "Sold out",
+        "unavailable": "Unavailable",
+        "on_sale": "Sale",
+        "quantity": "Quantity",
+        "add_to_cart": "Add to cart",
+        "back_to_collection": "Back to {{ title }}",
+        "view_details": "View details"
+      }
+    },
+    "article": {
+      "tags": "Tags:",
+      "all_topics": "All topics",
+      "by_author": "by {{ author }}",
+      "posted_in": "Posted in",
+      "read_more": "Read more",
+      "back_to_blog": "Back to {{ title }}"
+    },
+    "comments": {
+      "title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment",
+      "moderated": "Please note, comments must be approved before they are published",
+      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
+      "success": "Your comment was posted successfully! Thank you!",
+      "comments_with_count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    },
+    "password_page": {
+      "login_form_message": "Enter store using password:",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Your password",
+      "login_form_submit": "Enter",
+      "signup_form_email_label": "Email",
+      "signup_form_success": "We will send you an email right before we open!",
+      "password_link": "Enter using password"
+    }
+  }
+}

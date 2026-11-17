@@ -1,0 +1,1275 @@
+{%- assign product = product -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign fallback_product_type = 'products.product.home_fragrance' | t -%}
+{%- assign shipping_included = product.metafields.custom.shipping_included.value -%}
+{%- assign mix_match_form_id = 'MixMatchProductForm-' | append: section.id -%}
+
+{%- if request.design_mode -%}
+  {%- assign missing_sku = false -%}
+  {%- for block in section.blocks -%}
+    {%- if block.settings.sku == blank -%}
+      {%- assign missing_sku = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+<div class="wrap breadcrumb">
+  <a href="{{ routes.root_url }}">{{ 'general.navigation.home' | t }}</a> /
+  {%- if product.collections.first -%}
+    <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a> /
+  {%- endif -%}
+  <span>{{ product.title }}</span>
+</div>
+
+<section class="pdp mm-pdp" data-mix-match-section="{{ section.id }}">
+  <div class="wrap pdp-grid">
+
+    <div class="gallery">
+      <div class="gal-main">
+        {%- if product.compare_at_price > product.price -%}
+          {%- assign has_gallery_badge = true -%}
+          <span class="gal-flag" style="background:#ff5a6e">{{ 'products.product.sale' | t }}</span>
+        {%- elsif product.tags contains 'Bestseller' -%}
+          {%- assign has_gallery_badge = true -%}
+          <span class="gal-flag">{{ 'products.product.bestseller' | t }}</span>
+        {%- endif -%}
+
+        {%- if shipping_included == true -%}
+          <span class="gal-flag gal-flag-shipping{% unless has_gallery_badge %} gal-flag-shipping-alone{% endunless %}">
+            {{ 'products.product.free_shipping_badge' | t }}
+          </span>
+        {%- endif -%}
+
+        {%- if product.images.size > 0 -%}
+          {%- for main_image in product.images limit: 1 -%}
+            <img
+              class="mm-gal-img"
+              src="{{ main_image | image_url: width: 900 }}"
+              alt="{{ main_image.alt | default: product.title | escape }}"
+              width="auto"
+              height="auto"
+              fetchpriority="high"
+            >
+          {%- endfor -%}
+        {%- elsif product.featured_image -%}
+          <img
+            class="mm-gal-img"
+            src="{{ product.featured_image | image_url: width: 900 }}"
+            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+            width="auto"
+            height="auto"
+            fetchpriority="high"
+          >
+        {%- endif -%}
+      </div>
+
+      {% comment %} {%- if product.images.size > 1 -%} {% endcomment %}
+        <div class="gal-thumbs">
+          {%- for image in product.images limit: 8 -%}
+            <button
+              type="button"
+              class="gal-thumb {% if forloop.first %}active{% endif %}"
+              data-mm-thumb
+              data-mm-base-thumb
+              data-thumb-src="{{ image | image_url: width: 900 }}"
+              data-thumb-alt="{{ image.alt | default: product.title | escape }}"
+              aria-label="{{ image.alt | default: product.title | escape }}"
+            >
+              <img
+                src="{{ image | image_url: width: 200 }}"
+                alt="{{ image.alt | default: product.title | escape }}"
+                loading="lazy"
+                width="{{ image.width }}"
+                height="{{ image.height }}"
+              >
+            </button>
+          {%- endfor -%}
+        </div>
+      {% comment %} {%- endif -%} {% endcomment %}
+    </div>
+
+    <div class="pdp-info">
+      <div class="pdp-cat">{{ product.type | default: fallback_product_type }}</div>
+      <h1 class="pdp-title">{{ product.title }}</h1>
+
+      {%- if product.metafields.custom.subtitle != blank -%}
+        <p class="pdp-sub">{{ product.metafields.custom.subtitle }}</p>
+      {%- endif -%}
+
+      <div class="pdp-price">
+        <span class="now">{{ current_variant.price | money }}</span>
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          <span class="was">{{ current_variant.compare_at_price | money }}</span>
+          <span class="off">–{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }} %</span>
+        {%- endif -%}
+      </div>
+
+      <p class="pdp-tax">
+        <b>
+          {% if current_variant.available %}
+            {{ 'products.product.in_stock' | t }}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </b>
+        ·
+        {%- if shipping_included == true -%}
+          {{ 'products.product.tax_shipping_included_html' | t }}
+        {%- else -%}
+          {{ 'products.product.tax_shipping_extra_html' | t }}
+        {%- endif -%}
+      </p>
+
+      {%- if request.design_mode and product.variants.size > 1 -%}
+        <div class="mm-editor-warning">
+          Dieses Mix-&-Match-Template ist für ein Produkt mit genau einer Variante gedacht. Bitte verwende eine einzige Variante mit der festen Paket-SKU.
+        </div>
+      {%- endif -%}
+
+      {%- if request.design_mode and missing_sku -%}
+        <div class="mm-editor-warning">
+          Bitte trage in jedem Duft-Block die echte SKU des einzelnen Duftes ein. Die SKU wird zusammen mit der Auswahl an Shopify und BillBee übergeben.
+        </div>
+      {%- endif -%}
+
+      {%- form 'product', product, id: mix_match_form_id, class: 'frida-add-form mm-form' -%}
+
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+<input
+          type="hidden"
+          name="properties[Lufterfrischer]"
+          data-mm-property="air"
+          value=""
+        >
+
+        <input
+          type="hidden"
+          name="properties[Bodenfrischer]"
+          data-mm-property="floor"
+          value=""
+        >
+<input
+          type="hidden"
+          name="properties[Geschenk]"
+          value="1x Bodenfrischer gratis"
+        >
+
+        <div class="mm-builder" id="MixMatchBuilder-{{ section.id }}">
+
+          <div class="mm-group" data-mm-group="air" data-limit="3">
+            <div class="mm-group-head">
+              <div>
+                <h2>{{ 'products.product.mix_match_air_heading' | t }}</h2>
+                <p>{{ 'products.product.mix_match_choose_exact' | t }}</p>
+              </div>
+
+              <span
+                class="mm-progress"
+                data-mm-progress="air"
+              >
+                0 / 3 {{ 'products.product.mix_match_selected_short' | t }}
+              </span>
+            </div>
+
+            <div class="mm-scent-grid">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'air_scent' -%}
+                  <div
+                      class="mm-scent"
+                      data-mm-item
+                      data-name="{{ block.settings.name | escape }}"
+                      data-sku="{{ block.settings.sku | escape }}"
+                      {% if block.settings.image != blank %}
+                        data-mm-image-src="{{ block.settings.image | image_url: width: 900 }}"
+                        data-mm-thumb-src="{{ block.settings.image | image_url: width: 200 }}"
+                        data-mm-image-alt="{{ block.settings.name | escape }}"
+                      {% endif %}
+                      {{ block.shopify_attributes }}
+                    >
+                    <div class="mm-scent-copy">
+                      <b>{{ block.settings.name }}</b>
+                    </div>
+
+                    <div class="mm-stepper">
+                      <button
+                        type="button"
+                        data-mm-minus
+                        aria-label="{{ 'products.product.mix_match_minus' | t: scent: block.settings.name | escape }}"
+                        disabled
+                      >
+                        −
+                      </button>
+
+                      <span data-mm-qty aria-live="polite">0</span>
+
+                      <button
+                        type="button"
+                        data-mm-plus
+                        aria-label="{{ 'products.product.mix_match_plus' | t: scent: block.settings.name | escape }}"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="mm-group" data-mm-group="floor" data-limit="3">
+
+            <div class="mm-group-head">
+              <div>
+                <h2>{{ 'products.product.mix_match_floor_heading' | t }}</h2>
+                <p>{{ 'products.product.mix_match_choose_exact' | t }}</p>
+              </div>
+
+              <span
+                class="mm-progress"
+                data-mm-progress="floor"
+              >
+                0 / 3 {{ 'products.product.mix_match_selected_short' | t }}
+              </span>
+            </div>
+
+            <div class="mm-scent-grid">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'floor_scent' -%}
+                  <div
+                      class="mm-scent"
+                      data-mm-item
+                      data-name="{{ block.settings.name | escape }}"
+                      data-sku="{{ block.settings.sku | escape }}"
+                      {% if block.settings.image != blank %}
+                        data-mm-image-src="{{ block.settings.image | image_url: width: 900 }}"
+                        data-mm-thumb-src="{{ block.settings.image | image_url: width: 200 }}"
+                        data-mm-image-alt="{{ block.settings.name | escape }}"
+                      {% endif %}
+                      {{ block.shopify_attributes }}
+                    >
+                    <div class="mm-scent-copy">
+                      <b>{{ block.settings.name }}</b>
+                    </div>
+
+                    <div class="mm-stepper">
+                      <button
+                        type="button"
+                        data-mm-minus
+                        aria-label="{{ 'products.product.mix_match_minus' | t: scent: block.settings.name | escape }}"
+                        disabled
+                      >
+                        −
+                      </button>
+
+                      <span data-mm-qty aria-live="polite">0</span>
+
+                      <button
+                        type="button"
+                        data-mm-plus
+                        aria-label="{{ 'products.product.mix_match_plus' | t: scent: block.settings.name | escape }}"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="mm-gift">
+            <div class="mm-gift-icon" aria-hidden="true">🎁</div>
+
+            <div>
+              <span class="mm-free">
+                {{ 'products.product.mix_match_free' | t }}
+              </span>
+
+              <h2>
+                {{ 'products.product.mix_match_gift_heading' | t }}
+              </h2>
+
+              <p>
+                {{ 'products.product.mix_match_gift_text' | t }}
+              </p>
+            </div>
+          </div>
+
+          <div class="mm-summary" aria-live="polite">
+            <h3>
+              {{ 'products.product.mix_match_summary_heading' | t }}
+            </h3>
+
+            <div class="mm-summary-row">
+              <b>{{ 'products.product.mix_match_air_label' | t }}</b>
+              <span data-mm-summary="air">
+                {{ 'products.product.mix_match_empty' | t }}
+              </span>
+            </div>
+
+            <div class="mm-summary-row">
+              <b>{{ 'products.product.mix_match_floor_label' | t }}</b>
+              <span data-mm-summary="floor">
+                {{ 'products.product.mix_match_empty' | t }}
+              </span>
+            </div>
+
+            <div class="mm-summary-row">
+              <b>{{ 'products.product.mix_match_gift_label' | t }}</b>
+              <span>
+                {{ 'products.product.mix_match_gift_text' | t }}
+              </span>
+            </div>
+
+            <div class="mm-summary-total">
+              {{ 'products.product.mix_match_total' | t }}
+            </div>
+          </div>
+
+          <p class="mm-status" data-mm-status>
+            {{ 'products.product.mix_match_incomplete' | t }}
+          </p>
+
+          <button
+            type="submit"
+            class="btn btn-primary mm-add"
+            data-mm-add
+            disabled
+            aria-disabled="true"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+              <path d="M3 6h18"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+
+            <span data-mm-add-label>
+              {% if current_variant.available %}
+                {{ 'products.product.mix_match_configure' | t }}
+              {% else %}
+                {{ 'products.product.sold_out' | t }}
+              {% endif %}
+            </span>
+          </button>
+
+        </div>
+      {%- endform -%}
+
+      <div class="assure">
+
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13" rx="2"/>
+            <path d="M16 8h4l3 3v5h-7z"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+
+          <div>
+            <b>{{ 'cart.general.fast_shipping' | t }}</b>
+            <small>
+              {% if shipping_included == true %}
+                {{ 'products.product.shipping_included_short' | t }}
+              {% else %}
+                {{ 'products.product.shipping_extra_short' | t }}
+              {% endif %}
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4"/>
+            <path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/>
+          </svg>
+
+          <div>
+            <b>{{ 'cart.general.secure_payment' | t }}</b>
+            <small>{{ 'products.product.payment_methods' | t }}</small>
+          </div>
+        </div>
+
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+
+          <div>
+            <b>{{ 'products.product.freshness_title' | t }}</b>
+            <small>{{ 'products.product.freshness_text' | t }}</small>
+          </div>
+        </div>
+
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7"/>
+            <path d="M2 7h20v5H2z"/>
+            <path d="M12 22V7M12 7S9 2 6.5 4.5 12 7 12 7z"/>
+          </svg>
+
+          <div>
+            <b>{{ 'products.product.returns_title' | t }}</b>
+            <small>{{ 'products.product.returns_text' | t }}</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap pdp-details">
+
+  <div class="detail-tabs" data-mm-tabs>
+    <button
+      class="detail-tab active"
+      type="button"
+      data-mm-tab="desc"
+    >
+      {{ 'products.product.description' | t }}
+    </button>
+
+    <button
+      class="detail-tab"
+      type="button"
+      data-mm-tab="use"
+    >
+      {{ 'products.product.usage' | t }}
+    </button>
+
+    <button
+      class="detail-tab"
+      type="button"
+      data-mm-tab="ben"
+    >
+      {{ 'products.product.benefits' | t }}
+    </button>
+
+    <button
+      class="detail-tab"
+      type="button"
+      data-mm-tab="ship"
+    >
+      {{ 'products.product.shipping' | t }}
+    </button>
+  </div>
+
+  <div class="tab-panel active" data-mm-panel="desc">
+    <div class="rte">
+      {{ product.description }}
+    </div>
+  </div>
+
+  <div class="tab-panel" data-mm-panel="use">
+    <div class="rte">
+      {{ section.settings.usage_text }}
+    </div>
+  </div>
+
+  <div class="tab-panel" data-mm-panel="ben">
+    <div class="rte">
+      {{ section.settings.benefits_text }}
+    </div>
+  </div>
+
+  <div class="tab-panel" data-mm-panel="ship">
+    <div class="rte">
+      {{ section.settings.shipping_text }}
+    </div>
+  </div>
+
+</section>
+
+{%- assign related = product.collections.first.products | default: collections.all.products -%}
+
+{%- if related.size > 1 -%}
+
+  <section
+    class="section related"
+    id="related"
+    style="background:var(--mist-2)"
+  >
+    <div class="wrap">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">
+          {{ 'products.product.related_eyebrow' | t }}
+        </span>
+
+        <h2>
+          {{ 'products.product.related_title' | t }}
+        </h2>
+      </div>
+
+      <div class="grid-prod">
+
+        {%- assign shown = 0 -%}
+
+        {%- for p in related -%}
+          {%- if p.id != product.id and shown < 4 -%}
+
+            {%- render 'product-card', card: p -%}
+
+            {%- assign shown = shown | plus: 1 -%}
+
+          {%- endif -%}
+        {%- endfor -%}
+
+      </div>
+    </div>
+  </section>
+
+{%- endif -%}
+
+<div
+  class="sticky-bar mm-sticky"
+  data-mm-sticky
+>
+  <div class="wrap sticky-inner">
+
+    <div class="sticky-prod">
+
+      {%- if product.featured_image -%}
+        <img
+          src="{{ product.featured_image | image_url: width: 120 }}"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          width="{{ product.featured_image.width }}"
+          height="{{ product.featured_image.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+
+      <div class="sp-hide">
+        <b>{{ product.title }}</b>
+
+        <small data-mm-sticky-state>
+          {{ 'products.product.mix_match_incomplete' | t }}
+        </small>
+      </div>
+    </div>
+
+    <div class="sticky-price">
+      {{ current_variant.price | money }}
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="button"
+      data-mm-sticky-add
+      {% unless current_variant.available %}disabled{% endunless %}
+    >
+      {% if current_variant.available %}
+        {{ 'products.product.mix_match_configure' | t }}
+      {% else %}
+        {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </button>
+
+  </div>
+</div>
+
+<script type="application/json" data-mm-strings>
+{
+  "selectedShort": {{ 'products.product.mix_match_selected_short' | t | json }},
+  "empty": {{ 'products.product.mix_match_empty' | t | json }},
+  "complete": {{ 'products.product.mix_match_complete' | t | json }},
+  "incomplete": {{ 'products.product.mix_match_incomplete' | t | json }},
+  "add": {{ 'products.product.mix_match_add' | t | json }},
+  "configure": {{ 'products.product.mix_match_configure' | t | json }},
+  "sku": {{ 'products.product.mix_match_sku' | t | json }}
+}
+</script>
+
+<script>
+(function(){
+
+  var root = document.querySelector(
+    '[data-mix-match-section="{{ section.id }}"]'
+  );
+
+  if(!root) return;
+
+  var stringsEl = document.querySelector('[data-mm-strings]');
+  var strings = {};
+
+  try {
+    strings = JSON.parse(
+      stringsEl ? stringsEl.textContent : '{}'
+    );
+  } catch(e) {}
+
+  var form = root.querySelector('.mm-form');
+  var addBtn = root.querySelector('[data-mm-add]');
+  var addLabel = root.querySelector('[data-mm-add-label]');
+  var status = root.querySelector('[data-mm-status]');
+
+  var sticky = document.querySelector('[data-mm-sticky]');
+  var stickyBtn = document.querySelector('[data-mm-sticky-add]');
+  var stickyState = document.querySelector('[data-mm-sticky-state]');
+
+  var available = {{ current_variant.available | json }};
+
+  function groupTotal(group){
+
+    var total = 0;
+
+    group
+      .querySelectorAll('[data-mm-item]')
+      .forEach(function(item){
+
+        total +=
+          parseInt(
+            item.getAttribute('data-qty') || '0',
+            10
+          ) || 0;
+
+      });
+
+    return total;
+  }
+
+  function selectedParts(group, includeSku){
+
+    var parts = [];
+
+    group
+      .querySelectorAll('[data-mm-item]')
+      .forEach(function(item){
+
+        var qty =
+          parseInt(
+            item.getAttribute('data-qty') || '0',
+            10
+          ) || 0;
+
+        if(qty < 1) return;
+
+        var name =
+          item.getAttribute('data-name') || '';
+
+        var sku =
+          item.getAttribute('data-sku') || '';
+
+        var part =
+          qty + 'x ' + name;
+
+        if(includeSku && sku){
+          part += ' | SKU: ' + sku;
+        }
+
+        parts.push(part);
+
+      });
+
+    return parts;
+  }
+
+  function refreshGroup(group){
+
+    var type =
+      group.getAttribute('data-mm-group');
+
+    var limit =
+      parseInt(
+        group.getAttribute('data-limit') || '3',
+        10
+      ) || 3;
+
+    var total = groupTotal(group);
+
+    var progress =
+      root.querySelector(
+        '[data-mm-progress="' + type + '"]'
+      );
+
+    var prop =
+      form.querySelector(
+        '[data-mm-property="' + type + '"]'
+      );
+
+    var skuProp =
+      form.querySelector(
+        '[data-mm-sku-property="' + type + '"]'
+      );
+
+    var summary =
+      root.querySelector(
+        '[data-mm-summary="' + type + '"]'
+      );
+
+    var parts =
+      selectedParts(group, false);
+
+    var skuParts =
+      selectedParts(group, true);
+
+    if(progress){
+
+      progress.textContent =
+        total +
+        ' / ' +
+        limit +
+        ' ' +
+        (strings.selectedShort || 'ausgewählt');
+
+      progress.classList.toggle(
+        'complete',
+        total === limit
+      );
+    }
+
+    if(prop){
+      prop.value =
+        parts.join('; ');
+    }
+
+    if(skuProp){
+      skuProp.value =
+        skuParts.join('; ');
+    }
+
+    if(summary){
+
+      summary.textContent =
+        parts.length
+          ? parts.join(' · ')
+          : (
+              strings.empty ||
+              'Noch nichts ausgewählt'
+            );
+    }
+
+    group
+      .querySelectorAll('[data-mm-item]')
+      .forEach(function(item){
+
+        var qty =
+          parseInt(
+            item.getAttribute('data-qty') || '0',
+            10
+          ) || 0;
+
+        var minus =
+          item.querySelector('[data-mm-minus]');
+
+        var plus =
+          item.querySelector('[data-mm-plus]');
+
+        var qtyEl =
+          item.querySelector('[data-mm-qty]');
+
+        if(qtyEl){
+          qtyEl.textContent = qty;
+        }
+
+        if(minus){
+          minus.disabled = qty <= 0;
+        }
+
+        if(plus){
+          plus.disabled = total >= limit;
+        }
+
+        item.classList.toggle(
+          'selected',
+          qty > 0
+        );
+
+      });
+  }
+
+  function isComplete(){
+
+    var air =
+      root.querySelector(
+        '[data-mm-group="air"]'
+      );
+
+    var floor =
+      root.querySelector(
+        '[data-mm-group="floor"]'
+      );
+
+    return (
+      air &&
+      floor &&
+      groupTotal(air) === 3 &&
+      groupTotal(floor) === 3
+    );
+  }
+
+  function refreshAll(){
+
+    root
+      .querySelectorAll('[data-mm-group]')
+      .forEach(refreshGroup);
+
+    refreshSelectedThumbs();
+
+    var complete =
+      isComplete();
+
+    if(status){
+
+      status.textContent =
+        complete
+          ? (
+              strings.complete ||
+              'Deine Auswahl ist vollständig.'
+            )
+          : (
+              strings.incomplete ||
+              'Bitte vervollständige deine Auswahl.'
+            );
+
+      status.classList.toggle(
+        'complete',
+        complete
+      );
+    }
+
+    if(addBtn){
+
+      addBtn.disabled =
+        !available || !complete;
+
+      addBtn.setAttribute(
+        'aria-disabled',
+        (!available || !complete)
+          ? 'true'
+          : 'false'
+      );
+    }
+
+    if(addLabel){
+
+      addLabel.textContent =
+        available
+          ? (
+              complete
+                ? (
+                    strings.add ||
+                    'Paket in den Warenkorb'
+                  )
+                : (
+                    strings.configure ||
+                    'Auswahl vervollständigen'
+                  )
+            )
+          : {{ 'products.product.sold_out' | t | json }};
+    }
+
+    if(stickyBtn){
+
+      stickyBtn.disabled =
+        !available;
+
+      stickyBtn.textContent =
+        available
+          ? (
+              complete
+                ? (
+                    strings.add ||
+                    'Paket in den Warenkorb'
+                  )
+                : (
+                    strings.configure ||
+                    'Auswahl vervollständigen'
+                  )
+            )
+          : {{ 'products.product.sold_out' | t | json }};
+    }
+
+    if(stickyState){
+
+      stickyState.textContent =
+        complete
+          ? (
+              strings.complete ||
+              'Deine Auswahl ist vollständig.'
+            )
+          : (
+              strings.incomplete ||
+              'Bitte vervollständige deine Auswahl.'
+            );
+    }
+  }
+
+  root.addEventListener(
+    'click',
+    function(e){
+
+      var plus =
+        e.target.closest('[data-mm-plus]');
+
+      var minus =
+        e.target.closest('[data-mm-minus]');
+
+      if(!plus && !minus){
+        return;
+      }
+
+      var item =
+        e.target.closest('[data-mm-item]');
+
+      var group =
+        e.target.closest('[data-mm-group]');
+
+      if(!item || !group){
+        return;
+      }
+
+      var limit =
+        parseInt(
+          group.getAttribute('data-limit') || '3',
+          10
+        ) || 3;
+
+      var qty =
+        parseInt(
+          item.getAttribute('data-qty') || '0',
+          10
+        ) || 0;
+
+      var total =
+        groupTotal(group);
+
+      if(plus && total < limit){
+        qty += 1;
+      }
+
+      if(minus && qty > 0){
+        qty -= 1;
+      }
+
+      item.setAttribute(
+        'data-qty',
+        String(qty)
+      );
+
+      refreshAll();
+    }
+  );
+
+  form.addEventListener(
+    'submit',
+    function(e){
+
+      if(!isComplete()){
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        var builder =
+          root.querySelector('.mm-builder');
+
+        if(builder){
+
+          builder.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+
+        refreshAll();
+      }
+
+    },
+    true
+  );
+
+  function activateThumb(thumb) {
+    var img = root.querySelector('.mm-gal-img');
+
+    if (img) {
+      img.src = thumb.getAttribute('data-thumb-src') || img.src;
+      img.alt = thumb.getAttribute('data-thumb-alt') || img.alt;
+    }
+
+    root
+      .querySelectorAll('[data-mm-thumb]')
+      .forEach(function(t) {
+        t.classList.remove('active');
+      });
+
+    thumb.classList.add('active');
+  }
+
+  function bindThumb(thumb) {
+    if (!thumb || thumb.getAttribute('data-mm-bound') === 'true') {
+      return;
+    }
+
+    thumb.setAttribute('data-mm-bound', 'true');
+
+    thumb.addEventListener('click', function() {
+      activateThumb(thumb);
+    });
+  }
+
+  function refreshSelectedThumbs() {
+    var thumbsWrap = root.querySelector('.gal-thumbs');
+
+    if (!thumbsWrap) {
+      return;
+    }
+
+    thumbsWrap
+      .querySelectorAll('[data-mm-dynamic-thumb]')
+      .forEach(function(thumb) {
+        thumb.remove();
+      });
+
+    var added = {};
+
+    root
+      .querySelectorAll('[data-mm-item]')
+      .forEach(function(item) {
+        var qty = parseInt(item.getAttribute('data-qty') || '0', 10) || 0;
+
+        if (qty < 1) {
+          return;
+        }
+
+        var imageSrc = item.getAttribute('data-mm-image-src');
+        var thumbSrc = item.getAttribute('data-mm-thumb-src') || imageSrc;
+        var imageAlt = item.getAttribute('data-mm-image-alt') || item.getAttribute('data-name') || '';
+
+        if (!imageSrc || added[imageSrc]) {
+          return;
+        }
+
+        added[imageSrc] = true;
+
+        var thumb = document.createElement('button');
+        thumb.type = 'button';
+        thumb.className = 'gal-thumb mm-dynamic-thumb';
+        thumb.setAttribute('data-mm-thumb', '');
+        thumb.setAttribute('data-mm-dynamic-thumb', '');
+        thumb.setAttribute('data-thumb-src', imageSrc);
+        thumb.setAttribute('data-thumb-alt', imageAlt);
+        thumb.setAttribute('aria-label', imageAlt);
+
+        thumb.innerHTML =
+          '<img src="' + thumbSrc + '" alt="' + imageAlt.replace(/"/g, '&quot;') + '" loading="lazy" width="200" height="200">';
+
+        thumbsWrap.appendChild(thumb);
+        bindThumb(thumb);
+      });
+
+    root
+      .querySelectorAll('[data-mm-thumb]')
+      .forEach(bindThumb);
+  }
+
+  root
+    .querySelectorAll('[data-mm-thumb]')
+    .forEach(bindThumb);
+    var firstActiveThumb = root.querySelector('[data-mm-thumb].active') || root.querySelector('[data-mm-thumb]');
+    if (firstActiveThumb) {
+      activateThumb(firstActiveThumb);
+    }
+
+  var tabs =
+    document.querySelector('[data-mm-tabs]');
+
+  if(tabs){
+
+    tabs.addEventListener(
+      'click',
+      function(e){
+
+        var tab =
+          e.target.closest('[data-mm-tab]');
+
+        if(!tab){
+          return;
+        }
+
+        var name =
+          tab.getAttribute('data-mm-tab');
+
+        tabs
+          .querySelectorAll('[data-mm-tab]')
+          .forEach(function(t){
+            t.classList.remove('active');
+          });
+
+        document
+          .querySelectorAll('[data-mm-panel]')
+          .forEach(function(p){
+            p.classList.remove('active');
+          });
+
+        tab.classList.add('active');
+
+        var panel =
+          document.querySelector(
+            '[data-mm-panel="' + name + '"]'
+          );
+
+        if(panel){
+          panel.classList.add('active');
+        }
+      }
+    );
+  }
+
+  if(stickyBtn){
+
+    stickyBtn.addEventListener(
+      'click',
+      function(){
+
+        if(!available){
+          return;
+        }
+
+        if(isComplete()){
+
+          if(form.requestSubmit){
+            form.requestSubmit();
+          } else {
+            form.submit();
+          }
+
+        } else {
+
+          var builder =
+            root.querySelector('.mm-builder');
+
+          if(builder){
+
+            builder.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
+            });
+          }
+        }
+      }
+    );
+  }
+
+  var buyArea =
+    root.querySelector('.mm-builder');
+
+  var related =
+    document.getElementById('related');
+
+  if(sticky && buyArea){
+
+    window.addEventListener(
+      'scroll',
+      function(){
+
+        var r =
+          buyArea.getBoundingClientRect();
+
+        var relTop =
+          related
+            ? related.getBoundingClientRect().top
+            : 99999;
+
+        sticky.classList.toggle(
+          'show',
+          r.bottom < 0 &&
+          relTop > 200
+        );
+      }
+    );
+  }
+
+  refreshAll();
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Mix & Match Paket",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "usage_text",
+      "label": "Anwendung",
+      "default": "<p>Lufterfrischer direkt in den Raum sprühen. Bodenfrischer nach Etikett dosieren und mit Wasser zur Reinigung von Böden und abwaschbaren Oberflächen verwenden.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "benefits_text",
+      "label": "Vorteile",
+      "default": "<p>6 Düfte frei wählen, Mehrfachauswahl möglich und 1 zusätzlicher Bodenfrischer als Geschenk von Frida.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_text",
+      "label": "Versand",
+      "default": "<p>Versand in 2–4 Werktagen (DE) bzw. 3–6 Werktagen (EU). Die aktuell im Shop hinterlegten Versandbedingungen gelten.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "air_scent",
+      "name": "Lufterfrischer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Duftname",
+          "default": "Arabesque"
+        },
+        {
+          "type": "text",
+          "id": "sku",
+          "label": "SKU des Duftes"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild des Duftes"
+        }
+      ]
+    },
+    {
+      "type": "floor_scent",
+      "name": "Bodenfrischer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Duftname",
+          "default": "Lemon"
+        },
+        {
+          "type": "text",
+          "id": "sku",
+          "label": "SKU des Duftes"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild des Duftes"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 30,
+  "presets": [
+    {
+      "name": "Mix & Match Paket"
+    }
+  ]
+}
+{% endschema %}

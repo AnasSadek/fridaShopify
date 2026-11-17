@@ -1,3 +1,4 @@
+{%- assign newsletter_default_button = 'general.newsletter.default_button' | t -%}
 <section class="section news">
   <div class="wrap">
     <div class="news-box reveal">
@@ -6,9 +7,9 @@
       {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
       {%- form 'customer', class: 'news-form' -%}
         <input type="hidden" name="contact[tags]" value="newsletter">
-        <input type="email" name="contact[email]" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail">
-        <button type="submit" class="btn btn-primary">{{ section.settings.button_label | default: 'Sichern' }}</button>
-        {%- if form.posted_successfully? -%}<p class="note" style="color:#12a05f">Danke! Bitte bestätige die E-Mail in deinem Postfach.</p>{%- endif -%}
+        <input type="email" name="contact[email]" placeholder="{{ 'general.newsletter.email_placeholder' | t }}" required aria-label="{{ 'general.forms.email' | t }}">
+        <button type="submit" class="btn btn-primary">{{ section.settings.button_label | default: newsletter_default_button }}</button>
+        {%- if form.posted_successfully? -%}<p class="note" style="color:#12a05f">{{ 'general.newsletter.success' | t }}</p>{%- endif -%}
       {%- endform -%}
       {%- if section.settings.disclaimer != blank -%}<small>{{ section.settings.disclaimer }}</small>{%- endif -%}
     </div>

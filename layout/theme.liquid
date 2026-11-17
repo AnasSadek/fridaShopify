@@ -1,6 +1,12 @@
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}" class="no-js">
+{%- assign iso_code = request.locale.iso_code | downcase -%}
+{%- assign lang_root = iso_code | split: '-' | first -%}
+{%- assign rtl_languages = 'ar,fa,he,ur' | split: ',' -%}
+{%- assign text_direction = 'ltr' -%}
+{%- if rtl_languages contains lang_root -%}{%- assign text_direction = 'rtl' -%}{%- endif -%}
+<html lang="{{ iso_code }}" dir="{{ text_direction }}" class="no-js{% if text_direction == 'rtl' %} rtl{% endif %}">
 <head>
+  <link rel="icon" type="image/png" href="https://cdn.shopify.com/s/files/1/0955/3700/4924/files/favicon.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,22 +15,20 @@
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
   {%- endif -%}
 
-  <title>{{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Seite {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+  <title>{{ page_title }}{% if current_tags %} &ndash; {{ 'general.meta.tagged' | t }} "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
   {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
   {%- render 'meta-social' -%}
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   {{ 'frida-theme.css' | asset_url | stylesheet_tag }}
 
   <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
   {{ content_for_header }}
 </head>
 
-<body class="template-{{ request.page_type | handle }}{% unless settings.enable_animations %} anim-off{% endunless %}">
-  <a class="frida-skip" href="#MainContent">Zum Inhalt springen</a>
-
+<body class="template-{{ request.page_type | handle }} lang-{{ lang_root }} dir-{{ text_direction }}{% unless settings.enable_animations %} anim-off{% endunless %}">
   {% section 'announcement-bar' %}
   {% section 'header' %}
 
@@ -38,12 +42,34 @@
   {%- render 'quick-view' -%}
 
   <!-- TOAST -->
-  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span id="toastMsg">Zum Warenkorb hinzugefügt</span></div>
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span id="toastMsg">{{ 'cart.general.added' | t }}</span></div>
 
   <script>
     window.fridaRoutes = {{ routes | json }};
-    window.fridaCartStrings = { added: "Zum Warenkorb hinzugefügt", empty: "Dein Warenkorb ist noch leer." };
-    window.fridaSettings = { freeShip: {{ settings.free_shipping_threshold | default: 39 | times: 100 }} };
+    window.fridaLocale = { code: {{ iso_code | json }}, direction: {{ text_direction | json }} };
+    window.fridaStrings = {
+      added: {{ 'cart.general.added' | t | json }},
+      cartEmpty: {{ 'cart.general.empty' | t | json }},
+      remove: {{ 'cart.general.remove' | t | json }},
+      freeShippingDone: {{ 'cart.general.free_shipping_done_html' | t | json }},
+      freeShippingRemaining: {{ 'cart.general.free_shipping_remaining_html' | t | json }},
+      upsellTitle: {{ 'cart.general.upsell_title' | t | json }},
+      upsellAdd: {{ 'cart.general.upsell_add' | t | json }},
+      addError: {{ 'cart.general.add_error' | t | json }},
+      inStock: {{ 'products.product.in_stock' | t | json }},
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      addToCart: {{ 'products.product.add_to_cart' | t | json }},
+      close: {{ 'general.accessibility.close' | t | json }},
+      homeFragrance: {{ 'products.product.home_fragrance' | t | json }},
+      allDetails: {{ 'products.product.all_details' | t | json }},
+      option: {{ 'products.product.option' | t | json }},
+      videoComingSoon: {{ 'video.coming_soon' | t | json }}
+    };
+    window.fridaCartStrings = { added: window.fridaStrings.added, empty: window.fridaStrings.cartEmpty };
+    //window.fridaSettings = { freeShip: {{ settings.free_shipping_threshold | default: 55 | times: 100 }} };
+    window.fridaSettings = {
+      freeShip: 5500
+    };
   </script>
   <script src="{{ 'frida-theme.js' | asset_url }}" defer></script>
 </body>

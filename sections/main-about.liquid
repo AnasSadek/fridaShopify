@@ -1,0 +1,68 @@
+<section class="page-hero">
+  <div class="wrap page-hero-inner reveal">
+    {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h1>{{ section.settings.heading | default: page.title }}</h1>
+    {%- if section.settings.intro != blank -%}<p>{{ section.settings.intro }}</p>{%- endif -%}
+  </div>
+</section>
+
+<section class="section page-section">
+  <div class="wrap about-grid">
+    <div class="about-copy reveal">
+      {%- if page.content != blank -%}
+        <div class="rte">{{ page.content }}</div>
+      {%- else -%}
+        <div class="rte">{{ section.settings.content }}</div>
+      {%- endif -%}
+    </div>
+    <div class="about-media reveal">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" width="900" height="900" loading="lazy">
+      {%- else -%}
+        <div class="about-placeholder">
+          <span>Frida</span>
+          <small>Fresh home feeling</small>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<section class="section page-section page-soft">
+  <div class="wrap values-grid">
+    {%- for block in section.blocks -%}
+      <div class="value-card reveal" {{ block.shopify_attributes }}>
+        <div class="value-icon">{{ block.settings.icon }}</div>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Über uns Seite",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Über Frida" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Frische, die dein Zuhause schöner macht" },
+    { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Frida steht für angenehme Düfte, einfache Anwendung und ein sauberes Zuhausegefühl." },
+    { "type": "richtext", "id": "content", "label": "Text", "default": "<p>Wir entwickeln Home-Fragrance-Produkte, die Alltag und Reinigung schöner machen. Unsere Düfte sind inspiriert von modernen europäischen Wohnräumen und orientalischen Duftwelten.</p><p>Unser Ziel: Produkte, die gut aussehen, einfach funktionieren und jeden Raum sofort frischer wirken lassen.</p>" },
+    { "type": "image_picker", "id": "image", "label": "Bild" }
+  ],
+  "blocks": [
+    { "type": "value", "name": "Wert", "settings": [
+      { "type": "text", "id": "icon", "label": "Icon", "default": "✨" },
+      { "type": "text", "id": "title", "label": "Titel", "default": "Langanhaltende Frische" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Düfte, die dein Zuhause spürbar angenehmer machen." }
+    ] }
+  ],
+  "presets": [
+    { "name": "Über uns Seite", "blocks": [
+      { "type": "value", "settings": { "icon": "✨", "title": "Duft mit Gefühl", "text": "Jede Duftwelt ist so gestaltet, dass sie Räume besonders und einladend wirken lässt." } },
+      { "type": "value", "settings": { "icon": "🧼", "title": "Einfach im Alltag", "text": "Unsere Produkte sind unkompliziert, praktisch und schnell einsatzbereit." } },
+      { "type": "value", "settings": { "icon": "💙", "title": "Service zuerst", "text": "Wir möchten, dass du dich vor und nach dem Kauf gut begleitet fühlst." } }
+    ] }
+  ]
+}
+{% endschema %}

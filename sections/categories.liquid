@@ -8,9 +8,16 @@
     <div class="cats">
       {%- for block in section.blocks -%}
         <a href="{{ block.settings.link | default: '#' }}" class="cat {{ block.settings.css_class }} reveal" {{ block.shopify_attributes }}>
-          <span class="cat-tag">{{ block.settings.tag }}</span>
+          <!-- <span class="cat-tag">{{ block.settings.tag }}</span> -->
           {%- if block.settings.image != blank -%}
-            <img class="cat-img" src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.image.alt | default: block.settings.title | escape }}" width="{{ block.settings.image.width | at_most: 600 }}" height="{{ block.settings.image.width | at_most: 600 | divided_by: block.settings.image.aspect_ratio | round }}" loading="lazy">
+            <img
+              class="cat-img"
+              src="{{ block.settings.image | image_url: width: block.settings.image.width }}"
+              alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+              width="auto"
+              height="auto"
+              loading="lazy"
+            ><br>
           {%- endif -%}
           <h3>{{ block.settings.title }}</h3>
           <p>{{ block.settings.text }}</p>

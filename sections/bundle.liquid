@@ -16,9 +16,9 @@
         <div class="bundle-card">
           {%- if section.settings.save_text != blank -%}<span class="save">{{ section.settings.save_text }}</span>{%- endif -%}
           {%- if section.settings.image != blank -%}
-            <img src="{{ section.settings.image | image_url: width: 700 }}" alt="{{ section.settings.image.alt | default: 'Frida Bundle' }}" width="{{ section.settings.image.width | at_most: 700 }}" height="{{ section.settings.image.width | at_most: 700 | divided_by: section.settings.image.aspect_ratio | round }}" loading="lazy">
+            <img src="{{ section.settings.image | image_url: width: 700 }}" alt="{{ section.settings.image.alt | default: 'Frida Bundle' }}" width="auto" height="auto" loading="lazy">
           {%- else -%}
-            <img src="{{ 'home-group.webp' | asset_url }}" alt="Frida Home Duft-Bundle" width="1600" height="916" loading="lazy">
+            <img src="{{ 'home-group.webp' | asset_url }}" alt="Frida Home Duft-Bundle" width="auto" height="auto" loading="lazy">
           {%- endif -%}
           <div class="bp">{{ section.settings.price }} <s>{{ section.settings.compare }}</s></div>
           {%- if section.settings.caption != blank -%}<p style="opacity:.85;font-size:.86rem;margin-top:6px">{{ section.settings.caption }}</p>{%- endif -%}

@@ -1,0 +1,14 @@
+{%- if localization.available_languages.size > 1 -%}
+  <div class="language-switcher">
+    {%- form 'localization', id: form_id, class: 'locale-form' -%}
+      <label class="visually-hidden" for="{{ form_id }}-Locale">{{ 'general.language.label' | t }}</label>
+      <select id="{{ form_id }}-Locale" name="locale_code" aria-label="{{ 'general.language.change' | t }}" onchange="this.form.submit()">
+        {%- for language in localization.available_languages -%}
+          <option value="{{ language.iso_code }}" {%- if language.iso_code == localization.language.iso_code %} selected{%- endif -%}>
+            {{ language.endonym_name | capitalize }}
+          </option>
+        {%- endfor -%}
+      </select>
+    {%- endform -%}
+  </div>
+{%- endif -%}

@@ -2608,3 +2608,19 @@ html[dir="rtl"] .topbar-rot .topbar-msg{direction:rtl}
 }
 body.anim-off .holiday-snow{display:none}
 body.anim-off .holiday-hero .holiday-badges span{opacity:1;transform:none}
+
+/* ============ PROMO CAMPAIGN BADGE (Kampagnen-Badges) ============ */
+.badge-promo{
+  background:linear-gradient(120deg,#b4232f,#e0434f);
+  max-width:calc(100% - 24px);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.gal-flag-promo{
+  background:linear-gradient(120deg,#b4232f,#e0434f) !important;
+  max-width:calc(100% - 32px);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+@media (max-width:560px){
+  .badge-promo{font-size:.6rem;padding:4px 8px;max-width:calc(100% - 18px)}
+  .gal-flag-promo{font-size:.66rem}
+}

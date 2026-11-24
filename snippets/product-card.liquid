@@ -22,8 +22,13 @@
 
 <article class="card reveal" data-product-card>
   <div class="card-media">
+    {%- capture promo_title -%}{%- render 'promo-badge', pb_product: card -%}{%- endcapture -%}
+    {%- assign promo_title = promo_title | strip -%}
     {%- assign has_main_badge = false -%}
-    {%- if card.compare_at_price > card.price -%}
+    {%- if promo_title != blank -%}
+      {%- assign has_main_badge = true -%}
+      <span class="badge badge-promo" dir="auto" title="{{ promo_title | escape }}">{{ promo_title }}</span>
+    {%- elsif card.compare_at_price > card.price -%}
       {%- assign has_main_badge = true -%}
       <span class="badge sale">{{ 'products.product.sale' | t }}</span>
     {%- elsif card.tags contains 'Neu' -%}

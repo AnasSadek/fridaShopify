@@ -16,6 +16,7 @@
     "enable_animations": true,
     "holiday_mode": true,
     "holiday_decor": true,
+    "promo_badges_enabled": true,
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",

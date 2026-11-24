@@ -28,5 +28,20 @@
         "info": "Nur wirksam, wenn das saisonale Design aktiv ist. Animationen respektieren automatisch „Bewegung reduzieren“."
       }
     ]
+  },
+  {
+    "name": "Kampagnen-Badges",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Zeigt den Namen der passenden automatischen Rabatt-Kampagne (z. B. „Black Friday DE“) als Badge auf den Produktbildern – nur auf berechtigten Produkten und nur im passenden Land/Markt. Die Kampagnendaten stehen im Shop-Metafeld „frida.promo_badges“ (Admin → Einstellungen → Benutzerdefinierte Daten → Shop) und werden aus den automatischen Rabatten synchronisiert. Start, Ende und Land werden bei jedem Seitenaufruf live geprüft – abgelaufene Kampagnen verschwinden automatisch. Nur neue, umbenannte oder anders ausgerichtete Rabatte erfordern eine erneute Synchronisation oder eine manuelle Anpassung des Metafelds."
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_badges_enabled",
+        "label": "Kampagnen-Badges anzeigen",
+        "default": false
+      }
+    ]
   }
 ]

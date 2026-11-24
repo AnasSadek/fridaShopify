@@ -97,8 +97,13 @@ body.holiday-mode{
 .holiday-mode .card:hover .card-media img{transform:scale(1.07)}
 .holiday-mode .badge{background:var(--hx-navy)}
 .holiday-mode .badge.sale{background:linear-gradient(120deg,#b4232f,#e0434f)}
-.holiday-mode .card .badge:not(.sale):not(.badge-shipping-included){
+.holiday-mode .card .badge:not(.sale):not(.badge-shipping-included):not(.badge-promo){
   background:var(--hx-grad-gold);color:#271d04;
+}
+.holiday-mode .badge-promo,
+.holiday-mode .gal-flag-promo{
+  background:linear-gradient(120deg,#b4232f,#e0434f);color:#fff;
+  box-shadow:0 0 0 1px rgba(232,197,122,.55),0 6px 14px rgba(11,19,64,.25);
 }
 .holiday-mode .card-name{color:var(--hx-night);font-size:1.16rem}
 .holiday-mode .price{color:var(--hx-navy);font-size:1.38rem}

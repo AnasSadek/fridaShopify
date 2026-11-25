@@ -23,15 +23,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   {{ 'frida-theme.css' | asset_url | stylesheet_tag }}
-  {%- if settings.holiday_mode -%}
-    {{ 'holiday.css' | asset_url | stylesheet_tag }}
+  {%- if settings.xmas_enabled -%}
+    {{ 'frida-xmas.css' | asset_url | stylesheet_tag }}
   {%- endif -%}
 
   <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
   {{ content_for_header }}
 </head>
 
-<body class="template-{{ request.page_type | handle }} lang-{{ lang_root }} dir-{{ text_direction }}{% unless settings.enable_animations %} anim-off{% endunless %}{% if settings.holiday_mode %} holiday-mode{% if settings.holiday_decor %} holiday-decor{% endif %}{% endif %}">
+<body class="template-{{ request.page_type | handle }} lang-{{ lang_root }} dir-{{ text_direction }}{% unless settings.enable_animations %} anim-off{% endunless %}{% if settings.xmas_enabled %} skin-xmas{% if settings.xmas_lights %} xmas-lights-on{% endif %}{% endif %}">
   {% section 'announcement-bar' %}
   {% section 'header' %}
 
@@ -75,5 +75,28 @@
     };
   </script>
   <script src="{{ 'frida-theme.js' | asset_url }}" defer></script>
+  {%- if settings.xmas_enabled -%}
+    {%- comment -%}
+      Weihnachts-Skin: Produkt (Handle der Standardsprache) und Varianten-ID des Weihnachtsdufts.
+      Die ID statt des Namens, weil Variantennamen und Handles je Sprache übersetzt sind.
+    {%- endcomment -%}
+    {%- assign xmas_product = all_products['frida-air-freshener-460ml'] -%}
+    <script>
+      window.fridaXmas = {
+        url: {{ xmas_product.url | json }},
+        variantId: 58172908601724,
+        img: {{ 'xmas-vanilla-cinnamon.webp' | asset_url | json }},
+        strings: {
+          eyebrow: {{ 'xmas.eyebrow' | t | json }},
+          sub: {{ 'xmas.sub' | t | json }},
+          seal_title: {{ 'xmas.seal_title' | t | json }},
+          seal_text: {{ 'xmas.seal_text' | t | json }},
+          note_vanilla: {{ 'xmas.note_vanilla' | t | json }},
+          note_cinnamon: {{ 'xmas.note_cinnamon' | t | json }}
+        }
+      };
+    </script>
+    <script src="{{ 'frida-xmas.js' | asset_url }}" defer></script>
+  {%- endif -%}
 </body>
 </html>

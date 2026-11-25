@@ -36,13 +36,8 @@
     <!-- GALLERY -->
     <div class="gallery">
       <div class="gal-main">
-        {%- capture promo_title -%}{%- render 'promo-badge', pb_product: product -%}{%- endcapture -%}
-        {%- assign promo_title = promo_title | strip -%}
         {%- assign has_gallery_badge = false -%}
-        {%- if promo_title != blank -%}
-          {%- assign has_gallery_badge = true -%}
-          <span class="gal-flag gal-flag-promo" dir="auto">{{ promo_title }}</span>
-        {%- elsif product.compare_at_price > product.price -%}
+        {%- if product.compare_at_price > product.price -%}
           {%- assign has_gallery_badge = true -%}
           <span class="gal-flag" style="background:#ff5a6e">{{ 'products.product.sale' | t }}</span>
         {%- elsif product.tags contains 'Bestseller' -%}

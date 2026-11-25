@@ -878,23 +878,3 @@ document.addEventListener('keydown', function(e){
   /* ---------- INIT ---------- */
   fetchCart();
 })();
-/* ================================================================
-   FRIDA HOLIDAY 2026 — Rotation der saisonalen Ankündigungen
-   (läuft nur, wenn die Leiste im Theme-Editor aktiviert wurde)
-   ================================================================ */
-(function(){
-  "use strict";
-  var bar = document.querySelector('.topbar-rot');
-  if(!bar) return;
-  var msgs = bar.querySelectorAll('.topbar-msg');
-  if(msgs.length < 2) return;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce || document.body.classList.contains('anim-off')) return; // erste Botschaft bleibt statisch stehen
-  var seconds = parseInt(bar.getAttribute('data-rotate'), 10) || 5;
-  var i = 0;
-  setInterval(function(){
-    msgs[i].classList.remove('active');
-    i = (i + 1) % msgs.length;
-    msgs[i].classList.add('active');
-  }, Math.max(3, seconds) * 1000);
-})();

@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "general": {
     "meta": {
@@ -26,9 +17,7 @@
       "view": "عرض",
       "all_collections": "كل المجموعات",
       "collection": "المجموعة",
-      "assortment": "التشكيلة",
-      "new": "جديد",
-      "holiday": "عالم عيد الميلاد"
+      "assortment": "التشكيلة"
     },
     "search": {
       "search": "بحث",
@@ -163,9 +152,6 @@
       "info_heading": "نحن هنا لمساعدتك",
       "info_text_html": "<p>يسعد فريق خدمة العملاء لدينا مساعدتك في أي استفسار بخصوص منتجات Frida أو طلبك أو عملية الإرجاع.</p>",
       "hours": "الاثنين – الجمعة، 9:00 – 17:00"
-    },
-    "general": {
-      "empty_page": "يتم تحديث هذه الصفحة حاليًا. يرجى العودة قريبًا."
     }
   },
   "pagefly": {
@@ -213,13 +199,30 @@
       "password_link": "Enter using password"
     }
   },
-  "holiday": {
-    "limited_badge": "إصدار محدود",
-    "new_badge": "جديد"
-  },
-  "customer": {
-    "account": {
-      "title": "الحساب"
-    }
+  "xmas": {
+    "eyebrow": "إصدار محدود · عيد الميلاد",
+    "heading_html": "بيتك يفوح بعطر <span class=\"g\">عيد الميلاد.</span>",
+    "sub": "Vanilla & Cinnamon: فانيلا دافئة وقرفة عطرية. بخّة واحدة تملأ بيتك بأجواء العيد.",
+    "note_vanilla": "فانيلا",
+    "note_cinnamon": "قرفة",
+    "seal_title": "جديد",
+    "seal_text": "لفترة محدودة",
+    "qty_legend": "اختر الكمية",
+    "qty_one": "عبوة واحدة",
+    "qty_many": "{{ count }} عبوات",
+    "qty_gift": "للإهداء",
+    "assure_pay": "دفع آمن",
+    "assure_return": "إرجاع خلال 14 يوماً",
+    "count_eve": "حتى ليلة عيد الميلاد",
+    "count_deadline": "حتى آخر موعد للطلب قبل العيد",
+    "unit_d": "يوم",
+    "unit_h": "ساعة",
+    "unit_m": "دقيقة",
+    "unit_s": "ثانية",
+    "gift_link": "كوّن طقم هدية",
+    "bar_html": "🎄 <strong>إصدار محدود: Vanilla &amp; Cinnamon</strong> · لفترة محدودة · شحن مجاني للطلبات فوق 55 €",
+    "proof_rating": "تقييم 4.9 من 5",
+    "proof_households": "أكثر من 12,000 منزل سعيد",
+    "proof_delivery": "توصيل خلال 2–4 أيام"
   }
 }

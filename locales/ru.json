@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "general": {
     "meta": {
@@ -26,9 +17,7 @@
       "view": "Смотреть",
       "all_collections": "Все коллекции",
       "collection": "Коллекция",
-      "assortment": "Ассортимент",
-      "new": "Новинки",
-      "holiday": "Мир Рождества"
+      "assortment": "Ассортимент"
     },
     "search": {
       "search": "Поиск",
@@ -163,9 +152,6 @@
       "info_heading": "Мы всегда готовы помочь",
       "info_text_html": "<p>Наша служба поддержки с радостью поможет вам с вопросами о продуктах Frida, вашем заказе или возврате.</p>",
       "hours": "Пн–Пт, 9:00–17:00"
-    },
-    "general": {
-      "empty_page": "Эта страница обновляется. Загляните позже."
     }
   },
   "pagefly": {
@@ -213,13 +199,30 @@
       "password_link": "Enter using password"
     }
   },
-  "holiday": {
-    "limited_badge": "Лимитированная серия",
-    "new_badge": "Новинка"
-  },
-  "customer": {
-    "account": {
-      "title": "Аккаунт"
-    }
+  "xmas": {
+    "eyebrow": "Лимитированная серия · Рождество",
+    "heading_html": "Ваш дом пахнет <span class=\"g\">Рождеством.</span>",
+    "sub": "Vanilla & Cinnamon: тёплая ваниль и пряная корица. Одно нажатие — и дома пахнет праздником.",
+    "note_vanilla": "Ваниль",
+    "note_cinnamon": "Корица",
+    "seal_title": "Новинка",
+    "seal_text": "Только ограниченное время",
+    "qty_legend": "Выберите количество",
+    "qty_one": "1 флакон",
+    "qty_many": "{{ count }} шт.",
+    "qty_gift": "В подарок",
+    "assure_pay": "Безопасная оплата",
+    "assure_return": "Возврат 14 дней",
+    "count_eve": "до сочельника",
+    "count_deadline": "чтобы заказать к Рождеству",
+    "unit_d": "дн",
+    "unit_h": "ч",
+    "unit_m": "мин",
+    "unit_s": "сек",
+    "gift_link": "Собрать подарочный набор",
+    "bar_html": "🎄 <strong>Лимитированная серия: Vanilla &amp; Cinnamon</strong> · Только ограниченное время · Бесплатная доставка от 55 €",
+    "proof_rating": "Оценка 4,9/5",
+    "proof_households": "12 000+ довольных семей",
+    "proof_delivery": "Доставка за 2–4 дня"
   }
 }

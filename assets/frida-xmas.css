@@ -1,0 +1,466 @@
+/* ==========================================================
+   FRIDA · Weihnachts-Skin
+   Wird nur geladen, wenn "Weihnachts-Skin aktivieren" in den
+   Theme-Einstellungen an ist. Alles hängt an body.skin-xmas,
+   das Basis-Theme (frida-theme.css) bleibt unverändert.
+
+   Inhalt
+   1. Farb-Tokens
+   2. Skin für die ganze Seite
+   3. Hero (gemeinsam · Desktop · Mobil)
+   4. Siegel
+   5. Produktkarte + Produktseite des Weihnachtsdufts
+   6. Arabisch / RTL
+   ========================================================== */
+
+/* ---------- 1. Farb-Tokens ---------- */
+body.skin-xmas{
+  --x-wine:#8a1220; --x-wine-deep:#4d0812; --x-wine-ink:#2c040a;
+  --x-gold:#d8b26a; --x-gold-soft:#f3e2b8; --x-gold-dim:#9a6f1f;
+  --x-pine:#173d31;
+
+  /* Basis-Tokens des Themes umfärben */
+  --navy:#4d0812;
+  --blue:#a3182a;
+  --aqua:#9a6f1f;
+  --aqua-2:#d8b26a;
+  --mist:#fbf1e2;
+  --mist-2:#fdf9f2;
+  --line:rgba(77,8,18,.10);
+  --shadow-sm:0 2px 10px rgba(77,8,18,.06);
+  --shadow:0 14px 40px rgba(77,8,18,.10);
+  --shadow-lg:0 30px 70px rgba(77,8,18,.16);
+  --grad:linear-gradient(135deg,#5c0a16 0%,#a3182a 55%,#c8323f 100%);
+  --grad-soft:linear-gradient(135deg,#fdf8f0 0%,#faf0df 60%,#f6e7cf 100%);
+
+  background:#fffdf9;
+}
+
+/* ---------- 2. Skin für die ganze Seite ---------- */
+.skin-xmas .topbar{background:var(--x-wine-ink);color:var(--x-gold-soft)}
+.skin-xmas .topbar strong{color:#fff}
+.skin-xmas .btn-primary{box-shadow:0 10px 26px rgba(138,18,32,.34)}
+.skin-xmas .btn-primary:hover{box-shadow:0 16px 34px rgba(138,18,32,.44)}
+.skin-xmas .badge.sale{background:var(--x-pine)}
+.skin-xmas .page-hero::before{background:radial-gradient(circle,rgba(216,178,106,.38),transparent 68%)}
+.skin-xmas .section-head .eyebrow::before,
+.skin-xmas .section-head .eyebrow::after{
+  content:"";display:inline-block;width:.7em;height:.7em;margin:0 .7em;vertical-align:-.02em;background:var(--x-gold);
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
+}
+
+/* Lichterkette unter dem Header (reines CSS, kein Layout-Shift) */
+.skin-xmas.xmas-lights-on header::after{
+  content:"";position:absolute;left:0;right:0;top:100%;height:40px;pointer-events:none;
+  background-repeat:repeat-x;background-size:160px 40px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='40' viewBox='0 0 160 40'%3E%3Cpath d='M0 2Q80 34 160 2' fill='none' stroke='%2333413a' stroke-width='1.6'/%3E%3Cg fill='%2333413a'%3E%3Crect x='30' y='11' width='4' height='5'/%3E%3Crect x='62' y='16' width='4' height='5'/%3E%3Crect x='94' y='16' width='4' height='5'/%3E%3Crect x='126' y='11' width='4' height='5'/%3E%3C/g%3E%3Cellipse cx='32' cy='22' rx='5' ry='7' fill='%23d8b26a'/%3E%3Cellipse cx='64' cy='27' rx='5' ry='7' fill='%23c8202f'/%3E%3Cellipse cx='96' cy='27' rx='5' ry='7' fill='%231f7a55'/%3E%3Cellipse cx='128' cy='22' rx='5' ry='7' fill='%23f3e2b8'/%3E%3C/svg%3E");
+}
+/* Platz für die Lichterkette auf Seiten ohne Hero */
+.skin-xmas.xmas-lights-on:not(.template-index) main{padding-top:30px}
+@media(max-width:560px){
+  .skin-xmas.xmas-lights-on header::after{background-size:120px 30px;height:30px}
+  .skin-xmas.xmas-lights-on:not(.template-index) main{padding-top:22px}
+}
+
+/* warme Flächen statt Eisblau */
+.skin-xmas .card-media,
+.skin-xmas .qv-media,
+.skin-xmas .gal-main{background:radial-gradient(circle at 50% 40%,#fff,#f9ecd9)}
+.skin-xmas .ci-img,
+.skin-xmas .sticky-prod img{background:radial-gradient(circle,#fff,#f9ecd9)}
+.skin-xmas .cat.c-air{background:linear-gradient(160deg,#f8e9d2,#fdf6ea)}
+.skin-xmas .cat.c-home{background:linear-gradient(160deg,#f6e3df,#fdf3ee)}
+.skin-xmas .cat.c-bundle{background:linear-gradient(160deg,#4d0812,#a3182a)}
+.skin-xmas .cat.dark .cat-link,
+.skin-xmas .bundle .eyebrow{color:var(--x-gold-soft)}
+.skin-xmas .w3{background:linear-gradient(155deg,#173d31,#2f7a5c)}
+.skin-xmas .video-wrap{background:linear-gradient(140deg,#2c040a,#8a1220 55%,#c8323f)}
+.skin-xmas .video-wrap::before{background:radial-gradient(circle at 30% 20%,rgba(216,178,106,.35),transparent 55%)}
+.skin-xmas .final-cta::before{background:radial-gradient(circle,rgba(216,178,106,.35),transparent 68%)}
+.skin-xmas .bundle-feats svg{color:var(--x-gold)}
+.skin-xmas .bundle-card .save{background:var(--x-gold);color:var(--x-wine-ink)}
+.skin-xmas .info-notice{border-color:rgba(138,18,32,.14)}
+.skin-xmas .customer-empty{border-color:rgba(138,18,32,.25)}
+.skin-xmas .air-band p,
+.skin-xmas .hero-sub{color:#5a3a3f}
+.skin-xmas .card{transition:transform .25s,box-shadow .25s,border-color .25s}
+.skin-xmas .card:hover{border-color:rgba(216,178,106,.8)}
+.skin-xmas .add-btn{background:var(--x-wine)}
+.skin-xmas .add-btn:hover{background:var(--x-wine-deep)}
+.skin-xmas .faq-item,
+.skin-xmas .usage-col{border-color:rgba(216,178,106,.45)}
+
+/* Footer in Tannengrün */
+.skin-xmas footer{background:linear-gradient(180deg,#173d31,#0f2a22);color:#cfe0d8;border-top:3px solid var(--x-gold)}
+
+/* ==========================================================
+   3. HERO
+   Die Flasche ist immer das originale Produktfoto (unverändert).
+   Desktop: Szenenfoto (ohne Produkt) als Hintergrund, Flasche steht
+            mit Schatten und Spiegelung auf dem Tisch.
+            --sc-x / --sc-e / --xhero-bx / --xhero-bh / --xhero-floor
+            setzt frida-xmas.js.
+   Mobil:   eigenes Layout ohne Foto: Text neben der Flasche,
+            Kaufbox direkt darunter.
+   ========================================================== */
+
+/* ---------- gemeinsam ---------- */
+.xhero{position:relative;overflow:hidden;color:#fff;background:#2c0204}
+.xhero-snow{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none}
+.xhero-head,.xhero-buy{position:relative;z-index:3;min-width:0}
+.xhero-head{grid-area:head}
+.xhero-buy{grid-area:buy}
+.xhero-media{grid-area:media}
+
+.xhero .eyebrow{color:var(--x-gold-soft);letter-spacing:.2em}
+.xhero-title{font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:14px 0;color:#fff}
+.xhero-title .g{color:var(--x-gold-soft);background:none;-webkit-text-fill-color:currentColor;white-space:nowrap}
+.xhero-sub{max-width:46ch;color:#f8e6e2;font-size:clamp(1rem,1.4vw,1.18rem);margin-bottom:6px}
+.xhero-notes{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.xhero-notes span{
+  border:1px solid rgba(243,226,184,.45);color:var(--x-gold-soft);background:rgba(36,3,9,.35);
+  font-size:.8rem;font-weight:600;padding:5px 13px;border-radius:100px;
+}
+
+/* Kaufbox */
+.xhero-box{
+  display:block;background:#fffaf2;color:var(--ink);
+  border-radius:22px;padding:20px 20px 18px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px rgba(243,226,184,.35);
+}
+.xhero-pricerow{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin-bottom:14px}
+.xhero-price{font-family:'Bricolage Grotesque',sans-serif;font-size:2.1rem;font-weight:800;line-height:1;color:var(--x-wine,#8a1220)}
+.xhero-was{color:var(--muted);text-decoration:line-through;font-weight:600}
+.xhero-vat{font-size:.8rem;color:var(--muted)}
+.xhero-stock{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:700;color:#1f7a55}
+.xhero-stock::before{content:"";width:8px;height:8px;border-radius:50%;background:#1f7a55}
+
+.xhero-qty{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;border:0;padding:0;min-width:0}
+.xhero-qty legend{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding:0}
+.xhero-qty label{position:relative;display:block;cursor:pointer;min-width:0}
+.xhero-qty input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.xhero-qty .opt{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;
+  height:100%;min-height:74px;padding:10px 6px;border-radius:14px;
+  border:1.5px solid rgba(77,8,18,.16);background:#fff;transition:border-color .15s,background .15s;
+}
+.xhero-qty .opt b{font-size:.95rem;line-height:1.2}
+.xhero-qty .opt i{font-style:normal;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.xhero-qty .opt em{
+  font-style:normal;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--x-wine-ink,#2c040a);background:var(--x-gold,#d8b26a);border-radius:100px;padding:2px 8px;margin-bottom:3px;
+}
+.xhero-qty input:checked + .opt{border-color:var(--x-wine,#8a1220);background:#fff3f1;box-shadow:inset 0 0 0 1px var(--x-wine,#8a1220)}
+.xhero-qty input:focus-visible + .opt{outline:3px solid var(--x-gold,#d8b26a);outline-offset:2px}
+
+.xhero-add{width:100%;justify-content:center;font-size:1.06rem;padding:17px 24px}
+.xhero-add[disabled]{opacity:.55;cursor:not-allowed}
+.xhero-assure{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;margin-top:12px;font-size:.8rem;color:var(--muted);font-weight:500}
+.xhero-assure span{display:inline-flex;align-items:center;gap:6px}
+.xhero-assure svg{width:14px;height:14px;color:#1f7a55;flex-shrink:0}
+
+.xhero-below{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:22px}
+.xhero-count{display:inline-flex;align-items:center;gap:12px;color:var(--x-gold-soft);font-size:.88rem;font-weight:600}
+.xhero-count[hidden]{display:none}
+.xhero-count .t{display:inline-flex;gap:6px}
+.xhero-count .t span{
+  display:grid;place-items:center;min-width:44px;padding:6px 4px;border-radius:10px;
+  background:rgba(0,0,0,.26);border:1px solid rgba(243,226,184,.28);
+  font-family:'Bricolage Grotesque',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.xhero-count .t small{display:block;font:600 .58rem 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--x-gold-soft);margin-top:3px}
+.xhero-gift{color:#fff;font-weight:700;border-bottom:2px solid rgba(243,226,184,.6);padding-bottom:2px}
+.xhero-gift:hover{border-bottom-color:#fff}
+.xhero-details{font-weight:600;border-bottom-color:rgba(243,226,184,.35)}
+.xhero-proof{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;color:#f4d6d8;font-size:.9rem;font-weight:600}
+.xhero-proof span{display:inline-flex;align-items:center;gap:7px}
+.xhero-proof svg{width:17px;height:17px;color:var(--x-gold,#d8b26a);flex-shrink:0}
+
+/* Flasche = Link zur Produktseite */
+.xhero-plink{display:block;-webkit-tap-highlight-color:transparent}
+.xhero-plink:focus-visible{outline:3px solid var(--x-gold,#d8b26a);outline-offset:4px;border-radius:14px}
+.xhero-bottle{display:block;width:auto;max-width:none}
+.xhero-pill{
+  position:absolute;white-space:nowrap;
+  background:rgba(36,3,9,.74);color:#fff;border:1px solid rgba(243,226,184,.6);backdrop-filter:blur(6px);
+  font-size:.84rem;font-weight:700;padding:8px 16px;border-radius:100px;
+  transition:background .15s,border-color .15s;
+}
+.xhero-plink:hover .xhero-pill,
+.xhero-plink:focus-visible .xhero-pill{background:var(--x-wine,#8a1220);border-color:var(--x-gold,#d8b26a)}
+
+/* ---------- Desktop ---------- */
+@media(min-width:901px){
+  .xhero{--xhero-floor:20%;--xhero-bx:66%;--xhero-bh:540px}
+  .xhero-scene{
+    position:absolute;inset:0;z-index:0;
+    background-image:var(--xhero-scene);background-repeat:no-repeat;
+    background-size:auto 100%;background-position:var(--sc-x,100%) 100%;
+  }
+  /* zur Textseite läuft das Foto in die Grundfarbe aus */
+  .xhero-scene::after{
+    content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(90deg,#2c0204 0,#2c0204 var(--sc-e,0px),rgba(44,2,4,0) calc(var(--sc-e,0px) + 280px)),
+      linear-gradient(90deg,rgba(36,3,9,.92) 0%,rgba(36,3,9,.8) 26%,rgba(36,3,9,.36) 46%,rgba(36,3,9,0) 60%),
+      linear-gradient(180deg,rgba(36,3,9,.55) 0,rgba(36,3,9,0) 20%);
+  }
+  html[dir="rtl"] .xhero-scene{transform:scaleX(-1)}
+
+  .xhero-grid{
+    display:grid;grid-template-columns:minmax(0,600px) 1fr;grid-template-areas:"head media" "buy media";
+    column-gap:30px;align-items:start;padding-top:58px;
+  }
+  .xhero-title{font-size:clamp(2.3rem,3.6vw,3.4rem)}
+  .xhero-box,.xhero-below{max-width:540px}
+  .xhero-box{margin-top:22px}
+  .xhero-buy{padding-bottom:46px}
+  .xhero-halo{display:none}
+
+  /* die Flasche steht relativ zum ganzen Hero, nicht zur Spalte */
+  .xhero-plink{
+    position:absolute;z-index:2;left:var(--xhero-bx);bottom:var(--xhero-floor);
+    height:var(--xhero-bh);transform:translateX(-50%);
+  }
+  .xhero-bottle{height:100%;filter:drop-shadow(0 12px 14px rgba(0,0,0,.45))}
+  /* Kontaktschatten auf der Tischplatte */
+  .xhero-plink::before{
+    content:"";position:absolute;z-index:-1;left:50%;bottom:-16px;width:150%;height:40px;transform:translateX(-50%);
+    background:radial-gradient(closest-side,rgba(0,0,0,.7),rgba(0,0,0,0));
+  }
+  /* Spiegelung auf dem Holz: dasselbe Foto, gespiegelt und ausgeblendet */
+  .xhero-reflect{
+    display:block;position:absolute;left:0;top:100%;height:100%;width:auto;max-width:none;margin-top:-4px;
+    transform:scaleY(-1);opacity:.22;filter:blur(2px);pointer-events:none;
+    -webkit-mask-image:linear-gradient(to top,#000 0,rgba(0,0,0,0) 34%);mask-image:linear-gradient(to top,#000 0,rgba(0,0,0,0) 34%);
+  }
+  .xhero-pill{left:50%;bottom:-52px;transform:translateX(-50%)}
+  .xhero-seal{
+    position:absolute;z-index:3;
+    left:calc(var(--xhero-bx) + var(--xhero-bh) * .2);
+    bottom:calc(var(--xhero-floor) + var(--xhero-bh) * .72);
+  }
+}
+
+/* ---------- Mobil / Tablet: eigenes Layout ohne Foto ---------- */
+@media(max-width:900px){
+  .xhero{
+    background:
+      radial-gradient(90% 46% at 78% 30%,rgba(200,50,63,.75) 0,rgba(200,50,63,0) 70%),
+      linear-gradient(180deg,#7a0f1c 0%,#5a0b16 45%,#3a060d 100%);
+  }
+  /* weiche goldene Lichtpunkte statt Foto */
+  .xhero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 8% 14%,rgba(243,226,184,.5) 0 5px,transparent 11px),
+      radial-gradient(circle at 30% 6%,rgba(243,226,184,.3) 0 8px,transparent 16px),
+      radial-gradient(circle at 92% 9%,rgba(243,226,184,.45) 0 6px,transparent 13px),
+      radial-gradient(circle at 60% 3%,rgba(255,255,255,.28) 0 4px,transparent 9px),
+      radial-gradient(circle at 4% 46%,rgba(243,226,184,.28) 0 7px,transparent 15px),
+      radial-gradient(circle at 96% 52%,rgba(243,226,184,.35) 0 5px,transparent 12px);
+  }
+  .xhero-scene,.xhero-reflect{display:none}
+
+  .xhero-grid{
+    position:relative;display:grid;
+    grid-template-columns:minmax(0,1fr) 44%;grid-template-areas:"head media" "buy buy";
+    column-gap:8px;align-items:center;padding-top:48px;
+  }
+  .xhero-head{padding-block:6px}
+  .xhero .eyebrow{display:block;font-size:.66rem;letter-spacing:.16em}
+  .xhero-title{font-size:clamp(1.7rem,7.4vw,2.6rem);line-height:1.1;margin:10px 0 12px}
+  .xhero-title .g{display:block}
+  .xhero-sub{font-size:.98rem}
+  .xhero-notes{gap:6px;margin-top:12px}
+  .xhero-notes span{font-size:.74rem;padding:4px 10px}
+
+  /* Flasche groß vor goldenem Schein, auf einem kleinen Lichtkegel */
+  .xhero-media{position:relative;z-index:2;height:400px}
+  .xhero-halo{
+    position:absolute;left:50%;top:52%;width:170%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(closest-side,rgba(243,226,184,.38),rgba(243,226,184,.1) 52%,rgba(243,226,184,0) 72%);
+  }
+  .xhero-halo::before{content:"";position:absolute;inset:17%;border-radius:50%;border:1px dashed rgba(243,226,184,.4)}
+  .xhero-plink{position:absolute;inset:0}
+  .xhero-plink::before{
+    content:"";position:absolute;left:50%;bottom:6px;width:120%;height:26px;transform:translateX(-50%);
+    background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(0,0,0,0));
+  }
+  .xhero-bottle{
+    position:absolute;left:50%;bottom:14px;height:calc(100% - 22px);transform:translateX(-50%);
+    filter:drop-shadow(0 16px 18px rgba(0,0,0,.5));
+  }
+  .xhero-pill{left:50%;bottom:-6px;transform:translateX(-50%);font-size:.72rem;padding:6px 12px}
+  /* der freie Platz im Foto ist rechts oben neben dem Sprühkopf */
+  .xhero-seal{position:absolute;z-index:3;top:2px;right:-4px}
+
+  .xhero-box{margin-top:18px}
+  .xhero-below{justify-content:center}
+  .xhero-proof{justify-content:center}
+  .xhero-buy{padding-bottom:40px}
+}
+
+/* Telefon */
+@media(max-width:560px){
+  .xhero-grid{padding-top:42px;grid-template-columns:minmax(0,1fr) 42%}
+  .xhero-sub{display:none}
+  .xhero-media{height:330px}
+  .xhero-box{padding:16px 14px 14px;margin-top:14px}
+  .xhero-pricerow{margin-bottom:10px}
+  .xhero-qty .opt{min-height:66px;padding:8px 4px}
+  .xhero-qty .opt em{font-size:.52rem;letter-spacing:.04em;padding:2px 6px}
+}
+@media(max-width:400px){
+  .xhero-qty .opt b{font-size:.85rem}
+  .xhero-count{flex-direction:column;gap:8px}
+}
+@media(max-width:350px){
+  .xhero-media{height:290px}
+  .xhero-title{font-size:1.55rem}
+}
+
+/* ---------- 4. Siegel: goldenes Medaillon ---------- */
+.xhero-seal,
+.pdp-xmas-on .pdp-xmas-seal{
+  width:132px;height:132px;padding:14px;border-radius:50%;
+  display:grid;place-content:center;text-align:center;
+  background:radial-gradient(circle at 32% 26%,#fdf1cf 0,#e6c680 40%,#b98a33 100%);
+  color:#4d0812;font-size:.8rem;font-weight:700;line-height:1.25;
+  transform:rotate(-8deg);
+  box-shadow:0 14px 28px rgba(0,0,0,.4),inset 0 0 0 3px rgba(255,255,255,.4);
+}
+.xhero-seal::before,
+.pdp-xmas-seal::before{content:"";position:absolute;inset:8px;border-radius:50%;border:1.5px dashed rgba(77,8,18,.5)}
+.xhero-seal span,
+.pdp-xmas-seal span{position:relative;display:block}
+.xhero-seal span::before,
+.pdp-xmas-seal span::before{
+  content:"";display:block;width:13px;height:13px;margin:0 auto 3px;background:#8a1220;
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
+}
+.xhero-seal b,
+.pdp-xmas-seal b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:1.6rem;font-weight:800;line-height:1.05;margin-bottom:3px}
+@media(max-width:900px){
+  .xhero-seal{width:92px;height:92px;padding:9px;font-size:.6rem}
+  .xhero-seal::before{inset:6px}
+  .xhero-seal b{font-size:1.15rem;margin-bottom:1px}
+  .xhero-seal span::before{width:9px;height:9px;margin-bottom:2px}
+}
+@media(max-width:560px){
+  /* Telefon: kein Platz neben der Flasche, ohne sie zu verdecken. Die Botschaft trägt die goldene Zeile über der Überschrift. */
+  .xhero-seal{display:none}
+  .xhero .eyebrow{
+    display:inline-block;padding:5px 12px;border-radius:100px;
+    background:linear-gradient(135deg,#fdf1cf,#d8b26a);color:#4d0812;font-weight:800;letter-spacing:.1em;
+  }
+  .pdp-xmas-on .pdp-xmas-seal{width:100px;height:100px;padding:10px;font-size:.64rem}
+  .pdp-xmas-seal::before{inset:6px}
+  .pdp-xmas-seal b{font-size:1.2rem}
+  .pdp-xmas-seal span::before{width:10px;height:10px}
+}
+
+/* ---------- 5. Produktkarte + Produktseite des Weihnachtsdufts ---------- */
+.card.card-xmas{border-color:var(--x-gold);box-shadow:0 14px 34px rgba(138,18,32,.14)}
+.card.card-xmas .card-media{background:radial-gradient(circle at 50% 40%,#fff6ea,#f3d9b4)}
+.card-xmas-tag{
+  position:absolute;left:10px;right:10px;bottom:10px;z-index:2;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;gap:7px;text-align:center;
+  background:var(--x-wine);color:#fff;border-radius:100px;padding:7px 12px;
+  font-size:.72rem;font-weight:700;line-height:1.2;box-shadow:0 8px 18px rgba(77,8,18,.3);
+}
+.card-xmas-tag::before{
+  content:"";flex:none;width:.8em;height:.8em;background:var(--x-gold);
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
+}
+.card.card-xmas:hover .card-xmas-tag{opacity:0}
+
+.scent-opt.scent-xmas{border-color:var(--x-gold);background:#fff8ec;display:inline-flex;align-items:center;gap:7px}
+.scent-opt.scent-xmas::before{
+  content:"";width:.8em;height:.8em;background:var(--x-gold-dim);
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
+}
+.scent-opt.scent-xmas.active{border-color:var(--x-wine);background:var(--x-wine);color:#fff}
+.scent-opt.scent-xmas.active::before{background:var(--x-gold)}
+
+.pdp-xmas-note,.pdp-xmas-seal{display:none}
+.pdp-xmas-on .pdp-xmas-note{
+  display:block;margin:4px 0 20px;padding:16px 18px;border-radius:16px;
+  background:linear-gradient(135deg,#fff8ec,#fbecd6);border:1px solid rgba(216,178,106,.7);
+}
+.pdp-xmas-note .x-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;
+  font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--x-wine);
+}
+.pdp-xmas-note .x-eyebrow::before{
+  content:"";width:.9em;height:.9em;background:var(--x-gold-dim);
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
+}
+.pdp-xmas-note p{color:#4a2a2f;font-size:.95rem;line-height:1.5}
+.pdp-xmas-note .x-notes{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.pdp-xmas-note .x-notes span{
+  font-size:.78rem;font-weight:700;color:var(--x-wine);background:#fff;
+  border:1px solid rgba(138,18,32,.2);border-radius:100px;padding:4px 12px;
+}
+
+/* Galerie: warmes Rot, solange der Weihnachtsduft gewählt ist */
+.pdp-xmas-on .gal-main{
+  border-color:var(--x-gold);
+  background:
+    radial-gradient(circle at 22% 18%,rgba(243,226,184,.9) 0 1.5px,transparent 2.5px),
+    radial-gradient(circle at 80% 12%,rgba(255,255,255,.8) 0 2px,transparent 3px),
+    radial-gradient(circle at 12% 62%,rgba(255,255,255,.7) 0 1.5px,transparent 2.5px),
+    radial-gradient(circle at 88% 70%,rgba(243,226,184,.9) 0 2px,transparent 3px),
+    radial-gradient(circle at 66% 90%,rgba(255,255,255,.6) 0 1.5px,transparent 2.5px),
+    radial-gradient(closest-side at 50% 52%,rgba(255,255,255,.2),transparent 72%),
+    radial-gradient(70% 70% at 60% 40%,#b8232f,transparent 70%),
+    linear-gradient(180deg,#8a1220,#4d0812);
+}
+.pdp-xmas-on .gal-main #galImg{position:absolute;top:6%;left:50%;height:88%;width:auto;max-width:none;max-height:none;transform:translateX(-50%);filter:drop-shadow(0 24px 30px rgba(0,0,0,.5))}
+.pdp-xmas-on .gal-main:hover #galImg{transform:translateX(-50%)}
+.pdp-xmas-on .pdp-xmas-seal{position:absolute;top:16px;right:16px;z-index:3;transform:rotate(10deg)}
+html[dir="rtl"] .pdp-xmas-on .pdp-xmas-seal{right:auto;left:16px}
+
+/* ---------- 6. Arabisch / RTL: Cairo, keine Laufweite, größere Grade ---------- */
+html[dir="rtl"] .xhero-stock{margin-left:0;margin-right:auto}
+html[dir="rtl"] .xhero .eyebrow,
+html[dir="rtl"] .xhero-qty legend,
+html[dir="rtl"] .xhero-qty .opt em,
+html[dir="rtl"] .xhero-count .t small,
+html[dir="rtl"] .pdp-xmas-note .x-eyebrow,
+html[dir="rtl"] .card-xmas-tag,
+html[dir="rtl"] .xhero-seal,
+html[dir="rtl"] .pdp-xmas-seal{letter-spacing:0;font-family:'Cairo','Inter',system-ui,sans-serif}
+html[dir="rtl"] .xhero-seal b,
+html[dir="rtl"] .pdp-xmas-seal b{font-family:'Cairo',sans-serif;font-size:1.75rem;line-height:1.2;margin-bottom:0}
+html[dir="rtl"] .xhero-seal,
+html[dir="rtl"] .pdp-xmas-on .pdp-xmas-seal{font-size:.9rem;font-weight:700}
+html[dir="rtl"] .xhero .eyebrow{font-size:1rem;font-weight:700}
+html[dir="rtl"] .xhero-title{letter-spacing:0;line-height:1.4}
+html[dir="rtl"] .xhero-sub{line-height:1.9}
+html[dir="rtl"] .xhero-qty legend{font-size:.92rem}
+html[dir="rtl"] .xhero-qty .opt em{font-size:.74rem;font-weight:700;padding:1px 10px}
+html[dir="rtl"] .xhero-qty .opt b{font-size:1rem}
+html[dir="rtl"] .xhero-count .t small{font-size:.7rem;font-weight:700}
+html[dir="rtl"] .pdp-xmas-note .x-eyebrow{font-size:.9rem}
+html[dir="rtl"] .card-xmas-tag{font-size:.8rem}
+@media(min-width:901px){
+  html[dir="rtl"] .xhero-title{font-size:clamp(2.1rem,3.4vw,3.2rem)}
+}
+@media(max-width:900px){
+  html[dir="rtl"] .xhero .eyebrow{font-size:.84rem}
+  html[dir="rtl"] .xhero-title{font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.35}
+  html[dir="rtl"] .xhero-seal{font-size:.68rem;right:2px}
+  html[dir="rtl"] .xhero-seal b{font-size:1.25rem}
+}
+@media(max-width:560px){
+  html[dir="rtl"] .xhero .eyebrow{font-size:.78rem;padding:3px 12px}
+  html[dir="rtl"] .pdp-xmas-seal b{font-size:1.3rem}
+  html[dir="rtl"] .pdp-xmas-on .pdp-xmas-seal{font-size:.72rem}
+  html[dir="rtl"] .xhero-qty .opt em{font-size:.66rem;padding:1px 7px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .xhero-qty .opt,.xhero-pill{transition:none}
+}

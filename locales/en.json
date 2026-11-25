@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "general": {
     "meta": {
@@ -26,9 +17,7 @@
       "view": "View",
       "all_collections": "All collections",
       "collection": "Collection",
-      "assortment": "Range",
-      "new": "New",
-      "holiday": "Christmas World"
+      "assortment": "Range"
     },
     "search": {
       "search": "Search",
@@ -163,9 +152,6 @@
       "info_heading": "We are here for you",
       "info_text_html": "<p>Our customer service team is happy to help with questions about Frida products, your order, or a return.</p>",
       "hours": "Mon–Fri, 9:00–17:00"
-    },
-    "general": {
-      "empty_page": "This page is being updated. Please check back soon."
     }
   },
   "pagefly": {
@@ -213,13 +199,30 @@
       "password_link": "Enter using password"
     }
   },
-  "holiday": {
-    "limited_badge": "Limited Edition",
-    "new_badge": "New"
-  },
-  "customer": {
-    "account": {
-      "title": "Account"
-    }
+  "xmas": {
+    "eyebrow": "Limited Edition · Christmas",
+    "heading_html": "Your home smells like <span class=\"g\">Christmas.</span>",
+    "sub": "Vanilla & Cinnamon: warm vanilla and spicy cinnamon. One spray and your home smells like the holidays.",
+    "note_vanilla": "Vanilla",
+    "note_cinnamon": "Cinnamon",
+    "seal_title": "New",
+    "seal_text": "For a short time only",
+    "qty_legend": "Choose quantity",
+    "qty_one": "1 bottle",
+    "qty_many": "{{ count }} bottles",
+    "qty_gift": "For gifting",
+    "assure_pay": "Secure payment",
+    "assure_return": "14-day returns",
+    "count_eve": "until Christmas Eve",
+    "count_deadline": "left to order in time for Christmas",
+    "unit_d": "days",
+    "unit_h": "hrs",
+    "unit_m": "min",
+    "unit_s": "sec",
+    "gift_link": "Build a gift set",
+    "bar_html": "🎄 <strong>Limited Edition: Vanilla &amp; Cinnamon</strong> · For a short time only · Free shipping from €55",
+    "proof_rating": "4.9/5 rating",
+    "proof_households": "12,000+ happy households",
+    "proof_delivery": "Delivery in 2–4 days"
   }
 }

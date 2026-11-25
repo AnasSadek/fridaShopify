@@ -1,0 +1,357 @@
+{%- comment -%}
+  Weihnachts-Hero: zeigt das Limited-Edition-Produkt mit direktem Warenkorb-Button.
+  Texte: Einstellung ausgefüllt -> Einstellung, sonst Übersetzung aus locales (xmas.*).
+{%- endcomment -%}
+
+{%- assign x_product = section.settings.product -%}
+{%- assign x_match = section.settings.variant_match | downcase | strip -%}
+{%- assign x_variant = nil -%}
+{%- assign x_variant_id = section.settings.variant_id | strip | plus: 0 -%}
+{%- if x_product != blank -%}
+  {%- if x_variant_id > 0 -%}
+    {%- for v in x_product.variants -%}
+      {%- if v.id == x_variant_id -%}
+        {%- assign x_variant = v -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if x_variant == nil and x_match != blank -%}
+    {%- for v in x_product.variants -%}
+      {%- assign v_title = v.title | downcase -%}
+      {%- if v_title contains x_match -%}
+        {%- assign x_variant = v -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if x_variant == nil -%}
+    {%- assign x_variant = x_product.selected_or_first_available_variant -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign x_sellable = false -%}
+{%- if x_variant and x_variant.available -%}
+  {%- if x_variant.inventory_management == blank or x_variant.inventory_quantity > 0 or x_variant.inventory_policy == 'continue' -%}
+    {%- assign x_sellable = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign x_eyebrow = section.settings.eyebrow -%}
+{%- if x_eyebrow == blank -%}{%- assign x_eyebrow = 'xmas.eyebrow' | t -%}{%- endif -%}
+{%- assign x_heading = section.settings.heading -%}
+{%- if x_heading == blank -%}{%- assign x_heading = 'xmas.heading_html' | t -%}{%- endif -%}
+{%- assign x_sub = section.settings.subheading -%}
+{%- if x_sub == blank -%}{%- assign x_sub = 'xmas.sub' | t -%}{%- endif -%}
+{%- assign x_button = section.settings.button_label -%}
+{%- if x_button == blank -%}{%- assign x_button = 'products.product.add_to_cart' | t -%}{%- endif -%}
+
+{%- assign x_rating = section.settings.rating_text -%}
+{%- if x_rating == blank -%}{%- assign x_rating = 'xmas.proof_rating' | t -%}{%- endif -%}
+{%- assign x_households = section.settings.households_text -%}
+{%- if x_households == blank -%}{%- assign x_households = 'xmas.proof_households' | t -%}{%- endif -%}
+{%- assign x_delivery = section.settings.delivery_text -%}
+{%- if x_delivery == blank -%}{%- assign x_delivery = 'xmas.proof_delivery' | t -%}{%- endif -%}
+
+{%- assign x_deadline = section.settings.deadline | strip -%}
+{%- assign x_count_label = 'xmas.count_deadline' | t -%}
+{%- if x_deadline == blank -%}
+  {%- assign x_year = 'now' | date: '%Y' -%}
+  {%- assign x_deadline = x_year | append: '-12-24T18:00:00' -%}
+  {%- assign x_count_label = 'xmas.count_eve' | t -%}
+{%- endif -%}
+
+{%- assign x_qty_default = section.settings.qty_default | plus: 0 -%}
+{%- assign x_qty_options = '1,3,6' | split: ',' -%}
+
+{%- if settings.xmas_enabled and settings.xmas_hero -%}
+{%- comment -%}
+  Die Flasche ist immer das originale Produktfoto (xmas-vanilla-cinnamon.webp), unverändert.
+  Das Szenenfoto (Zimmer + Tisch, ohne Produkt) ist nur Hintergrund und nur auf dem Desktop.
+  Mobil gibt es ein eigenes Layout ohne Foto-Hintergrund.
+{%- endcomment -%}
+{%- assign x_product_url = x_product.url -%}
+{%- if x_variant -%}{%- assign x_product_url = x_product.url | append: '?variant=' | append: x_variant.id -%}{%- endif -%}
+{%- assign x_bottle = 'xmas-vanilla-cinnamon.webp' | asset_url -%}
+<section class="xhero" data-xhero style="--xhero-scene:url('{{ 'xmas-hero-scene.webp' | asset_url }}')">
+  <div class="xhero-scene" aria-hidden="true"></div>
+  {%- if settings.xmas_snow -%}
+    <canvas class="xhero-snow" data-xhero-snow aria-hidden="true"></canvas>
+  {%- endif -%}
+
+  <div class="wrap xhero-grid">
+    <div class="xhero-head">
+      <span class="eyebrow">{{ x_eyebrow }}</span>
+      <h1 class="xhero-title">{{ x_heading }}</h1>
+      <p class="xhero-sub">{{ x_sub }}</p>
+      {%- if section.settings.show_notes -%}
+        <div class="xhero-notes">
+          <span>{{ 'xmas.note_vanilla' | t }}</span>
+          <span>{{ 'xmas.note_cinnamon' | t }}</span>
+          <span dir="ltr">460 ml</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="xhero-media">
+      <div class="xhero-halo" aria-hidden="true"></div>
+      <a class="xhero-plink" href="{{ x_product_url | default: '#' }}" aria-label="{{ x_product.title | escape }}">
+        <img
+          class="xhero-bottle"
+          src="{{ x_bottle }}"
+          alt="Frida Air Freshener Vanilla &amp; Cinnamon 460 ml"
+          width="330"
+          height="812"
+          fetchpriority="high"
+        >
+        <img class="xhero-reflect" src="{{ x_bottle }}" alt="" aria-hidden="true" width="330" height="812">
+        <span class="xhero-pill">{{ 'products.product.all_details' | t }}</span>
+      </a>
+      {%- if section.settings.show_seal -%}
+        <div class="xhero-seal"><span><b>{{ 'xmas.seal_title' | t }}</b>{{ 'xmas.seal_text' | t }}</span></div>
+      {%- endif -%}
+    </div>
+
+    <div class="xhero-buy">
+      {%- if x_variant -%}
+        <form class="xhero-box frida-add-form" action="{{ routes.cart_add_url }}" method="post">
+          <input type="hidden" name="id" value="{{ x_variant.id }}">
+          <input type="hidden" name="quantity" value="{{ x_qty_default }}">
+          <input type="hidden" name="properties[_localized_product_title]" value="{{ x_product.title | escape }}">
+          {%- unless x_variant.title contains 'Default' -%}
+            <input type="hidden" name="properties[_localized_variant_title]" value="{{ x_variant.title | escape }}">
+          {%- endunless -%}
+
+          <div class="xhero-pricerow">
+            <span class="xhero-price">{{ x_variant.price | money }}</span>
+            {%- if x_variant.compare_at_price > x_variant.price -%}
+              <span class="xhero-was">{{ x_variant.compare_at_price | money }}</span>
+            {%- endif -%}
+            <span class="xhero-vat">{{ 'products.product.tax_shipping_extra_html' | t }}</span>
+            {%- if x_sellable -%}
+              <span class="xhero-stock">{{ 'products.product.in_stock' | t }}</span>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.show_qty and x_sellable -%}
+            <fieldset class="xhero-qty">
+              <legend>{{ 'xmas.qty_legend' | t }}</legend>
+              {%- for q in x_qty_options -%}
+                {%- assign q_num = q | plus: 0 -%}
+                {%- assign q_total = x_variant.price | times: q_num | money -%}
+                <label>
+                  <input
+                    type="radio"
+                    name="xhero_qty_{{ section.id }}"
+                    id="xheroQty{{ q_num }}-{{ section.id }}"
+                    value="{{ q_num }}"
+                    data-xhero-qty
+                    data-total="{{ q_total | strip_html | escape }}"
+                    {% if q_num == x_qty_default %}checked{% endif %}
+                  >
+                  <span class="opt">
+                    {%- if q_num == 3 -%}<em>{{ 'products.product.popular' | t }}</em>{%- endif -%}
+                    {%- if q_num == 6 -%}<em>{{ 'xmas.qty_gift' | t }}</em>{%- endif -%}
+                    <b>{%- if q_num == 1 -%}{{ 'xmas.qty_one' | t }}{%- else -%}{{ 'xmas.qty_many' | t: count: q_num }}{%- endif -%}</b>
+                    <i>{{ q_total }}</i>
+                  </span>
+                </label>
+              {%- endfor -%}
+            </fieldset>
+          {%- endif -%}
+
+          <button type="submit" class="btn btn-primary xhero-add" {% unless x_sellable %}disabled{% endunless %}>
+            {%- if x_sellable -%}
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span>{{ x_button }}</span>
+              {%- if section.settings.show_qty -%}
+                {%- assign x_total_default = x_variant.price | times: x_qty_default | money -%}
+                <span aria-hidden="true">·</span>
+                <span data-xhero-total>{{ x_total_default | strip_html }}</span>
+              {%- endif -%}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </button>
+
+          <div class="xhero-assure">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>{{ 'products.product.shipping_extra_short' | t }}</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>{{ 'xmas.assure_pay' | t }}</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>{{ 'xmas.assure_return' | t }}</span>
+          </div>
+        </form>
+      {%- else -%}
+        <p class="xhero-sub" style="margin-top:24px"><strong>Bitte im Theme-Editor ein Produkt für den Weihnachts-Hero auswählen.</strong></p>
+      {%- endif -%}
+
+      <div class="xhero-below">
+        {%- if section.settings.show_countdown -%}
+          <div class="xhero-count" data-xhero-count data-deadline="{{ x_deadline | escape }}" hidden>
+            <div class="t" dir="ltr">
+              <span><b data-d>0</b><small>{{ 'xmas.unit_d' | t }}</small></span>
+              <span><b data-h>00</b><small>{{ 'xmas.unit_h' | t }}</small></span>
+              <span><b data-m>00</b><small>{{ 'xmas.unit_m' | t }}</small></span>
+              <span><b data-s>00</b><small>{{ 'xmas.unit_s' | t }}</small></span>
+            </div>
+            <span>{{ x_count_label }}</span>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.gift_product != blank -%}
+          <a class="xhero-gift" href="{{ section.settings.gift_product.url }}">{{ 'xmas.gift_link' | t }} →</a>
+        {%- endif -%}
+
+        {%- if x_product != blank -%}
+          <a class="xhero-gift xhero-details" href="{{ x_product_url }}">{{ 'products.product.all_details' | t }}</a>
+        {%- endif -%}
+      </div>
+
+      <div class="xhero-proof">
+        {%- if x_rating != blank -%}
+          <span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.5 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3l-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9L12 2.5Z"/></svg>{{ x_rating }}</span>
+        {%- endif -%}
+        {%- if x_households != blank -%}
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>{{ x_households }}</span>
+        {%- endif -%}
+        {%- if x_delivery != blank -%}
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>{{ x_delivery }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <svg class="xhero-drift" viewBox="0 0 1200 54" preserveAspectRatio="none" aria-hidden="true"><path fill="#ffffff" d="M0 54V30c90-22 170-24 260-8s150 22 250 4 170-30 280-14 180 26 270 10 100-14 140-12v44z"/></svg>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Hero Weihnachten",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Produkt"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Weihnachts-Produkt"
+    },
+    {
+      "type": "text",
+      "id": "variant_id",
+      "label": "Varianten-ID",
+      "info": "Empfohlen, weil Variantennamen je Sprache übersetzt sind. Die ID steht in der URL der Variante im Shopify-Admin."
+    },
+    {
+      "type": "text",
+      "id": "variant_match",
+      "label": "Variante (Teil des Namens), falls keine ID",
+      "info": "Die erste Variante, deren Name diesen Text enthält, wird in den Warenkorb gelegt.",
+      "default": "Vanilla"
+    },
+    {
+      "type": "header",
+      "content": "Texte (leer = automatische Übersetzung)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Überschrift"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Untertitel"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_notes",
+      "label": "Duftnoten anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_seal",
+      "label": "Limited-Edition-Siegel anzeigen",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Kaufbox"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_qty",
+      "label": "Mengenwahl 1 / 3 / 6 anzeigen",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "qty_default",
+      "label": "Vorausgewählte Menge",
+      "default": "3",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "3", "label": "3" },
+        { "value": "6", "label": "6" }
+      ]
+    },
+    {
+      "type": "product",
+      "id": "gift_product",
+      "label": "Geschenkset (Link unter der Kaufbox)"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Countdown anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "deadline",
+      "label": "Bestellschluss für Lieferung vor Weihnachten",
+      "info": "Format: 2026-12-19T23:59:00. Leer = Countdown bis Heiligabend."
+    },
+    {
+      "type": "header",
+      "content": "Social Proof"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Bewertung (leer = automatische Übersetzung)"
+    },
+    {
+      "type": "text",
+      "id": "households_text",
+      "label": "Haushalte (leer = automatische Übersetzung)"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Lieferung (leer = automatische Übersetzung)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Weihnachten"
+    }
+  ]
+}
+{% endschema %}

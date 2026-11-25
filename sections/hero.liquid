@@ -1,3 +1,6 @@
+{%- assign xmas_replaces_hero = false -%}
+{%- if settings.xmas_enabled and settings.xmas_hero and request.page_type == 'index' -%}{%- assign xmas_replaces_hero = true -%}{%- endif -%}
+{%- unless xmas_replaces_hero -%}
 {%- assign hero_product = section.settings.offer_product -%}
 {%- assign hero_variant = hero_product.selected_or_first_available_variant -%}
 
@@ -150,6 +153,7 @@
     </div>
   {%- endif -%}
 </section>
+{%- endunless -%}
 
 {% schema %}
 {

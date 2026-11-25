@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "general": {
     "search": {
@@ -33,9 +24,7 @@
       "view": "Bekijken",
       "all_collections": "Alle collecties",
       "collection": "Collectie",
-      "assortment": "Assortiment",
-      "new": "Nieuw",
-      "holiday": "Kerstwereld"
+      "assortment": "Assortiment"
     },
     "forms": {
       "email": "E-mail",
@@ -208,18 +197,32 @@
       "info_heading": "We zijn er voor je",
       "info_text_html": "Onze klantenservice helpt je graag met vragen over Frida-producten, je bestelling of een retourzending.",
       "hours": "Ma–vr, 9:00–17:00 uur"
-    },
-    "general": {
-      "empty_page": "Deze pagina wordt bijgewerkt. Kom snel terug."
     }
   },
-  "holiday": {
-    "limited_badge": "Gelimiteerde editie",
-    "new_badge": "Nieuw"
-  },
-  "customer": {
-    "account": {
-      "title": "Account"
-    }
+  "xmas": {
+    "eyebrow": "Limited Edition · Kerst",
+    "heading_html": "Jouw huis ruikt naar <span class=\"g\">Kerst.</span>",
+    "sub": "Vanilla & Cinnamon: warme vanille en kruidige kaneel. Eén keer sprayen en je huis ruikt naar de feestdagen.",
+    "note_vanilla": "Vanille",
+    "note_cinnamon": "Kaneel",
+    "seal_title": "Nieuw",
+    "seal_text": "Slechts tijdelijk",
+    "qty_legend": "Kies aantal",
+    "qty_one": "1 fles",
+    "qty_many": "{{ count }} flessen",
+    "qty_gift": "Om cadeau te geven",
+    "assure_pay": "Veilig betalen",
+    "assure_return": "14 dagen retour",
+    "count_eve": "tot kerstavond",
+    "count_deadline": "om op tijd voor Kerst te bestellen",
+    "unit_d": "dagen",
+    "unit_h": "uur",
+    "unit_m": "min",
+    "unit_s": "sec",
+    "gift_link": "Stel een cadeauset samen",
+    "bar_html": "🎄 <strong>Limited Edition: Vanilla &amp; Cinnamon</strong> · Slechts tijdelijk · Gratis verzending vanaf € 55",
+    "proof_rating": "4,9/5 beoordeling",
+    "proof_households": "12.000+ tevreden huishoudens",
+    "proof_delivery": "Levering in 2–4 dagen"
   }
 }

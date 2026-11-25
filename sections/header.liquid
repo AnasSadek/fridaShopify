@@ -14,32 +14,6 @@
         <a href="{{ routes.all_products_collection_url }}">{{ 'general.navigation.products' | t }}</a>
         <a href="{{ routes.all_products_collection_url }}">{{ 'general.navigation.bestseller' | t }}</a>
       {%- endfor -%}
-      {%- if section.settings.show_new_link -%}
-        {%- liquid
-          assign hdr_new_url = section.settings.new_link
-          if hdr_new_url == blank
-            assign hdr_new_url = collections['neu'].url
-          endif
-          if hdr_new_url == blank
-            assign hdr_new_url = routes.all_products_collection_url
-          endif
-        -%}
-        <a href="{{ hdr_new_url }}" class="nav-seasonal nav-seasonal-new">
-          {%- if section.settings.new_link_label != blank -%}{{ section.settings.new_link_label }}{%- else -%}{{ 'general.navigation.new' | t }}{%- endif -%}
-        </a>
-      {%- endif -%}
-      {%- if section.settings.show_holiday_link -%}
-        {%- liquid
-          assign hdr_holiday_url = section.settings.holiday_link
-          if hdr_holiday_url == blank
-            assign hdr_holiday_url = routes.root_url | append: '#weihnachten'
-          endif
-        -%}
-        <a href="{{ hdr_holiday_url }}" class="nav-seasonal nav-seasonal-holiday">
-          <span class="nav-snow" aria-hidden="true">❄</span>
-          {%- if section.settings.holiday_link_label != blank -%}{{ section.settings.holiday_link_label }}{%- else -%}{{ 'general.navigation.holiday' | t }}{%- endif -%}
-        </a>
-      {%- endif -%}
     </nav>
     <div class="nav-actions">
       {%- render 'language-switcher', form_id: 'HeaderLanguageForm' -%}
@@ -74,15 +48,7 @@
   "name": "Kopfzeile",
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo (leer = Frida-Standardlogo)" },
-    { "type": "link_list", "id": "menu", "label": "Navigationsmenü", "default": "main-menu" },
-    { "type": "header", "content": "Saisonale Navigation" },
-    { "type": "paragraph", "content": "Optionale Links für Kampagnen (z. B. Neuheiten oder Weihnachtswelt). Nach der Saison einfach deaktivieren – die normale Navigation bleibt unverändert." },
-    { "type": "checkbox", "id": "show_new_link", "label": "„Neu“-Link anzeigen", "default": false },
-    { "type": "text", "id": "new_link_label", "label": "„Neu“-Beschriftung (leer = übersetzt „Neu“)" },
-    { "type": "url", "id": "new_link", "label": "„Neu“-Ziel (leer = Collection „neu“)" },
-    { "type": "checkbox", "id": "show_holiday_link", "label": "„Weihnachtswelt“-Link anzeigen", "default": false },
-    { "type": "text", "id": "holiday_link_label", "label": "„Weihnachtswelt“-Beschriftung (leer = übersetzt)" },
-    { "type": "url", "id": "holiday_link", "label": "„Weihnachtswelt“-Ziel (leer = Weihnachts-Hero auf der Startseite)" }
+    { "type": "link_list", "id": "menu", "label": "Navigationsmenü", "default": "main-menu" }
   ]
 }
 {% endschema %}

@@ -1,46 +1,45 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Frida",
-    "theme_version": "3.2.0",
-    "theme_author": "Frida EU",
+    "theme_name": "Frida theme",
+    "theme_version": "3.1.4-xmas",
+    "theme_author": "Frida",
     "theme_documentation_url": "https://fridaeu.com",
-    "theme_support_url": "https://fridaeu.com/pages/kontakt"
+    "theme_support_url": "https://fridaeu.com"
   },
   {
-    "name": "Saisonales Design",
+    "name": "Weihnachts-Skin",
     "settings": [
       {
-        "type": "paragraph",
-        "content": "Schaltet das komplette Weihnachts-/Winterdesign (Farben, Sektionen-Styling, Dekoration) für den gesamten Shop ein oder aus. Nach der Saison einfach den Haken entfernen – das Original-Design ist sofort wieder aktiv."
+        "type": "checkbox",
+        "id": "xmas_enabled",
+        "label": "Weihnachts-Skin aktivieren",
+        "info": "Ein Schalter für alles: Farben, Lichterkette, Weihnachts-Hero und Ankündigungsleiste. Ausschalten stellt das normale Design wieder her.",
+        "default": true
       },
       {
         "type": "checkbox",
-        "id": "holiday_mode",
-        "label": "Saisonales Design aktivieren",
-        "default": false
+        "id": "xmas_hero",
+        "label": "Weihnachts-Hero statt normalem Hero auf der Startseite",
+        "default": true
       },
       {
         "type": "checkbox",
-        "id": "holiday_decor",
-        "label": "Dekoration anzeigen (Schnee, Schneeflocken-Ornamente)",
-        "default": true,
-        "info": "Nur wirksam, wenn das saisonale Design aktiv ist. Animationen respektieren automatisch „Bewegung reduzieren“."
-      }
-    ]
-  },
-  {
-    "name": "Kampagnen-Badges",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "Zeigt den Namen der passenden automatischen Rabatt-Kampagne (z. B. „Black Friday DE“) als Badge auf den Produktbildern – nur auf berechtigten Produkten und nur im passenden Land/Markt. Die Kampagnendaten stehen im Shop-Metafeld „frida.promo_badges“ (Admin → Einstellungen → Benutzerdefinierte Daten → Shop) und werden aus den automatischen Rabatten synchronisiert. Start, Ende und Land werden bei jedem Seitenaufruf live geprüft – abgelaufene Kampagnen verschwinden automatisch. Nur neue, umbenannte oder anders ausgerichtete Rabatte erfordern eine erneute Synchronisation oder eine manuelle Anpassung des Metafelds."
+        "id": "xmas_bar",
+        "label": "Weihnachts-Text in der Ankündigungsleiste",
+        "default": true
       },
       {
         "type": "checkbox",
-        "id": "promo_badges_enabled",
-        "label": "Kampagnen-Badges anzeigen",
-        "default": false
+        "id": "xmas_lights",
+        "label": "Lichterkette unter dem Header",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "xmas_snow",
+        "label": "Schnee im Hero",
+        "default": true
       }
     ]
   }

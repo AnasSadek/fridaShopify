@@ -114,7 +114,10 @@
       "mix_match_add": "Paket in den Warenkorb",
       "mix_match_configure": "Auswahl vervollständigen",
       "mix_match_sku": "SKU",
-      "free_shipping_badge": "Gratis Versand"
+      "free_shipping_badge": "Gratis Versand",
+      "you_save": "Du sparst {{ amount }}",
+      "promo_in_cart": "Wird im Warenkorb automatisch abgezogen",
+      "promo_select_variants": "Für ausgewählte Varianten"
     }
   },
   "cart": {
@@ -197,6 +200,9 @@
       "info_heading": "Wir sind für dich da",
       "info_text_html": "<p>Unser Kundenservice hilft dir gern bei Fragen zu Frida Produkten, deiner Bestellung oder einer Rücksendung.</p>",
       "hours": "Mo–Fr, 9:00–17:00 Uhr"
+    },
+    "general": {
+      "empty_page": "Diese Seite hat noch keinen Inhalt."
     }
   },
   "xmas": {
@@ -224,5 +230,10 @@
     "proof_rating": "4,9/5 Bewertung",
     "proof_households": "12.000+ zufriedene Haushalte",
     "proof_delivery": "2–4 Tage Lieferung"
+  },
+  "customer": {
+    "account": {
+      "title": "Mein Konto"
+    }
   }
 }

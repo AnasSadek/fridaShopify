@@ -2428,3 +2428,53 @@ html[dir="rtl"] .hero-v3-offer-badge strong {
     left: auto;
   }
 }
+/* ============ RABATT-KAMPAGNEN: BADGES & AKTIONSPREISE ============ */
+.badge-promo{
+  background:linear-gradient(120deg,#b4232f,#e0434f);
+  max-width:calc(100% - 24px);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.gal-flag-promo{
+  background:linear-gradient(120deg,#b4232f,#e0434f) !important;
+  max-width:calc(100% - 32px);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.price-promo,.pdp-price .now.price-promo{color:#b4232f}
+.price-row-promo{flex-wrap:wrap;row-gap:2px}
+.price-save{
+  background:#b4232f;color:#fff;font-size:.7rem;font-weight:700;
+  padding:3px 9px;border-radius:100px;white-space:nowrap;
+}
+.promo-hint{font-size:.74rem;font-weight:600;color:#b4232f;margin-top:2px}
+.pdp-promo{
+  display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;
+  font-size:.86rem;color:#b4232f;font-weight:500;margin:-2px 0 10px;
+}
+.pdp-promo b{font-weight:700}
+.qv-promo{
+  display:block;font-size:.76rem;font-weight:600;color:#b4232f;
+  margin-top:4px;line-height:1.35;
+}
+.qv-price s,.sticky-price s,.up-info s{
+  font-size:.72em;color:#9aa4bd;font-weight:500;margin-inline-start:6px;
+}
+.ci-price-old{color:#9aa4bd;font-weight:500;font-size:.85em;margin-inline-end:6px}
+.ci-discounts{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 2px}
+.ci-discount{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#fdeaec;color:#b4232f;font-size:.68rem;font-weight:700;
+  padding:3px 8px;border-radius:100px;
+}
+.skin-xmas .badge-promo,.skin-xmas .gal-flag-promo{
+  background:linear-gradient(120deg,#8a1220,#b4232f) !important;
+}
+.skin-xmas .price-promo,.skin-xmas .pdp-price .now.price-promo,
+.skin-xmas .promo-hint,.skin-xmas .pdp-promo,.skin-xmas .qv-promo{color:var(--x-wine,#8a1220)}
+.skin-xmas .price-save,.skin-xmas .ci-discount{background:var(--x-wine,#8a1220);color:#fff}
+html[dir="rtl"] .price-save,html[dir="rtl"] .ci-discount{direction:ltr;unicode-bidi:isolate}
+html[dir="rtl"] .pdp-promo,html[dir="rtl"] .promo-hint{text-align:right}
+@media (max-width:560px){
+  .badge-promo{font-size:.6rem;padding:4px 8px;max-width:calc(100% - 18px)}
+  .gal-flag-promo{font-size:.66rem}
+  .pdp-price .off{font-size:.72rem}
+}

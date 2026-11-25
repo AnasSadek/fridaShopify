@@ -26,7 +26,32 @@
 
     <div class="gallery">
       <div class="gal-main">
-        {%- if product.compare_at_price > product.price -%}
+        {%- capture mmp_raw -%}{%- render 'promo-info', pi_product: product, pi_variant_id: current_variant.id -%}{%- endcapture -%}
+        {%- assign mmp_raw = mmp_raw | strip -%}
+        {%- assign mmp_mode = blank -%}
+        {%- assign mmp_price = -1 -%}
+        {%- if mmp_raw != blank -%}
+          {%- assign mmp_parts = mmp_raw | split: '~~' -%}
+          {%- assign mmp_mode = mmp_parts[0] -%}
+          {%- assign mmp_title = mmp_parts[1] -%}
+          {%- assign mmp_kind = mmp_parts[2] -%}
+          {%- assign mmp_value = mmp_parts[3] | plus: 0 -%}
+          {%- if mmp_mode == 'price' and settings.promo_prices_enabled -%}
+            {%- if mmp_kind == 'amount' -%}
+              {%- assign mmp_price = current_variant.price | minus: mmp_value -%}
+              {%- assign mmp_saving = mmp_value | money -%}
+            {%- else -%}
+              {%- assign mmp_pct_remain = 100.0 | minus: mmp_value -%}
+              {%- assign mmp_price = current_variant.price | times: mmp_pct_remain | divided_by: 100.0 | round -%}
+              {%- assign mmp_saving = mmp_value | append: ' %' -%}
+            {%- endif -%}
+            {%- if mmp_price < 0 -%}{%- assign mmp_price = 0 -%}{%- endif -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- if mmp_mode != blank -%}
+          {%- assign has_gallery_badge = true -%}
+          <span class="gal-flag gal-flag-promo" dir="auto">{{ mmp_title }}</span>
+        {%- elsif product.compare_at_price > product.price -%}
           {%- assign has_gallery_badge = true -%}
           <span class="gal-flag" style="background:#ff5a6e">{{ 'products.product.sale' | t }}</span>
         {%- elsif product.tags contains 'Bestseller' -%}
@@ -97,12 +122,28 @@
       {%- endif -%}
 
       <div class="pdp-price">
-        <span class="now">{{ current_variant.price | money }}</span>
-        {%- if current_variant.compare_at_price > current_variant.price -%}
-          <span class="was">{{ current_variant.compare_at_price | money }}</span>
-          <span class="off">–{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }} %</span>
+        {%- if mmp_price >= 0 -%}
+          <span class="now price-promo">{{ mmp_price | money }}</span>
+          <span class="was">{{ current_variant.price | money }}</span>
+          <span class="off">−{{ mmp_saving }}</span>
+        {%- else -%}
+          <span class="now">{{ current_variant.price | money }}</span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="was">{{ current_variant.compare_at_price | money }}</span>
+            <span class="off">–{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }} %</span>
+          {%- endif -%}
         {%- endif -%}
       </div>
+      {%- if mmp_mode != blank -%}
+        <div class="pdp-promo" dir="auto">
+          <b>{{ mmp_title }}</b>
+          {%- if mmp_price >= 0 -%}
+            · {{ 'products.product.you_save' | t: amount: mmp_saving }}
+          {%- else -%}
+            · {{ 'products.product.promo_in_cart' | t }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
 
       <p class="pdp-tax">
         <b>
@@ -561,7 +602,12 @@
     </div>
 
     <div class="sticky-price">
-      {{ current_variant.price | money }}
+      {%- if mmp_price >= 0 -%}
+        {{ mmp_price | money }}
+        <s>{{ current_variant.price | money }}</s>
+      {%- else -%}
+        {{ current_variant.price | money }}
+      {%- endif -%}
     </div>
 
     <button

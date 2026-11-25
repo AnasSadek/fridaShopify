@@ -20,10 +20,36 @@
   {%- assign is_mix_match_product = true -%}
 {%- endif -%}
 
+{%- capture promo_raw -%}{%- render 'promo-info', pi_product: card -%}{%- endcapture -%}
+{%- assign promo_raw = promo_raw | strip -%}
+{%- assign promo_mode = blank -%}
+{%- assign promo_price = -1 -%}
+{%- if promo_raw != blank -%}
+  {%- assign promo_parts = promo_raw | split: '~~' -%}
+  {%- assign promo_mode = promo_parts[0] -%}
+  {%- assign promo_title = promo_parts[1] -%}
+  {%- assign promo_kind = promo_parts[2] -%}
+  {%- assign promo_value = promo_parts[3] | plus: 0 -%}
+  {%- if promo_mode == 'price' and settings.promo_prices_enabled -%}
+    {%- if promo_kind == 'amount' -%}
+      {%- assign promo_price = card.price | minus: promo_value -%}
+      {%- assign promo_saving = promo_value | money -%}
+    {%- else -%}
+      {%- assign promo_pct_remain = 100.0 | minus: promo_value -%}
+      {%- assign promo_price = card.price | times: promo_pct_remain | divided_by: 100.0 | round -%}
+      {%- assign promo_saving = promo_value | append: ' %' -%}
+    {%- endif -%}
+    {%- if promo_price < 0 -%}{%- assign promo_price = 0 -%}{%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
 <article class="card reveal" data-product-card>
   <div class="card-media">
     {%- assign has_main_badge = false -%}
-    {%- if card.compare_at_price > card.price -%}
+    {%- if promo_mode != blank -%}
+      {%- assign has_main_badge = true -%}
+      <span class="badge badge-promo" dir="auto" title="{{ promo_title | escape }}">{{ promo_title }}</span>
+    {%- elsif card.compare_at_price > card.price -%}
       {%- assign has_main_badge = true -%}
       <span class="badge sale">{{ 'products.product.sale' | t }}</span>
     {%- elsif card.tags contains 'Neu' -%}
@@ -93,15 +119,30 @@
 
     {%- render 'frida-rating', product: card -%}
 
-    <div class="price-row">
-      <span class="price">
-        {% if has_variants and card.price_varies %}{{ 'products.product.from' | t }} {% endif %}{{ card.price | money }}
-      </span>
+    {%- if promo_price >= 0 -%}
+      <div class="price-row price-row-promo">
+        <span class="price price-promo">
+          {% if has_variants and card.price_varies %}{{ 'products.product.from' | t }} {% endif %}{{ promo_price | money }}
+        </span>
+        <span class="price-old">{{ card.price | money }}</span>
+        <span class="price-save">−{{ promo_saving }}</span>
+      </div>
+    {%- else -%}
+      <div class="price-row">
+        <span class="price">
+          {% if has_variants and card.price_varies %}{{ 'products.product.from' | t }} {% endif %}{{ card.price | money }}
+        </span>
 
-      {%- if card.compare_at_price > card.price -%}
-        <span class="price-old">{{ card.compare_at_price | money }}</span>
+        {%- if card.compare_at_price > card.price -%}
+          <span class="price-old">{{ card.compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+      {%- if promo_mode == 'partial' -%}
+        <div class="promo-hint">{{ 'products.product.promo_select_variants' | t }}</div>
+      {%- elsif promo_mode == 'conditional' or promo_mode == 'price' -%}
+        <div class="promo-hint">{{ 'products.product.promo_in_cart' | t }}</div>
       {%- endif -%}
-    </div>
+    {%- endif -%}
 
     {%- if is_mix_match_product -%}
       {%- if card.available -%}

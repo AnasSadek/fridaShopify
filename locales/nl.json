@@ -114,7 +114,10 @@
       "mix_match_add": "Pakket in winkelwagen",
       "mix_match_configure": "Maak je selectie compleet",
       "mix_match_sku": "SKU",
-      "free_shipping_badge": "Gratis verzending"
+      "free_shipping_badge": "Gratis verzending",
+      "you_save": "Je bespaart {{ amount }}",
+      "promo_in_cart": "Wordt automatisch in de winkelwagen verrekend",
+      "promo_select_variants": "Voor geselecteerde varianten"
     }
   },
   "cart": {
@@ -197,6 +200,9 @@
       "info_heading": "We zijn er voor je",
       "info_text_html": "Onze klantenservice helpt je graag met vragen over Frida-producten, je bestelling of een retourzending.",
       "hours": "Ma–vr, 9:00–17:00 uur"
+    },
+    "general": {
+      "empty_page": "Deze pagina heeft nog geen inhoud."
     }
   },
   "xmas": {
@@ -224,5 +230,10 @@
     "proof_rating": "4,9/5 beoordeling",
     "proof_households": "12.000+ tevreden huishoudens",
     "proof_delivery": "Levering in 2–4 dagen"
+  },
+  "customer": {
+    "account": {
+      "title": "Mijn account"
+    }
   }
 }

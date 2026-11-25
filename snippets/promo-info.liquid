@@ -1,0 +1,96 @@
+{%- comment -%}
+  Zentrale Rabattkampagnen-Logik (eine Quelle für Karten, Produktseiten, Mix & Match).
+
+  Parameter:
+    pi_product    (product, Pflicht)
+    pi_variant_id (optional: numerische Varianten-ID als String/Zahl; leer = Produktkontext)
+
+  Ausgabe (eine Zeile, leer = keine passende Kampagne):
+    MODE~~TITLE~~KIND~~VALUE
+    MODE  = price        -> Rabatt gilt bedingungslos pro Artikel: Aktionspreis darf angezeigt werden
+            partial      -> Kampagne gilt nur für bestimmte Varianten (Kontext ohne Variante): nur Badge/Hinweis
+            conditional  -> Kampagne hat Bedingungen oder fremde Währung: nur Badge + "im Warenkorb"-Hinweis
+    KIND  = amount (VALUE in Cent) | percent (VALUE in Prozent)
+
+  Datenquelle: Shop-Metafeld frida.promo_badges (JSON, v2) – synchronisiert aus den
+  automatischen Shopify-Rabatten (Admin API). Editierbar unter:
+  Shopify Admin -> Einstellungen -> Benutzerdefinierte Daten -> Shop.
+  Start/Ende (Unix-Sekunden, ends 0 = offen) und Land (localization.country, nicht die
+  Sprache!) werden bei JEDEM Seitenaufruf live geprüft: Kampagnen erscheinen und
+  verschwinden automatisch zum Stichtag. Neue, umbenannte oder anders ausgerichtete
+  Rabatte brauchen eine erneute Synchronisation des Metafelds.
+  Felder je Kampagne: title, starts, ends, countries[], currency, kind, value,
+  conditional, all, product_handles[], variant_ids[], collection_handles[].
+  Die Liste ist nach Spezifität sortiert; der erste Treffer gewinnt.
+{%- endcomment -%}
+{%- liquid
+  assign pi_out = blank
+  if settings.promo_badges_enabled and pi_product != blank
+    assign pi_data = shop.metafields.frida.promo_badges.value
+    if pi_data != blank and pi_data.campaigns != blank
+      assign pi_now = 'now' | date: '%s' | plus: 0
+      assign pi_country = localization.country.iso_code
+      assign pi_currency = cart.currency.iso_code
+      assign pi_vid = pi_variant_id | append: ''
+      for pi_c in pi_data.campaigns
+        assign pi_starts = pi_c.starts | default: 0 | plus: 0
+        assign pi_ends = pi_c.ends | default: 0 | plus: 0
+        if pi_starts > pi_now
+          continue
+        endif
+        if pi_ends > 0 and pi_ends < pi_now
+          continue
+        endif
+        if pi_c.countries.size > 0
+          unless pi_c.countries contains pi_country
+            continue
+          endunless
+        endif
+
+        assign pi_mode = blank
+        if pi_c.variant_ids.size > 0
+          if pi_product.handle != blank and pi_c.product_handles contains pi_product.handle
+            assign pi_mode = 'partial'
+            if pi_vid != blank
+              assign pi_mode = blank
+              for pi_v in pi_c.variant_ids
+                assign pi_v_str = pi_v | append: ''
+                if pi_v_str == pi_vid
+                  assign pi_mode = 'price'
+                  break
+                endif
+              endfor
+            endif
+          endif
+        elsif pi_c.all == true
+          assign pi_mode = 'price'
+        elsif pi_c.product_handles.size > 0 and pi_c.product_handles contains pi_product.handle
+          assign pi_mode = 'price'
+        elsif pi_c.collection_handles.size > 0
+          for pi_col in pi_product.collections
+            if pi_c.collection_handles contains pi_col.handle
+              assign pi_mode = 'price'
+              break
+            endif
+          endfor
+        endif
+
+        if pi_mode == blank
+          continue
+        endif
+
+        if pi_mode == 'price'
+          if pi_c.conditional == true
+            assign pi_mode = 'conditional'
+          elsif pi_c.kind == 'amount' and pi_c.currency != pi_currency
+            assign pi_mode = 'conditional'
+          endif
+        endif
+
+        assign pi_out = pi_mode | append: '~~' | append: pi_c.title | append: '~~' | append: pi_c.kind | append: '~~' | append: pi_c.value
+        break
+      endfor
+    endif
+  endif
+-%}
+{{- pi_out -}}

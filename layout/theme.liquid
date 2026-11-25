@@ -66,9 +66,29 @@
       homeFragrance: {{ 'products.product.home_fragrance' | t | json }},
       allDetails: {{ 'products.product.all_details' | t | json }},
       option: {{ 'products.product.option' | t | json }},
-      videoComingSoon: {{ 'video.coming_soon' | t | json }}
+      videoComingSoon: {{ 'video.coming_soon' | t | json }},
+      youSave: {{ 'products.product.you_save' | t | json }},
+      promoInCart: {{ 'products.product.promo_in_cart' | t | json }},
+      promoSelectVariants: {{ 'products.product.promo_select_variants' | t | json }}
     };
     window.fridaCartStrings = { added: window.fridaStrings.added, empty: window.fridaStrings.cartEmpty };
+    window.fridaMoney = {
+      currency: {{ cart.currency.iso_code | json }},
+      locale: {{ request.locale.iso_code | json }}
+    };
+    {%- liquid
+      assign fp_data = shop.metafields.frida.promo_badges.value
+      assign fp_enabled = false
+      if settings.promo_badges_enabled and fp_data != blank and fp_data.campaigns != blank
+        assign fp_enabled = true
+      endif
+    -%}
+    window.fridaPromoCtx = {
+      enabled: {% if fp_enabled %}true{% else %}false{% endif %},
+      prices: {% if settings.promo_prices_enabled %}true{% else %}false{% endif %},
+      country: {{ localization.country.iso_code | json }}
+    };
+    window.fridaPromos = {% if fp_enabled %}{{ fp_data.campaigns | json }}{% else %}[]{% endif %};
     //window.fridaSettings = { freeShip: {{ settings.free_shipping_threshold | default: 55 | times: 100 }} };
     window.fridaSettings = {
       freeShip: 5500

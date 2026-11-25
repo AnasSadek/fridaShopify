@@ -22,7 +22,73 @@
   }
 
   function money(cents){
-    return (cents/100).toFixed(2).replace('.',',') + ' €';
+    var m = window.fridaMoney || {};
+    var cur = m.currency || 'EUR';
+    try {
+      return new Intl.NumberFormat(m.locale || document.documentElement.lang || 'de', { style: 'currency', currency: cur }).format(cents / 100);
+    } catch (e) {
+      return (cents / 100).toFixed(2).replace('.', ',') + ' ' + cur;
+    }
+  }
+
+  /* ---------- AUTOMATISCHE RABATT-KAMPAGNEN (Anzeige) ----------
+     Datenquelle: window.fridaPromos (Shop-Metafeld, serverseitig gerendert).
+     Gleiche Regeln wie snippets/promo-info.liquid: Start/Ende, Land,
+     Produkt-/Varianten-Bezug. Kampagnen mit Kollektions-Bezug können
+     clientseitig nicht aufgelöst werden und werden hier übersprungen
+     (serverseitig gerendert greifen sie trotzdem). Es werden nur
+     Anzeigen berechnet – die echte Rabattierung macht immer Shopify. */
+  function findPromo(handle, variantId){
+    var ctx = window.fridaPromoCtx || {};
+    if(!ctx.enabled) return null;
+    var list = window.fridaPromos || [];
+    var now = Math.floor(Date.now() / 1000);
+    var cur = (window.fridaMoney || {}).currency || 'EUR';
+    for(var i = 0; i < list.length; i++){
+      var c = list[i] || {};
+      if((c.starts || 0) > now) continue;
+      if((c.ends || 0) > 0 && c.ends < now) continue;
+      if(c.countries && c.countries.length && c.countries.indexOf(ctx.country) < 0) continue;
+      var mode = null;
+      var vids = c.variant_ids || [];
+      var handles = c.product_handles || [];
+      if(vids.length){
+        if(handle && handles.indexOf(handle) >= 0){
+          mode = 'partial';
+          if(variantId != null){
+            mode = null;
+            for(var j = 0; j < vids.length; j++){
+              if(String(vids[j]) === String(variantId)){ mode = 'price'; break; }
+            }
+          }
+        }
+      } else if(c.all === true){
+        mode = 'price';
+      } else if(handle && handles.indexOf(handle) >= 0){
+        mode = 'price';
+      }
+      if(!mode) continue;
+      if(mode === 'price'){
+        if(c.conditional === true) mode = 'conditional';
+        else if(c.kind === 'amount' && c.currency !== cur) mode = 'conditional';
+        else if(!ctx.prices) mode = 'conditional';
+      }
+      return { mode: mode, title: c.title || '', kind: c.kind, value: c.value || 0 };
+    }
+    return null;
+  }
+  function promoPrice(baseCents, p){
+    if(!p || p.mode !== 'price') return null;
+    var out = p.kind === 'amount' ? baseCents - p.value : Math.round(baseCents * (100 - p.value) / 100);
+    return out < 0 ? 0 : out;
+  }
+  function promoSaving(p){
+    return p.kind === 'amount' ? money(p.value) : p.value + ' %';
+  }
+  function promoHint(p){
+    return p.mode === 'partial'
+      ? tr('promoSelectVariants', 'Für ausgewählte Varianten')
+      : tr('promoInCart', 'Wird im Warenkorb automatisch abgezogen');
   }
 
   /* ---------- TOAST ---------- */
@@ -186,10 +252,20 @@
         + '<a class="ci-title ci-link" href="' + escHtml(productUrl) + '">' + escHtml(localizedTitle) + '</a>'
         + '<small>' + escHtml(vtitle) + '</small>'
         + cartPropertiesHtml(it.properties)
+        + (function(){
+            var allocs = it.line_level_discount_allocations || [];
+            if(!allocs.length) return '';
+            return '<div class="ci-discounts">' + allocs.map(function(d){
+              var title = (d.discount_application && d.discount_application.title) || '';
+              return '<span class="ci-discount" dir="auto">' + escHtml(title) + ' (−' + money(d.amount) + ')</span>';
+            }).join('') + '</div>';
+          })()
         + '<div class="ci-bottom"><div class="qty">'
         + '<button data-line="' + line + '" data-qty="' + (it.quantity - 1) + '">−</button><span>' + it.quantity + '</span>'
         + '<button data-line="' + line + '" data-qty="' + (it.quantity + 1) + '">+</button></div>'
-        + '<span class="ci-price">' + money(it.final_line_price) + '</span></div>'
+        + '<span class="ci-price">'
+        + (it.original_line_price > it.final_line_price ? '<s class="ci-price-old">' + money(it.original_line_price) + '</s> ' : '')
+        + money(it.final_line_price) + '</span></div>'
         + '<button class="ci-remove" data-line="' + line + '" data-qty="0">' + tr('remove','Entfernen') + '</button></div></div>';
     }).join('');
     if(foot){
@@ -334,8 +410,13 @@ function renderUpsell(cart) {
           var isMixMatch = isMixMatchProduct(p);
           var productLink = (getLocalePrefix() || '') + '/products/' + (p.handle || '');
 
+          var upBase = v ? v.price : p.price;
+          var upPromo = findPromo(p.handle, v ? v.id : null);
+          var upPP = promoPrice(upBase, upPromo);
           return '<div class="up-item"><img src="' + escHtml(img) + '" alt="' + escHtml(p.title || '') + '" loading="lazy">'
-            + '<div class="up-info"><b>' + escHtml(p.title || '') + '</b><small>' + money(v ? v.price : p.price) + '</small></div>'
+            + '<div class="up-info"><b>' + escHtml(p.title || '') + '</b><small>'
+            + (upPP != null ? money(upPP) + ' <s>' + money(upBase) + '</s>' : money(upBase))
+            + '</small></div>'
             + (
                 isMixMatch
                   ? '<a class="up-add" href="' + escHtml(productLink) + '">' + escHtml(tr('chooseScent', 'Düfte auswählen')) + '</a>'
@@ -510,10 +591,18 @@ function renderUpsell(cart) {
         localizedVariantTitle.value = v.title;
       }
 
-      var price = $('#pPrice'); if(price) price.textContent = money(v.price);
+      var hasPromoPrice = v.promo_price != null;
+      var price = $('#pPrice');
+      if(price){
+        price.textContent = money(hasPromoPrice ? v.promo_price : v.price);
+        price.classList.toggle('price-promo', hasPromoPrice);
+      }
 
       var was = $('#pWas'), off = $('#pOff');
-      if(v.compare_at_price && v.compare_at_price > v.price){
+      if(hasPromoPrice){
+        if(was){ was.style.display=''; was.textContent = money(v.price); }
+        if(off){ off.style.display=''; off.textContent = '−' + (v.promo_saving || ''); }
+      } else if(v.compare_at_price && v.compare_at_price > v.price){
         if(was){ was.style.display=''; was.textContent = money(v.compare_at_price); }
         if(off){ off.style.display=''; off.textContent = '–' + Math.round((1 - v.price / v.compare_at_price) * 100) + ' %'; }
       } else {
@@ -521,8 +610,29 @@ function renderUpsell(cart) {
         if(off) off.style.display='none';
       }
 
+      var promoEl = $('#pPromo');
+      if(promoEl){
+        if(v.promo_mode){
+          var promoExtra = hasPromoPrice
+            ? format(tr('youSave', 'Du sparst {{ amount }}'), { amount: v.promo_saving || '' })
+            : (v.promo_mode === 'partial'
+                ? tr('promoSelectVariants', 'Für ausgewählte Varianten')
+                : tr('promoInCart', 'Wird im Warenkorb automatisch abgezogen'));
+          promoEl.innerHTML = '<b>' + escHtml(v.promo_title || '') + '</b> · ' + escHtml(promoExtra);
+          promoEl.style.display = '';
+        } else {
+          promoEl.style.display = 'none';
+        }
+      }
+
       var sb = $('#sbPrice');
-      if(sb) sb.innerHTML = money(v.price) + (v.compare_at_price && v.compare_at_price > v.price ? '<s>' + money(v.compare_at_price) + '</s>' : '');
+      if(sb){
+        if(hasPromoPrice){
+          sb.innerHTML = money(v.promo_price) + '<s>' + money(v.price) + '</s>';
+        } else {
+          sb.innerHTML = money(v.price) + (v.compare_at_price && v.compare_at_price > v.price ? '<s>' + money(v.compare_at_price) + '</s>' : '');
+        }
+      }
 
       var avail = $('#pAvail');
       if(avail) avail.textContent = v.available ? tr('inStock','Auf Lager') : tr('soldOut','Ausverkauft');
@@ -769,7 +879,7 @@ function openQv(handle, productUrl, shippingIncluded){
       + '<div class="stars"><span class="s">★★★★★</span> 4,9</div>'
       + (desc ? '<p class="qv-desc">' + escHtml(desc) + '…</p>' : '')
       + optsHtml
-      + '<div class="qv-price" id="qvPrice">' + money(v0.price || p.price || 0) + '</div>'
+      + '<div class="qv-price" id="qvPrice">' + qvPriceHtml(p.handle, v0.id, v0.price || p.price || 0) + '</div>'
       + '<input type="hidden" id="qvVariantId" value="' + escHtml(v0.id || '') + '">'
 
       + '<button class="add-btn" id="qvAdd" ' + (v0.available ? '' : 'disabled') + '>'
@@ -780,11 +890,28 @@ function openQv(handle, productUrl, shippingIncluded){
       + '<a class="qv-link" href="' + escHtml(productUrl) + '">' + escHtml(tr('allDetails','Alle Details ansehen →')) + '</a>'
       + '</div>';
 
+    qv.setAttribute('data-qv-handle', p.handle || '');
     qv.classList.add('open');
   })
   .catch(function(){
     window.location.href = productUrl;
   });
+}
+
+/* Preis-HTML im Quick View: Aktionspreis + Original durchgestrichen + Kampagne */
+function qvPriceHtml(handle, variantId, baseCents){
+  var p = findPromo(handle, variantId);
+  var pp = promoPrice(baseCents, p);
+  if(pp != null){
+    return money(pp) + ' <s>' + money(baseCents) + '</s>'
+      + '<small class="qv-promo" dir="auto">' + escHtml(p.title) + ' · '
+      + escHtml(format(tr('youSave', 'Du sparst {{ amount }}'), { amount: promoSaving(p) })) + '</small>';
+  }
+  var html = money(baseCents);
+  if(p){
+    html += '<small class="qv-promo" dir="auto">' + escHtml(p.title) + ' · ' + escHtml(promoHint(p)) + '</small>';
+  }
+  return html;
 }
 
 document.addEventListener('click', function(e){
@@ -820,7 +947,12 @@ document.addEventListener('click', function(e){
 
     var priceEl = $('#qvPrice');
     if(priceEl){
-      priceEl.textContent = money(parseInt(opt.getAttribute('data-qv-price'),10) || 0);
+      var qvHandle = (qv && qv.getAttribute('data-qv-handle')) || '';
+      priceEl.innerHTML = qvPriceHtml(
+        qvHandle,
+        opt.getAttribute('data-qv-variant'),
+        parseInt(opt.getAttribute('data-qv-price'), 10) || 0
+      );
     }
 
     var imgEl = $('#qvImg');

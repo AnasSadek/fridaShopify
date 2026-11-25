@@ -42,5 +42,27 @@
         "default": true
       }
     ]
+  },
+  {
+    "name": "Kampagnen-Badges & Aktionspreise",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Zeigt automatische Rabatt-Kampagnen (z. B. „Black Friday DE“) auf Produktbildern und – wenn der Rabatt bedingungslos pro Artikel gilt – den daraus resultierenden Aktionspreis mit durchgestrichenem Originalpreis. Nur auf berechtigten Produkten und nur im passenden Land/Markt (geprüft wird das gewählte Lieferland, nicht die Sprache). Die Kampagnendaten stehen im Shop-Metafeld „frida.promo_badges“ (Admin → Einstellungen → Benutzerdefinierte Daten → Shop) und werden aus den automatischen Shopify-Rabatten synchronisiert. Start/Ende werden bei jedem Seitenaufruf live geprüft – abgelaufene Kampagnen verschwinden von selbst. Neue, umbenannte oder anders ausgerichtete Rabatte erfordern eine erneute Synchronisation des Metafelds. Die tatsächliche Rabattberechnung in Warenkorb und Checkout macht immer Shopify."
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_badges_enabled",
+        "label": "Kampagnen-Badges anzeigen",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_prices_enabled",
+        "label": "Aktionspreise anzeigen (Preis nach Rabatt)",
+        "default": false,
+        "info": "Nur wirksam, wenn Kampagnen-Badges aktiv sind. Ausgeschaltet wird statt des berechneten Preises der Hinweis „Wird im Warenkorb automatisch abgezogen“ gezeigt."
+      }
+    ]
   }
 ]

@@ -31,13 +31,39 @@
   <span>{{ product.title }}</span>
 </div>
 
+{%- capture pp_raw -%}{%- render 'promo-info', pi_product: product, pi_variant_id: current_variant.id -%}{%- endcapture -%}
+{%- assign pp_raw = pp_raw | strip -%}
+{%- assign pp_mode = blank -%}
+{%- assign pp_price = -1 -%}
+{%- if pp_raw != blank -%}
+  {%- assign pp_parts = pp_raw | split: '~~' -%}
+  {%- assign pp_mode = pp_parts[0] -%}
+  {%- assign pp_title = pp_parts[1] -%}
+  {%- assign pp_kind = pp_parts[2] -%}
+  {%- assign pp_value = pp_parts[3] | plus: 0 -%}
+  {%- if pp_mode == 'price' and settings.promo_prices_enabled -%}
+    {%- if pp_kind == 'amount' -%}
+      {%- assign pp_price = current_variant.price | minus: pp_value -%}
+      {%- assign pp_saving = pp_value | money -%}
+    {%- else -%}
+      {%- assign pp_pct_remain = 100.0 | minus: pp_value -%}
+      {%- assign pp_price = current_variant.price | times: pp_pct_remain | divided_by: 100.0 | round -%}
+      {%- assign pp_saving = pp_value | append: ' %' -%}
+    {%- endif -%}
+    {%- if pp_price < 0 -%}{%- assign pp_price = 0 -%}{%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
 <section class="pdp">
   <div class="wrap pdp-grid">
     <!-- GALLERY -->
     <div class="gallery">
       <div class="gal-main">
         {%- assign has_gallery_badge = false -%}
-        {%- if product.compare_at_price > product.price -%}
+        {%- if pp_mode != blank -%}
+          {%- assign has_gallery_badge = true -%}
+          <span class="gal-flag gal-flag-promo" dir="auto">{{ pp_title }}</span>
+        {%- elsif product.compare_at_price > product.price -%}
           {%- assign has_gallery_badge = true -%}
           <span class="gal-flag" style="background:#ff5a6e">{{ 'products.product.sale' | t }}</span>
         {%- elsif product.tags contains 'Bestseller' -%}
@@ -96,15 +122,32 @@
       </div> {% endcomment %}
 
       <div class="pdp-price">
-        <span class="now" id="pPrice">{{ current_variant.price | money }}</span>
-        {%- if current_variant.compare_at_price > current_variant.price -%}
+        {%- if pp_price >= 0 -%}
+          <span class="now price-promo" id="pPrice">{{ pp_price | money }}</span>
+          <span class="was" id="pWas">{{ current_variant.price | money }}</span>
+          <span class="off" id="pOff">−{{ pp_saving }}</span>
+        {%- elsif current_variant.compare_at_price > current_variant.price -%}
+          <span class="now" id="pPrice">{{ current_variant.price | money }}</span>
           <span class="was" id="pWas">{{ current_variant.compare_at_price | money }}</span>
           <span class="off" id="pOff">
             –{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }} %
           </span>
         {%- else -%}
+          <span class="now" id="pPrice">{{ current_variant.price | money }}</span>
           <span class="was" id="pWas" style="display:none"></span>
           <span class="off" id="pOff" style="display:none"></span>
+        {%- endif -%}
+      </div>
+      <div class="pdp-promo" id="pPromo" dir="auto"{% if pp_mode == blank %} style="display:none"{% endif %}>
+        {%- if pp_mode != blank -%}
+          <b>{{ pp_title }}</b>
+          {%- if pp_price >= 0 -%}
+            · {{ 'products.product.you_save' | t: amount: pp_saving }}
+          {%- elsif pp_mode == 'partial' -%}
+            · {{ 'products.product.promo_select_variants' | t }}
+          {%- else -%}
+            · {{ 'products.product.promo_in_cart' | t }}
+          {%- endif -%}
         {%- endif -%}
       </div>
 
@@ -302,10 +345,15 @@
     </div>
 
     <div class="sticky-price" id="sbPrice">
-      {{ current_variant.price | money }}
-      {% if current_variant.compare_at_price > current_variant.price %}
-        <s>{{ current_variant.compare_at_price | money }}</s>
-      {% endif %}
+      {%- if pp_price >= 0 -%}
+        {{ pp_price | money }}
+        <s>{{ current_variant.price | money }}</s>
+      {%- else -%}
+        {{ current_variant.price | money }}
+        {% if current_variant.compare_at_price > current_variant.price %}
+          <s>{{ current_variant.compare_at_price | money }}</s>
+        {% endif %}
+      {%- endif -%}
     </div>
 
     <button class="btn btn-primary" id="sbAdd" {% unless current_variant.available %}disabled{% endunless %}>
@@ -341,7 +389,35 @@
         {{ variant.featured_image.alt | json }}
       {%- else -%}
         {{ product.title | json }}
+      {%- endif -%},
+      {%- capture vp_raw -%}{%- render 'promo-info', pi_product: product, pi_variant_id: variant.id -%}{%- endcapture -%}
+      {%- assign vp_raw = vp_raw | strip -%}
+      {%- assign vp_price = -1 -%}
+      {%- assign vp_mode = '' -%}
+      {%- assign vp_title = '' -%}
+      {%- assign vp_saving = '' -%}
+      {%- if vp_raw != blank -%}
+        {%- assign vp_parts = vp_raw | split: '~~' -%}
+        {%- assign vp_mode = vp_parts[0] -%}
+        {%- assign vp_title = vp_parts[1] -%}
+        {%- assign vp_kind = vp_parts[2] -%}
+        {%- assign vp_value = vp_parts[3] | plus: 0 -%}
+        {%- if vp_mode == 'price' and settings.promo_prices_enabled -%}
+          {%- if vp_kind == 'amount' -%}
+            {%- assign vp_price = variant.price | minus: vp_value -%}
+            {%- assign vp_saving = vp_value | money -%}
+          {%- else -%}
+            {%- assign vp_pct_remain = 100.0 | minus: vp_value -%}
+            {%- assign vp_price = variant.price | times: vp_pct_remain | divided_by: 100.0 | round -%}
+            {%- assign vp_saving = vp_value | append: ' %' -%}
+          {%- endif -%}
+          {%- if vp_price < 0 -%}{%- assign vp_price = 0 -%}{%- endif -%}
+        {%- endif -%}
       {%- endif -%}
+      "promo_mode": {{ vp_mode | json }},
+      "promo_title": {{ vp_title | json }},
+      "promo_price": {% if vp_price >= 0 %}{{ vp_price | json }}{% else %}null{% endif %},
+      "promo_saving": {{ vp_saving | json }}
     }{%- unless forloop.last -%},{%- endunless -%}
   {%- endfor -%}
 ]

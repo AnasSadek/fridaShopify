@@ -38,7 +38,7 @@
      clientseitig nicht aufgelöst werden und werden hier übersprungen
      (serverseitig gerendert greifen sie trotzdem). Es werden nur
      Anzeigen berechnet – die echte Rabattierung macht immer Shopify. */
-  function findPromo(handle, variantId){
+  function findPromo(productId, handle, variantId){
     var ctx = window.fridaPromoCtx || {};
     if(!ctx.enabled) return null;
     var list = window.fridaPromos || [];
@@ -49,11 +49,22 @@
       if((c.starts || 0) > now) continue;
       if((c.ends || 0) > 0 && c.ends < now) continue;
       if(c.countries && c.countries.length && c.countries.indexOf(ctx.country) < 0) continue;
+      /* Produkt-Zuordnung über die numerische ID (sprachunabhängig);
+         Handle nur als Fallback, da übersetzte Storefronts (z. B. /en/)
+         übersetzte URL-Handles liefern. */
+      var prodMatch = false;
+      var pids = c.product_ids || [];
+      if(productId != null){
+        for(var k = 0; k < pids.length; k++){
+          if(String(pids[k]) === String(productId)){ prodMatch = true; break; }
+        }
+      }
+      var handles = c.product_handles || [];
+      if(!prodMatch && handle && handles.indexOf(handle) >= 0) prodMatch = true;
       var mode = null;
       var vids = c.variant_ids || [];
-      var handles = c.product_handles || [];
       if(vids.length){
-        if(handle && handles.indexOf(handle) >= 0){
+        if(prodMatch){
           mode = 'partial';
           if(variantId != null){
             mode = null;
@@ -64,7 +75,7 @@
         }
       } else if(c.all === true){
         mode = 'price';
-      } else if(handle && handles.indexOf(handle) >= 0){
+      } else if(prodMatch){
         mode = 'price';
       }
       if(!mode) continue;
@@ -411,7 +422,7 @@ function renderUpsell(cart) {
           var productLink = (getLocalePrefix() || '') + '/products/' + (p.handle || '');
 
           var upBase = v ? v.price : p.price;
-          var upPromo = findPromo(p.handle, v ? v.id : null);
+          var upPromo = findPromo(p.id, p.handle, v ? v.id : null);
           var upPP = promoPrice(upBase, upPromo);
           return '<div class="up-item"><img src="' + escHtml(img) + '" alt="' + escHtml(p.title || '') + '" loading="lazy">'
             + '<div class="up-info"><b>' + escHtml(p.title || '') + '</b><small>'
@@ -879,7 +890,7 @@ function openQv(handle, productUrl, shippingIncluded){
       + '<div class="stars"><span class="s">★★★★★</span> 4,9</div>'
       + (desc ? '<p class="qv-desc">' + escHtml(desc) + '…</p>' : '')
       + optsHtml
-      + '<div class="qv-price" id="qvPrice">' + qvPriceHtml(p.handle, v0.id, v0.price || p.price || 0) + '</div>'
+      + '<div class="qv-price" id="qvPrice">' + qvPriceHtml(p.id, p.handle, v0.id, v0.price || p.price || 0) + '</div>'
       + '<input type="hidden" id="qvVariantId" value="' + escHtml(v0.id || '') + '">'
 
       + '<button class="add-btn" id="qvAdd" ' + (v0.available ? '' : 'disabled') + '>'
@@ -891,6 +902,7 @@ function openQv(handle, productUrl, shippingIncluded){
       + '</div>';
 
     qv.setAttribute('data-qv-handle', p.handle || '');
+    qv.setAttribute('data-qv-pid', p.id || '');
     qv.classList.add('open');
   })
   .catch(function(){
@@ -899,8 +911,8 @@ function openQv(handle, productUrl, shippingIncluded){
 }
 
 /* Preis-HTML im Quick View: Aktionspreis + Original durchgestrichen + Kampagne */
-function qvPriceHtml(handle, variantId, baseCents){
-  var p = findPromo(handle, variantId);
+function qvPriceHtml(productId, handle, variantId, baseCents){
+  var p = findPromo(productId, handle, variantId);
   var pp = promoPrice(baseCents, p);
   if(pp != null){
     return money(pp) + ' <s>' + money(baseCents) + '</s>'
@@ -948,7 +960,9 @@ document.addEventListener('click', function(e){
     var priceEl = $('#qvPrice');
     if(priceEl){
       var qvHandle = (qv && qv.getAttribute('data-qv-handle')) || '';
+      var qvPid = (qv && qv.getAttribute('data-qv-pid')) || null;
       priceEl.innerHTML = qvPriceHtml(
+        qvPid,
         qvHandle,
         opt.getAttribute('data-qv-variant'),
         parseInt(opt.getAttribute('data-qv-price'), 10) || 0

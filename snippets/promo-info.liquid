@@ -32,6 +32,7 @@
       assign pi_country = localization.country.iso_code
       assign pi_currency = cart.currency.iso_code
       assign pi_vid = pi_variant_id | append: ''
+      assign pi_pid = pi_product.id | append: ''
       for pi_c in pi_data.campaigns
         assign pi_starts = pi_c.starts | default: 0 | plus: 0
         assign pi_ends = pi_c.ends | default: 0 | plus: 0
@@ -47,9 +48,29 @@
           endunless
         endif
 
+        comment
+          Produkt-Zuordnung IMMER über die numerische Produkt-ID (sprachunabhängig).
+          Handles dienen nur als Fallback: product.handle ist in übersetzten
+          Storefronts (z. B. /en/) der übersetzte URL-Handle und würde die
+          deutschen Handles im Metafeld nicht treffen.
+        endcomment
+        assign pi_prod_match = false
+        if pi_c.product_ids.size > 0
+          for pi_p in pi_c.product_ids
+            assign pi_p_str = pi_p | append: ''
+            if pi_p_str == pi_pid
+              assign pi_prod_match = true
+              break
+            endif
+          endfor
+        endif
+        if pi_prod_match == false and pi_c.product_handles.size > 0 and pi_c.product_handles contains pi_product.handle
+          assign pi_prod_match = true
+        endif
+
         assign pi_mode = blank
         if pi_c.variant_ids.size > 0
-          if pi_product.handle != blank and pi_c.product_handles contains pi_product.handle
+          if pi_prod_match
             assign pi_mode = 'partial'
             if pi_vid != blank
               assign pi_mode = blank
@@ -64,12 +85,24 @@
           endif
         elsif pi_c.all == true
           assign pi_mode = 'price'
-        elsif pi_c.product_handles.size > 0 and pi_c.product_handles contains pi_product.handle
+        elsif pi_prod_match
           assign pi_mode = 'price'
-        elsif pi_c.collection_handles.size > 0
+        elsif pi_c.collection_ids.size > 0 or pi_c.collection_handles.size > 0
           for pi_col in pi_product.collections
-            if pi_c.collection_handles contains pi_col.handle
+            assign pi_col_id = pi_col.id | append: ''
+            if pi_c.collection_ids.size > 0
+              for pi_ci in pi_c.collection_ids
+                assign pi_ci_str = pi_ci | append: ''
+                if pi_ci_str == pi_col_id
+                  assign pi_mode = 'price'
+                  break
+                endif
+              endfor
+            endif
+            if pi_mode == blank and pi_c.collection_handles.size > 0 and pi_c.collection_handles contains pi_col.handle
               assign pi_mode = 'price'
+            endif
+            if pi_mode != blank
               break
             endif
           endfor
